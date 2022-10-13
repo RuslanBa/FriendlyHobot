@@ -6,13 +6,13 @@ from loader import bot, dp
 from schedular import scheduler_monday, scheduler_thursday
 
 
-app = Flask(__name__)
-
-
-@app.route('/')
-def hello_world():
-    return 'Hello'
-
+# app = Flask(__name__)
+#
+#
+# @app.route('/')
+# def hello_world():
+#     return 'Hello'
+#
 
 @dp.message_handler()
 async def answer(message: types.Message):
