@@ -1,8 +1,18 @@
+from flask import Flask
+from flask import render_template
 import asyncio
 from aiogram import types
 from aiogram.utils import executor
 from loader import bot, dp
 from schedular import scheduler_monday, scheduler_thursday
+
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello_world():
+    return render_template('index.html')
 
 
 async def on_startup(_):
