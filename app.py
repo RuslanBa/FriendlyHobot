@@ -26,5 +26,5 @@ async def on_startup(_):
 
 if __name__ == '__main__':
     print('начинаем работу')
-    port = '0.0.0.0:8080'
+    port = int('0.0.0.0:8080', 80)
     executor.start_polling(dp, on_startup=on_startup)
