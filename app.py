@@ -1,27 +1,8 @@
 import asyncio
-import socket
-import socketserver
-import http.server
 from aiogram.utils import executor
 from aiogram import types
 from loader import bot, dp
 from schedular import scheduler_monday, scheduler_thursday
-
-# from http import HTTPStatus
-#
-#
-# class Handler(http.server.SimpleHTTPRequestHandler):
-#     def do_GET(self):
-#         self.send_response(HTTPStatus.OK)
-#         self.end_headers()
-#         msg = 'Hello! you requested %s' % self.path
-#         self.wfile.write(msg.encode())
-
-
-sock = socket.socket()
-sock.bind("", 8080)
-sock.listen(5)
-sock.close()
 
 
 @dp.message_handler()
@@ -36,7 +17,4 @@ async def on_startup(_):
 
 if __name__ == '__main__':
     print('начинаем работу')
-    # port = ('0.0.0.0', 80)
-    # httpd = socketserver.TCPServer(('', port), Handler)
-    # httpd.serve_forever()
     executor.start_polling(dp, on_startup=on_startup)
