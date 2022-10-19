@@ -35,8 +35,8 @@ async def scheduler_monday():
         await asyncio.sleep(1)
 
 
-async def scheduler_wednesday():
-    aioschedule.every().wednesday.at('19:50').do(send_poll_thursday)
+async def scheduler_thursday():
+    aioschedule.every().thursday.at('12:00').do(send_poll_thursday)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
