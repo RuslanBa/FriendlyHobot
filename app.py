@@ -2,7 +2,7 @@ import asyncio
 from aiogram.utils import executor
 from aiogram import types
 from loader import bot, dp
-from schedular import scheduler_monday, scheduler_thursday
+from schedular import scheduler_monday, scheduler_wednesday
 
 
 @dp.message_handler()
@@ -12,7 +12,7 @@ async def answer(message: types.Message):
 
 async def on_startup(_):
     asyncio.create_task(scheduler_monday())
-    asyncio.create_task(scheduler_thursday())
+    asyncio.create_task(scheduler_wednesday())
 
 
 if __name__ == '__main__':
