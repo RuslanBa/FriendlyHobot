@@ -5,11 +5,14 @@ from aiogram import types
 from loader import bot, dp
 from schedular import scheduler
 from bottons import menu_start
+# from DB.add_log_db import add_new_log
 
 
 @dp.message_handler(commands='Start')
 async def start(message: types.Message):
     """ Приветствуем пользователя """
+
+    # add_new_log(message.from_user.id, message.from_user.username, 'Команда старт"')
 
     await message.answer(text='Привет, давай познакомимся))',
                          reply_markup=menu_start)
