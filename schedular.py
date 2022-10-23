@@ -27,8 +27,8 @@ async def scheduler():
     aioschedule.every().friday.at('12:00').do(send_poll_func, 'Суббота')
     aioschedule.every().saturday.at('12:00').do(send_poll_func, 'Воскресенье')
     aioschedule.every().sunday.at('12:00').do(send_poll_func, 'Понедельник')
+    print('Функция sсhedule запущена')
     while True:
-        print('Функция sсhedule запущена')
         await aioschedule.run_pending()
         await asyncio.sleep(1)
 
