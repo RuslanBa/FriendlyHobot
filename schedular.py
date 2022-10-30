@@ -29,7 +29,7 @@ async def send_poll_func(weekday):
     #                             '📍Локация: MEZZA GURME (ссылка на карту)</a>', parse_mode="HTML")
     await bot.send_message(chat_id=os.getenv('CHAT_ID_MAFIA'),
                            text='<a href="https://maps.app.goo.gl/Mya9x76EKrbX3R9g8">'
-                                'Вот адрес', parse_mode="HTML")
+                                'Вот адрес</a>', parse_mode="HTML")
 
 
 async def scheduler():
@@ -40,7 +40,7 @@ async def scheduler():
     aioschedule.every().thursday.at('12:00').do(send_poll_func, 'Пятница')
     aioschedule.every().friday.at('12:00').do(send_poll_func, 'Суббота')
     aioschedule.every().saturday.at('12:00').do(send_poll_func, 'Воскресенье')
-    aioschedule.every().sunday.at('23:18').do(send_poll_func, 'Понедельник')
+    aioschedule.every().sunday.at('23:25').do(send_poll_func, 'Понедельник')
     print('Функция sсhedule запущена')
     while True:
         await aioschedule.run_pending()
