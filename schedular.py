@@ -34,7 +34,7 @@ async def send_poll_func(weekday):
 
 async def scheduler():
     """ 0-monday, 1-tuesday, 2-wednesday, 3-thursday, 4-friday, 5-saturday, 6-sunday """
-    aioschedule.every().monday.at('00:07').do(send_poll_func, 'Вторник')
+    aioschedule.every().monday.at('00:09').do(send_poll_func, 'Вторник')
     aioschedule.every().tuesday.at('12:00').do(send_poll_func, 'Среда')
     aioschedule.every().wednesday.at('12:00').do(send_poll_func, 'Четверг')
     aioschedule.every().thursday.at('12:00').do(send_poll_func, 'Пятница')
