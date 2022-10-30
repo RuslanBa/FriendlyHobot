@@ -22,6 +22,7 @@ async def start(message: types.Message):
 @dp.message_handler()
 async def answer(message: types.Message):
     print(message.chat.id)
+    await message.answer(text=')))')
     # await message.answer(text='Привет, я пока на все сообщения отвечаю этим текстом, '
     #                           'но скоро здесь будет полезная база контактов')
 
