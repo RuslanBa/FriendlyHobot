@@ -5,7 +5,7 @@ from aiogram import types
 from loader import bot, dp
 from schedular import scheduler
 from bottons import menu_start
-from Intents import find_specialists, about_friendlyhobot
+from Intents import find_specialists, about_friendlyhobot, about_me
 # from DB.add_log_db import add_new_log
 
 

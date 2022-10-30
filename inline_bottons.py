@@ -4,6 +4,8 @@ import emoji
 # Меню ---------------------------------------------------------------------------------
 
 Specialties = InlineKeyboardMarkup(row_width=1)
+yes_no = InlineKeyboardMarkup(row_width=1)
+
 
 # Кнопки ---------------------------------------------------------------------------------
 
@@ -18,6 +20,8 @@ Psychologist = InlineKeyboardButton(text='Психологи', callback_data='ps
 Serviceman = InlineKeyboardButton(text='Мастера по ремонту', callback_data='serviceman')
 Tutor = InlineKeyboardButton(text='Репетиторы / Педагоги', callback_data='tutor')
 Realtors = InlineKeyboardButton(text='Риелторы', callback_data='realtors')
+yes = InlineKeyboardButton(text='Да', callback_data='Да')
+no = InlineKeyboardButton(text='Нет', callback_data='Нет')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -31,3 +35,6 @@ Specialties.insert(Psychologist)
 Specialties.insert(Serviceman)
 Specialties.insert(Tutor)
 Specialties.insert(Realtors)
+
+yes_no.insert(yes)
+yes_no.insert(no)
