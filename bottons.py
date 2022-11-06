@@ -10,3 +10,12 @@ menu_start = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True)
+
+
+menu_main = ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            KeyboardButton(text="Главное меню"),
+        ]
+    ],
+    resize_keyboard=True)

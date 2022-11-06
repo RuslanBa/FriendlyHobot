@@ -1,10 +1,10 @@
-import asyncio
-import datetime
 from aiogram.utils import executor
+from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
 from loader import bot, dp
 from schedular import scheduler
 from bottons import menu_start
+from Intents.classes import About_me
 from Intents import find_specialists, about_friendlyhobot, about_me
 # from DB.add_log_db import add_new_log
 
@@ -25,6 +25,22 @@ async def answer(message: types.Message):
     await message.answer(text=')))')
     # await message.answer(text='Привет, я пока на все сообщения отвечаю этим текстом, '
     #                           'но скоро здесь будет полезная база контактов')
+
+
+# Переход в главное меню -----------------------------------------------
+
+all_states = [About_me.AB_go, About_me.AB_name, About_me.AB_spec, About_me.AB_price]
+
+
+@dp.message_handler(text='Главное меню')
+async def advertising(message: types.Message):
+    await message.answer('Это мое главное меню. Чтобы вы хотели сделать?', reply_markup=menu_start)
+
+
+@dp.message_handler(text='Главное меню', state=all_states)
+async def go_main(message: types.Message, state: FSMContext):
+    await message.answer('Давайте вернемся в главное меню. Выберите, что вас интересует', reply_markup=menu_start)
+    await state.finish()
 
 
 # async def on_startup(_):

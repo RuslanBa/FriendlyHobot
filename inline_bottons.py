@@ -5,6 +5,7 @@ import emoji
 
 Specialties = InlineKeyboardMarkup(row_width=1)
 yes_no = InlineKeyboardMarkup(row_width=1)
+save_info = InlineKeyboardMarkup(row_width=1)
 
 
 # Кнопки ---------------------------------------------------------------------------------
@@ -20,14 +21,18 @@ Psychologist = InlineKeyboardButton(text='Психологи', callback_data='ps
 Serviceman = InlineKeyboardButton(text='Мастера по ремонту', callback_data='serviceman')
 Tutor = InlineKeyboardButton(text='Репетиторы / Педагоги', callback_data='tutor')
 Realtors = InlineKeyboardButton(text='Риелторы', callback_data='realtors')
-yes = InlineKeyboardButton(text='Да', callback_data='Да')
-no = InlineKeyboardButton(text='Нет', callback_data='Нет')
+yes = InlineKeyboardButton(text='Да', callback_data='yes')
+no = InlineKeyboardButton(text='Нет', callback_data='no')
+edit = InlineKeyboardButton(text='Редактировать', callback_data='edit')
+dont_change = InlineKeyboardButton(text='Оставляем так', callback_data='dont_change')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
+
 
 Specialties.insert(VNG)
 Specialties.insert(Driver)
 Specialties.insert(Doctor)
+Specialties.insert(Cleaning)
 Specialties.insert(Manicurist)
 Specialties.insert(Babysitter)
 Specialties.insert(Stylist)
@@ -38,3 +43,14 @@ Specialties.insert(Realtors)
 
 yes_no.insert(yes)
 yes_no.insert(no)
+
+save_info.insert(edit)
+save_info.insert(dont_change)
+
+# Листы ответов ---------------------------------------------------------------------------------
+
+
+list_yes_no = ['yes', 'no']
+
+list_specialities = ['VNG', 'driver', 'doctor', 'cleaning', 'manicurist', 'babysitter', 'stylist', 'psychologist',
+                     'serviceman', 'tutor', 'realtors']
