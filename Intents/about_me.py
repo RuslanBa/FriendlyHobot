@@ -1,6 +1,7 @@
 from aiogram import types
 from loader import dp
 from inline_bottons import yes_no
+from aiogram.dispatcher.storage import FSMContext
 
 
 @dp.message_handler(text='Рассказать о себе')

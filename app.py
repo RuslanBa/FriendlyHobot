@@ -27,10 +27,11 @@ async def answer(message: types.Message):
     #                           'но скоро здесь будет полезная база контактов')
 
 
-async def on_startup(_):
-    asyncio.create_task(scheduler())
+# async def on_startup(_):
+#     asyncio.create_task(scheduler())
 
 
 if __name__ == '__main__':
     print('начинаем работу')
-    executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
+    executor.start_polling(dp, skip_updates=True)
+    # executor.start_polling(dp, on_startup=on_startup, skip_updates=True)
