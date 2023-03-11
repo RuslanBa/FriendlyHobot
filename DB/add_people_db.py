@@ -15,7 +15,7 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city):
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=5432)
+            port=os.getenv('DB_PORT'))
 
         with connection.cursor() as cursor:
             cursor.execute("INSERT INTO users"

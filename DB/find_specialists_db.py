@@ -16,7 +16,7 @@ def find_masters(spec_name):
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=5432)
+            port=os.getenv('DB_PORT'))
 
         with connection.cursor() as cursor:
 

@@ -16,7 +16,7 @@ def add_new_log(tg_id, tg_username, activity):
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=os.getenv('PORT'))
+            port=os.getenv('DB_PORT'))
 
         with connection.cursor() as cursor:
 

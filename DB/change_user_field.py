@@ -15,7 +15,7 @@ def change_fields(tg_username, user_field, new_value):
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=5432)
+            port=os.getenv('DB_PORT'))
 
         with connection.cursor() as cursor:
             if user_field == 'name':

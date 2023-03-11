@@ -15,7 +15,7 @@ def check_user(tg_username):
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=5432)
+            port=os.getenv('DB_PORT'))
 
         with connection.cursor() as cursor:
             cursor.execute("""SELECT COUNT(*) FROM users 
