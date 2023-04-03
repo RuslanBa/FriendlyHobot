@@ -12,11 +12,12 @@ def add_new_log(tg_id, tg_username, activity):
     try:
         # connect to exist database
         connection = psycopg2.connect(
-            host=os.getenv('HOST'),
-            user=os.getenv('USER'),
-            password=os.getenv('PASSWORD'),
-            database=os.getenv('DB_NAME'),
-            port=os.getenv('DB_PORT'))
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("USER"),
+            password=os.getenv("PASSWORD"),
+            database=os.getenv("DB_NAME"),
+            port=os.getenv("DB_PORT"),
+            sslmode="require")
 
         with connection.cursor() as cursor:
 

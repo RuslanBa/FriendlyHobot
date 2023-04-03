@@ -11,11 +11,12 @@ def add_spec(id_user, spec_name, spec_about, tg_username):
     try:
         # connect to exist database
         connection = psycopg2.connect(
-            host=os.getenv('HOST'),
+            host=os.getenv('DB_HOST'),
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=os.getenv('DB_PORT'))
+            port=os.getenv('DB_PORT'),
+            sslmode='require')
 
         with connection.cursor() as cursor:
             cursor.execute("""SELECT COUNT(*) FROM user_spec 

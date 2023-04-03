@@ -12,11 +12,12 @@ def find_user_id(tg_username):
         # connect to exist database
 
         connection = psycopg2.connect(
-            host=os.getenv('HOST'),
+            host=os.getenv('DB_HOST'),
             user=os.getenv('USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
-            port=os.getenv('DB_PORT'))
+            port=os.getenv('DB_PORT'),
+            sslmode='require')
 
         with connection.cursor() as cursor:
 
