@@ -12,7 +12,7 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city):
         # connect to exist database
         connection = psycopg2.connect(
             host=os.getenv('DB_HOST'),
-            user=os.getenv('USER'),
+            user=os.getenv('MY_USER'),
             password=os.getenv('PASSWORD'),
             database=os.getenv('DB_NAME'),
             port=os.getenv('DB_PORT'),
