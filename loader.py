@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-bot = Bot(token=os.getenv('TOKEN'))
+bot = Bot(token=os.getenv("TOKEN"))
 
 
 storage = MemoryStorage()
