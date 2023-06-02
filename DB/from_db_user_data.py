@@ -26,10 +26,16 @@ def user_data_tg(tg_username):
 
             user_data = cursor.fetchone()
             name = user_data[0]
+            tg_id = user_data[1]
+            tg_name = user_data[2]
+            tg_surname = user_data[3]
+            tg_username = user_data[4]
             about = user_data[5]
-            city = user_data[8]
-            birthdate = user_data[9]
-            return name, about, city, birthdate
+            archetype = user_data[6]
+            city = user_data[7]
+            birthdate = user_data[8]
+            speciality_need = user_data[9]
+            return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, speciality_need
 
         connection.commit()
         print(f'[INFO] Connection to users commit')
