@@ -19,8 +19,10 @@ async def take_user_data(tg_username, message: types.Message, state: FSMContext)
     city = user_data[7]
     birthdate = user_data[8]
     speciality_need = user_data[9]
+    country = user_data[10]
 
     await bot.send_message(message.from_user.id, text=f'Имя - {name}\n'
+                                                      f'Cтрана - {country}\n'
                                                       f'Город - {city}\n'
                                                       f'Общая информация - {about}\n'
                                                       f'Дата рождения - {birthdate}\n')

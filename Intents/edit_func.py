@@ -13,6 +13,10 @@ async def edit_any_user(tg_username, message: types.Message, state: FSMContext):
         await message.answer(f'Отлично, запомнил ваше имя - {text}')
         change_fields(tg_username, 'name', text)
 
+    elif current_state == 'Edit:Edit_country' or current_state == 'Other:Other_change_country':
+        await message.answer(f'Отлично, запомнил вашу страну - {text}')
+        change_fields(tg_username, 'country', text)
+
     elif current_state == 'Edit:Edit_city' or current_state == 'Other:Other_change_city':
         await message.answer(f'Отлично, запомнил ваш город - {text}')
         change_fields(tg_username, 'city', text)

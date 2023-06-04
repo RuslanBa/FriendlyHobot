@@ -24,11 +24,19 @@ def find_people(id_user):
             cursor.execute("SELECT * FROM users WHERE id_user = %(id_user)s", {'id_user': id_user})
 
             user_data = cursor.fetchone()
-            print(user_data)
             name = user_data[0]
-            username = user_data[4]
+            tg_id = user_data[1]
+            tg_name = user_data[2]
+            tg_surname = user_data[3]
+            tg_username = user_data[4]
             about = user_data[5]
-            city = user_data[8]
+            archetype = user_data[6]
+            city = user_data[7]
+            birthdate = user_data[8]
+            speciality_need = user_data[9]
+            country = user_data[11]
+            return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, \
+                   speciality_need, country
 
             connection.commit()
             return name, about, city, username

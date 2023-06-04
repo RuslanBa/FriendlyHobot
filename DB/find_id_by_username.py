@@ -24,8 +24,8 @@ def find_user_id(tg_username):
             cursor.execute("""SELECT * FROM users WHERE tg_username = %(tg_username)s""",
                            {'tg_username': tg_username})
 
-            id_user = cursor.fetchone()[7]
-            print('Найдет пользователь с id_user - ', id_user)
+            id_user = cursor.fetchone()[10]
+            print('Найден пользователь с id_user - ', id_user)
             return id_user
 
         connection.commit()

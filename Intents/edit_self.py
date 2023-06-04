@@ -25,6 +25,10 @@ async def list_fields1(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, text='Введите новое имя')
         await Edit.Edit_name.set()
 
+    elif field == 'country':
+        await bot.send_message(message.from_user.id, text='Введите название страны')
+        await Edit.Edit_country.set()
+
     elif field == 'city':
         await bot.send_message(message.from_user.id, text='Введите новый город')
         await Edit.Edit_city.set()

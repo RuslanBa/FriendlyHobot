@@ -35,7 +35,9 @@ def user_data_tg(tg_username):
             city = user_data[7]
             birthdate = user_data[8]
             speciality_need = user_data[9]
-            return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, speciality_need
+            country = user_data[11]
+            return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, \
+                   speciality_need, country
 
         connection.commit()
         print(f'[INFO] Connection to users commit')

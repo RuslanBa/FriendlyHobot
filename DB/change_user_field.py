@@ -21,6 +21,8 @@ def change_fields(tg_username, user_field, new_value):
         with connection.cursor() as cursor:
             if user_field == 'name':
                 request = """UPDATE users SET name = %(new_value)s WHERE tg_username = %(tg_username)s"""
+            elif user_field == 'country':
+                request = """UPDATE users SET country = %(new_value)s WHERE tg_username = %(tg_username)s"""
             elif user_field == 'city':
                 request = """UPDATE users SET city = %(new_value)s WHERE tg_username = %(tg_username)s"""
             elif user_field == 'about':

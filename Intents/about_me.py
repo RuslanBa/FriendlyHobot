@@ -13,7 +13,7 @@ from Intents.show_user_data import take_user_data
 
 
 data_people = {'name': '-', 'tg_id': '-', 'tg_name': '-', 'tg_surname': '-', 'tg_username': '-',
-               'about': '-', 'city': '-', 'id_user': '-'}
+               'about': '-', 'country': '-', 'city': '-', 'id_user': '-'}
 
 data_speciality = {'spec_name': None, 'spec_about': None, 'tg_username': None}
 
@@ -63,7 +63,7 @@ async def answer2(message: types.Message, state: FSMContext):
     tg_surname_new = message.from_user.last_name
     tg_username_new = message.from_user.username
     data_people.update({'name': name_new, 'tg_id': tg_id_new, 'tg_name': tg_name_new, 'tg_surname': tg_surname_new,
-                        'tg_username': tg_username_new, 'city': 'Алания'})
+                        'tg_username': tg_username_new, 'country': 'Страна не указана', 'city': 'Город не указан'})
 
     new_user_id = add_new_people(name_new, tg_id_new, tg_name_new, tg_surname_new, tg_username_new, 'Алания')
     print('добавлен пользователь с id ', new_user_id)

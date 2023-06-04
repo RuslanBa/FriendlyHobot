@@ -13,7 +13,7 @@ from aiogram.dispatcher.storage import FSMContext
 from DB.add_spec_for_people import add_spec
 
 
-new_people = {'name': '-', 'tg_username': '-', 'about': '-', 'city': '-', 'id_user': '-'}
+new_people = {'name': '-', 'tg_username': '-', 'about': '-', 'country': '-', 'city': '-', 'id_user': '-'}
 
 data_speciality = {'spec_name': '-', 'spec_about': '-', 'tg_username': '-'}
 
