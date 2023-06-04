@@ -6,7 +6,7 @@ import psycopg2
 load_dotenv()
 
 
-def add_spec(id_user, spec_name, spec_about, tg_username):
+def add_spec(id_user, spec_name, spec_about, spec_city, tg_username):
     """ Add new abject in DB """
     try:
         # connect to exist database
@@ -27,18 +27,19 @@ def add_spec(id_user, spec_name, spec_about, tg_username):
 
             if alfa > 0:
                 cursor.execute("""UPDATE user_spec SET spec_about = %(spec_about)s WHERE tg_username = %(tg_username)s 
-                               and spec_name = %(spec_name)s """,
-                               {'spec_about': spec_about, 'tg_username': tg_username, 'spec_name': spec_name})
+                               AND spec_name = %(spec_name)s AND spec_city = %(spec_city)s """,
+                               {'spec_about': spec_about, 'tg_username': tg_username, 'spec_name': spec_name,
+                                'spec_city': spec_city})
                 connection.commit()
                 print(f'[INFO] Connection user-speciality updated')
 
             else:
                 cursor.execute("INSERT INTO user_spec"
-                               "(id_user, spec_name, spec_about, tg_username) "
-                               "VALUES (%(id_user)s, %(spec_name)s, %(spec_about)s, %(tg_username)s) "
+                               "(id_user, spec_name, spec_about, spec_city, tg_username) "
+                               "VALUES (%(id_user)s, %(spec_name)s, %(spec_about)s, %(spec_city)s, %(tg_username)s) "
                                "RETURNING id",
                                {'id_user': id_user, 'spec_name': spec_name, 'spec_about': spec_about,
-                                'tg_username': tg_username})
+                                'spec_city': spec_city, 'tg_username': tg_username})
 
                 id_of_new_row = cursor.fetchone()[0]
                 print(id_of_new_row)

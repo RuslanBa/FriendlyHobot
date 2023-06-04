@@ -15,7 +15,7 @@ from DB.add_spec_for_people import add_spec
 
 new_people = {'name': '-', 'tg_username': '-', 'about': '-', 'country': '-', 'city': '-', 'id_user': '-'}
 
-data_speciality = {'spec_name': '-', 'spec_about': '-', 'tg_username': '-'}
+data_speciality = {'spec_name': '-', 'spec_city': '-', 'spec_about': '-', 'tg_username': '-'}
 
 
 @dp.message_handler(text='Добавить/изменить другого')
@@ -50,7 +50,7 @@ async def add_people3(message: types.Message):
     new_people.update({'name': name})
     await message.answer(f'Отлично, запомнил имя - {name}')
 
-    new_user_id = add_new_people(name, 'None', 'None', 'None', new_people['tg_username'], 'Алания')
+    new_user_id = add_new_people(name, 'Не указана', 'Не указана', 'Не указано', new_people['tg_username'], 'Не указан')
     print('добавлен пользователь с id ', new_user_id)
     new_people.update({'id_user': new_user_id})
 
@@ -72,8 +72,18 @@ async def add_people4(message: types.Message, state: FSMContext):
 async def add_people5(message: types.Message, state: FSMContext):
     text = message.text
     data_speciality.update({'spec_about': text})
+    await bot.send_message(message.from_user.id, text=f'Запомнил описание услуги - {text}')
+    await message.answer('Напишите город, в котором пользователь может оказывать данную услугу')
+    await Other.Other_spec_city.set()
 
-    add_spec(new_people['id_user'], data_speciality['spec_name'], text, new_people['tg_username'])
+
+@dp.message_handler(state=Other.Other_spec_city)
+async def add_people6(message: types.Message, state: FSMContext):
+    text = message.text
+    data_speciality.update({'spec_city': text})
+
+    add_spec(new_people['id_user'], data_speciality['spec_name'], data_speciality['spec_about'],
+             data_speciality['spec_city'], new_people['tg_username'])
 
     add_new_log(message.from_user.id, message.from_user.username, 'New user_spec added"')
 
