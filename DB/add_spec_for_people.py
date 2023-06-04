@@ -23,7 +23,7 @@ def add_spec(id_user, spec_name, spec_about, spec_city, tg_username):
                               WHERE tg_username = %(tg_username)s and spec_name = %(spec_name)s """,
                            {'tg_username': tg_username, 'spec_name': spec_name})
             alfa = cursor.fetchone()[0]
-            print('У пользователя уже есть такая специальнось, строк = ', alfa)
+            print('У пользователя уже есть такая специальность, строк = ', alfa)
 
             if alfa > 0:
                 cursor.execute("""UPDATE user_spec SET spec_about = %(spec_about)s WHERE tg_username = %(tg_username)s 
