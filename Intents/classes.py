@@ -8,6 +8,7 @@ class About(StatesGroup):
     AB_spec = State()  # ask specialities
     AB_price = State()  # ask price
     AB_about = State()  # ask about_self
+    AB_city = State()  # ask about_city
     AB_edit = State()  # ask edit
     AB_edit_ok = State()  # go to edit
     AB_go_change = State()  # go to change information about self
@@ -42,8 +43,8 @@ class Other(StatesGroup):
     Other_change_birthday = State()
 
 
-all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.AB_know, About.AB_about, About.AB_edit,
-              About.AB_edit_ok, About.AB_go_change,
+all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.AB_know, About.AB_about, About.AB_city,
+              About.AB_edit, About.AB_edit_ok, About.AB_go_change,
               Find.Find_spec, Find.Find_city,
               Other.Other_tg, Other.Other_name, Other.Other_spec, Other.Other_spec_about, Other.Other_spec_city,
               Other.Other_change, Other.Other_change_name, Other.Other_change_country, Other.Other_change_city,

@@ -15,7 +15,7 @@ from Intents.show_user_data import take_user_data
 data_people = {'name': '-', 'tg_id': '-', 'tg_name': '-', 'tg_surname': '-', 'tg_username': '-',
                'about': '-', 'country': '-', 'city': '-', 'id_user': '-'}
 
-data_speciality = {'spec_name': None, 'spec_about': None, 'tg_username': None}
+data_speciality = {'spec_name': None, 'spec_about': None, 'spec_city': None, 'tg_username': None}
 
 
 @dp.message_handler(text='Ваши услуги и резюме')
@@ -44,8 +44,7 @@ async def answer1(message: types.Message, state: FSMContext):
     text = str(dict(message).get('data'))
 
     if text == 'yes':
-        await bot.send_message(message.from_user.id, text='Поехали! 1-ый вопрос из 3-х:\n'
-                                                          'Как вас зовут? Вы можете написать как только имя, так и '
+        await bot.send_message(message.from_user.id, text='Как вас зовут? Вы можете написать как только имя, так и '
                                                           'добавить к нему фамилию или отчество. Их будут видеть '
                                                           'другие люди')
         await About.AB_name.set()
@@ -71,7 +70,7 @@ async def answer2(message: types.Message, state: FSMContext):
 
     await message.answer(f'Отлично, запомнил ваше имя - {name_new}')
     await bot.send_message(message.from_user.id,
-                           text='2-й вопрос из 3-х:\nВ какой категории услуг вы можете быть полезным другим людям?',
+                           text='В какой категории услуг вы можете быть полезным другим людям?',
                            reply_markup=Specialties)
     await About.AB_spec.set()
 
@@ -89,12 +88,22 @@ async def answer3(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=About.AB_about)
-async def answer5(message: types.Message, state: FSMContext):
+async def answer4(message: types.Message, state: FSMContext):
     text = message.text
     data_speciality.update({'spec_about': text})
-    tg_username = str(message.from_user.username)
+    await message.answer(f'Запомнил описание вашей услуги - {text}\n'
+                         f'Напишите в каком городе вы готовы оказывать данную услугу')
+    await About.AB_city.set()
 
-    add_spec(data_people['id_user'], data_speciality['spec_name'], text, tg_username)
+
+@dp.message_handler(state=About.AB_city)
+async def answer5(message: types.Message, state: FSMContext):
+    text = message.text
+    tg_username = str(message.from_user.username)
+    data_speciality.update({'spec_city': text})
+
+    add_spec(data_people['id_user'], data_speciality['spec_name'], data_speciality['spec_about'],
+             data_speciality['spec_city'], tg_username)
 
     add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
 
