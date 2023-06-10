@@ -21,22 +21,23 @@ async def take_user_data(tg_username, message: types.Message, state: FSMContext)
     speciality_need = user_data[9]
     country = user_data[10]
 
-    await bot.send_message(message.from_user.id, text=f'Имя - {name}\n'
-                                                      f'Cтрана - {country}\n'
-                                                      f'Город - {city}\n'
-                                                      f'Общая информация - {about}\n'
-                                                      f'Дата рождения - {birthdate}\n')
+    await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
+                                                      f'<b>Cтрана</b> - {country}\n'
+                                                      f'<b>Город</b> - {city}\n'
+                                                      f'<b>Общая информация</b> - {about}\n'
+                                                      f'<b>Дата рождения</b> - {birthdate}\n', parse_mode='HTML')
 
     us_spec = user_spec(tg_username)
     for item in us_spec:
         name_spec = item['name']
         about_spec = item['about']
         text_spec = 'Cпециальность - ' + name_spec + '\nОписание услуги - ' + about_spec
-        await message.answer(text_spec)
+        await bot.send_message(message.from_user.id, text=text_spec)
 
     current_state = await state.get_state()
 
     if current_state in states_edit_self_list:
-        await message.answer('Желаете что-то изменить в своих данных?', reply_markup=save_self)
+        await bot.send_message(message.from_user.id, 'Желаете что-то изменить в своих данных?', reply_markup=save_self)
     elif current_state in states_edit_other_list:
-        await message.answer('Желаете что-то изменить в данных этого человека?', reply_markup=save_other)
+        await bot.send_message(message.from_user.id, 'Желаете что-то изменить в данных этого человека?',
+                               reply_markup=save_other)

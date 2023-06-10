@@ -56,11 +56,12 @@ async def answer3(message: types.Message, state: FSMContext):
             birthdate = user_data[8]
             country = user_data[10]
 
-            await bot.send_message(message.from_user.id, text=f'Имя - {name}\n'
-                                                              f'Cтрана - {country}\n'
-                                                              f'Город - {city}\n'
-                                                              f'О специалисте - {about}\n'
-                                                              f'Услуга - {spec_name}\n'
-                                                              f'Описание услуги - {spec_about}\n'
-                                                              f'Написать специалисту - @{tg_username}')
+            await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
+                                                              f'<b>Cтрана</b> - {country}\n'
+                                                              f'<b>Город</b> - {city}\n'
+                                                              f'<b>О специалисте</b> - {about}\n'
+                                                              f'<b>Услуга</b> - {spec_name}\n'
+                                                              f'<b>Описание услуги</b>:\n{spec_about}\n'
+                                                              f'<b>Написать специалисту</b> - @{tg_username}',
+                                   parse_mode="HTML")
     await state.finish()

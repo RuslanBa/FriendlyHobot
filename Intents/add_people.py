@@ -11,6 +11,8 @@ from inline_bottons import Specialties, list_specialities
 from Intents.show_user_data import take_user_data
 from aiogram.dispatcher.storage import FSMContext
 from DB.add_spec_for_people import add_spec
+from Checks_text.Check_add_username import check_username
+from Checks_text.Check_info_about import check_info_about
 
 
 new_people = {'name': '-', 'tg_username': '-', 'about': '-', 'country': '-', 'city': '-', 'id_user': '-'}
@@ -29,6 +31,8 @@ async def add_people(message: types.Message):
 @dp.message_handler(state=Other.Other_tg)
 async def add_people2(message: types.Message, state: FSMContext):
     new_username = message.text
+    new_username = check_username(new_username)
+    print('администратор добавил пользователя с username @', new_username)
     new_people.update({'tg_username': new_username})
 
     if check_user(new_username) > 0:
@@ -71,6 +75,8 @@ async def add_people4(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Other.Other_spec_about)
 async def add_people5(message: types.Message, state: FSMContext):
     text = message.text
+    text = check_info_about(text)
+    print('администратор добавил описание услуги', text)
     data_speciality.update({'spec_about': text})
     await bot.send_message(message.from_user.id, text=f'Запомнил описание услуги - {text}')
     await message.answer('Напишите город, в котором пользователь может оказывать данную услугу')

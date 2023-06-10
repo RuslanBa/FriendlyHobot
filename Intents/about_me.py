@@ -1,6 +1,6 @@
 from aiogram import types
 from loader import dp, bot
-from inline_bottons import yes_no, list_yes_no, Specialties, list_specialities
+from inline_bottons import yes_no, list_yes_no, Specialties, list_specialities, Cities, list_cities
 from bottons import menu_start, menu_main
 from aiogram.dispatcher.storage import FSMContext
 from Intents.classes import About
@@ -10,6 +10,7 @@ from DB.add_spec_for_people import add_spec
 from DB.check_user_in_db import check_user
 from DB.find_id_by_username import find_user_id
 from Intents.show_user_data import take_user_data
+from Checks_text.Check_info_about import check_info_about
 
 
 data_people = {'name': '-', 'tg_id': '-', 'tg_name': '-', 'tg_surname': '-', 'tg_username': '-',
@@ -90,14 +91,30 @@ async def answer3(message: types.Message, state: FSMContext):
 @dp.message_handler(state=About.AB_about)
 async def answer4(message: types.Message, state: FSMContext):
     text = message.text
-    data_speciality.update({'spec_about': text})
+    text_new = check_info_about(text)
+    data_speciality.update({'spec_about': text_new})
     await message.answer(f'Запомнил описание вашей услуги - {text}\n'
-                         f'Напишите в каком городе вы готовы оказывать данную услугу')
+                         f'Напишите в каком городе вы готовы оказывать данную услугу', reply_markup=Cities)
     await About.AB_city.set()
 
 
-@dp.message_handler(state=About.AB_city)
+@dp.callback_query_handler(text=list_cities, state=About.AB_city)
 async def answer5(message: types.Message, state: FSMContext):
+    city_new = str(dict(message).get('data'))
+    tg_username = str(message.from_user.username)
+    data_speciality.update({'spec_city': city_new})
+
+    add_spec(data_people['id_user'], data_speciality['spec_name'], data_speciality['spec_about'],
+             data_speciality['spec_city'], tg_username)
+
+    add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
+
+    await bot.send_message(message.from_user.id, 'Давайте посмотрим, что я теперь о вас знаю')
+    await take_user_data(tg_username, message, state)
+
+
+@dp.message_handler(state=About.AB_city)
+async def answer6(message: types.Message, state: FSMContext):
     text = message.text
     tg_username = str(message.from_user.username)
     data_speciality.update({'spec_city': text})
