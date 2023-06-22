@@ -26,6 +26,7 @@ Stylist = InlineKeyboardButton(text='Паракмахеры / стилисты',
 Psychologist = InlineKeyboardButton(text='Психологи', callback_data='Психолог')
 Tutor = InlineKeyboardButton(text='Репетиторы / Преподаватели', callback_data='Преподаватель')
 Realtor = InlineKeyboardButton(text='Риелторы', callback_data='Риелтор')
+Photographer = InlineKeyboardButton(text='Фотографы/Операторы', callback_data='Фотографы/Операторы')
 Lawyer = InlineKeyboardButton(text='Юристы', callback_data='Юристы')
 
 yes = InlineKeyboardButton(text='Да', callback_data='yes')
@@ -60,6 +61,7 @@ Specialties.insert(Stylist)
 Specialties.insert(Psychologist)
 Specialties.insert(Tutor)
 Specialties.insert(Realtor)
+Specialties.insert(Photographer)
 Specialties.insert(Lawyer)
 
 yes_no.insert(yes)
@@ -86,7 +88,8 @@ Cities.insert(Buenos_Aires)
 list_yes_no = ['yes', 'no']
 
 list_specialities = ['ВНЖ', 'Водитель', 'Врач', 'Доставка еды', 'Клининг', 'Мастер по маникюру', 'Няня',
-                     'Обмен валюты', 'Стилист', 'Психолог', 'Мастер по ремонту', 'Преподаватель', 'Риелтор', 'Юристы']
+                     'Обмен валюты', 'Стилист', 'Психолог', 'Мастер по ремонту', 'Преподаватель', 'Риелтор',
+                     'Фотографы/Операторы', 'Юристы']
 
 list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name']
 
