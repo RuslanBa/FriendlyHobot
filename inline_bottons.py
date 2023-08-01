@@ -1,33 +1,168 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import emoji
 
-# Меню ---------------------------------------------------------------------------------
+# Menu ---------------------------------------------------------------------------------
 
 Cities = InlineKeyboardMarkup(row_width=1)
-Specialties = InlineKeyboardMarkup(row_width=1)
 yes_no = InlineKeyboardMarkup(row_width=1)
 save_self = InlineKeyboardMarkup(row_width=1)
 save_other = InlineKeyboardMarkup(row_width=1)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
 
 
-# Кнопки ---------------------------------------------------------------------------------
+# Menu of specialities ---------------------------------------------------------------------------------
 
-VNG = InlineKeyboardButton(text='ВНЖ', callback_data='ВНЖ')
-Driver = InlineKeyboardButton(text='Водители / трансфер', callback_data='Водитель')
-Doctor = InlineKeyboardButton(text='Врачи', callback_data='Врач')
-Catering = InlineKeyboardButton(text='Доставка еды', callback_data='Доставка еды')
-Cleaning = InlineKeyboardButton(text='Клининг / Уборка', callback_data='Клининг')
-Manicurist = InlineKeyboardButton(text='Мастера по маникюру', callback_data='Мастер по маникюру')
-Serviceman = InlineKeyboardButton(text='Мастера по ремонту', callback_data='Мастер по ремонту')
-Babysitter = InlineKeyboardButton(text='Няни', callback_data='Няня')
+Specialties = InlineKeyboardMarkup(row_width=1)
+
+Driver_menu = InlineKeyboardMarkup(row_width=1)
+Food_services_menu = InlineKeyboardMarkup(row_width=1)
+Beauty_menu = InlineKeyboardMarkup(row_width=1)
+Events_menu = InlineKeyboardMarkup(row_width=1)
+Helper_menu = InlineKeyboardMarkup(row_width=1)
+Repair_menu = InlineKeyboardMarkup(row_width=1)
+Equipment_repair_menu = InlineKeyboardMarkup(row_width=1)
+Tutor_menu = InlineKeyboardMarkup(row_width=1)
+Housekeepers_menu = InlineKeyboardMarkup(row_width=1)
+Photo_video_audio_menu = InlineKeyboardMarkup(row_width=1)
+Lawyer_menu = InlineKeyboardMarkup(row_width=1)
+
+Language_menu = InlineKeyboardMarkup(row_width=1)
+
+
+# Кнопки меню профессий 1 уровень ---------------------------------------------------------------------------
+
+Realtor = InlineKeyboardButton(text='Аренда и продажа недвижимости', callback_data='Аренда и продажа недвижимости')
+Driver = InlineKeyboardButton(text='Водители / перевозки / авто', callback_data='Водители / перевозки / авто')
+Food_services = InlineKeyboardButton(text='Доставка и приготовление еды', callback_data='Доставка и приготовление еды')
+Beauty = InlineKeyboardButton(text='Красота и здоровье', callback_data='Красота и здоровье')
+Events = InlineKeyboardButton(text='Мероприятия', callback_data='Мероприятия')
 Exchange = InlineKeyboardButton(text='Обмен валюты', callback_data='Обмен валюты')
-Stylist = InlineKeyboardButton(text='Паракмахеры / стилисты', callback_data='Стилист')
-Psychologist = InlineKeyboardButton(text='Психологи', callback_data='Психолог')
-Tutor = InlineKeyboardButton(text='Репетиторы / Преподаватели', callback_data='Преподаватель')
-Realtor = InlineKeyboardButton(text='Риелторы', callback_data='Риелтор')
-Photographer = InlineKeyboardButton(text='Фотографы/Операторы', callback_data='Фотографы/Операторы')
-Lawyer = InlineKeyboardButton(text='Юристы', callback_data='Юристы')
+Helper = InlineKeyboardButton(text='Помощь с детьми и близкими', callback_data='Помощь с детьми и близкими')
+Repair = InlineKeyboardButton(text='Ремонт и строительство', callback_data='Ремонт и строительство')
+Equipment_repair = InlineKeyboardButton(text='Ремонт техники', callback_data='Ремонт техники')
+Tutor = InlineKeyboardButton(text='Репетиторы и обучение', callback_data='Репетиторы и обучение')
+Housekeepers = InlineKeyboardButton(text='Уборка и помощь по хозяйству', callback_data='Уборка и помощь по хозяйству')
+Photo_video_audio = InlineKeyboardButton(text='Фото, видео, аудио', callback_data='Фото, видео, аудио')
+Lawyer = InlineKeyboardButton(text='Юридическая и бух. помощь', callback_data='Юридическая и бух. помощь')
+
+
+# Beauty menu buttons ----------------------------------------------------------------------------------------
+
+Beauticians = InlineKeyboardButton(text='Косметологи', callback_data='Косметологи')
+Epilation = InlineKeyboardButton(text='Эпиляция', callback_data='Эпиляция')
+Eyebrows_eyelashes = InlineKeyboardButton(text='Брови и ресницы', callback_data='Брови и ресницы')
+Make_up = InlineKeyboardButton(text='Визажисты', callback_data='Визажисты')
+Tatu = InlineKeyboardButton(text='Тату и пирсинг', callback_data='Тату и пирсинг')
+Stylist = InlineKeyboardButton(text='Парикмахеры, стилисты', callback_data='Парикмахеры, стилисты')
+Manicurist = InlineKeyboardButton(text='Маникюр', callback_data='Маникюр')
+Massage = InlineKeyboardButton(text='Массаж', callback_data='Массаж')
+Psychologist = InlineKeyboardButton(text='Психологи и психотерапевты', callback_data='Психологи и психотерапевты')
+Personal_trainer = InlineKeyboardButton(text='Персональные тренеры', callback_data='Персональные тренеры')
+Other_beauty = InlineKeyboardButton(text='Другие бьюти услуги', callback_data='Другие бьюти услуги')
+
+
+# Repair menu buttons ----------------------------------------------------------------------------------------
+
+Serviceman = InlineKeyboardButton(text='Мастера на час', callback_data='Мастера на час')
+Furniture_assembly = InlineKeyboardButton(text='Сборка и ремонт мебели', callback_data='Сборка и ремонт мебели')
+House_repair = InlineKeyboardButton(text='Ремонт квартир и домов', callback_data='Ремонт квартир и домов')
+Other_repair = InlineKeyboardButton(text='Другие работы', callback_data='Другие работы')
+
+
+# Tutors menu buttons ----------------------------------------------------------------------------------------
+
+Languages = InlineKeyboardButton(text='Языки', callback_data='Языки')
+Mathematics_physics = InlineKeyboardButton(text='Математика и физика', callback_data='Математика и физика')
+Biology_chemistry = InlineKeyboardButton(text='Биология и химия', callback_data='Биология и химия')
+History_social_science = InlineKeyboardButton(text='История и обществознание', callback_data='История и обществознание')
+Geography_economics = InlineKeyboardButton(text='География и экономика', callback_data='География и экономика')
+Computer_science = InlineKeyboardButton(text='Информатика и программирование',
+                                        callback_data='Информатика и программирование')
+Preparation_for_school = InlineKeyboardButton(text='Подготовка к школе', callback_data='Подготовка к школе')
+Music_dance_art = InlineKeyboardButton(text='Музыка, танцы и арт', callback_data='Музыка, танцы и арт')
+Speech_therapists = InlineKeyboardButton(text='Логопеды', callback_data='Логопеды')
+Sport = InlineKeyboardButton(text='Спорт', callback_data='Спорт')
+Other_tutors = InlineKeyboardButton(text='Другие преподаватели и тренера',
+                                    callback_data='Другие преподаватели и тренера')
+
+
+# Housekeepers menu buttons ----------------------------------------------------------------------------------------
+
+Cleaning = InlineKeyboardButton(text='Уборка в квартире и в доме', callback_data='Уборка в квартире и в доме')
+Sanitary = InlineKeyboardButton(text='Санитарные работы', callback_data='Санитарные работы')
+Trash = InlineKeyboardButton(text='Вынос мусора', callback_data='Вынос мусора')
+Seamstress = InlineKeyboardButton(text='Помощь швеи', callback_data='Помощь швеи')
+Ironing = InlineKeyboardButton(text='Глажение белья', callback_data='Глажение белья')
+Garden = InlineKeyboardButton(text='Работы в саду, на участке', callback_data='Работы в саду, на участке')
+Window_cleaning = InlineKeyboardButton(text='Мытье окон', callback_data='Мытье окон')
+Other_housekeepers = InlineKeyboardButton(text='Другие работы по дому', callback_data='Другие работы по дому')
+
+
+# Food delivery menu buttons ----------------------------------------------------------------------------------------
+
+Catering_ready = InlineKeyboardButton(text='Доставка готовой еды', callback_data='Доставка готовой еды')
+Cooking = InlineKeyboardButton(text='Приготовление еды дома', callback_data='Приготовление еды дома')
+Catering = InlineKeyboardButton(text='Кейтеринг', callback_data='Кейтеринг')
+Other_food_delivery = InlineKeyboardButton(text='Другие услуги с едой', callback_data='Другие услуги с едой')
+
+
+# Drivers menu buttons ----------------------------------------------------------------------------------------
+
+Trucking = InlineKeyboardButton(text='Грузоперевозки', callback_data='Грузоперевозки')
+Transfer = InlineKeyboardButton(text='Трансферы', callback_data='Трансферы')
+Rent_auto = InlineKeyboardButton(text='Прокат авто', callback_data='Прокат авто')
+Other_drivers = InlineKeyboardButton(text='Другие авто услуги', callback_data='Другие авто услуги')
+
+
+# Lawyer menu buttons ----------------------------------------------------------------------------------------
+
+Legalization = InlineKeyboardButton(text='Помощь в легализации', callback_data='Помощь в легализации')
+Notary = InlineKeyboardButton(text='Нотариальные услуги', callback_data='Нотариальные услуги')
+Other_lawyer = InlineKeyboardButton(text='Другие юр. и бух. услуги', callback_data='Другие юр. и бух. услуги')
+
+
+# Events menu buttons ----------------------------------------------------------------------------------------
+
+Animators = InlineKeyboardButton(text='Ведущие и аниматоры', callback_data='Ведущие и аниматоры')
+Events_help = InlineKeyboardButton(text='Помощь на мероприятиях', callback_data='Помощь на мероприятиях')
+
+
+# Equipment_repair menu buttons --------------------------------------------------------------------------------------
+
+Phone_repair = InlineKeyboardButton(text='Планшеты и телефоны', callback_data='Планшеты и телефоны')
+Computer_repair = InlineKeyboardButton(text='Комьютеры и ноутбуки', callback_data='Компьютеры и ноутбуки')
+Appliances_repair = InlineKeyboardButton(text='Бытовая техника', callback_data='Бытовая техника')
+
+
+# Photo_video_audio menu buttons ----------------------------------------------------------------------------------
+
+Photography = InlineKeyboardButton(text='Фотосъемка', callback_data='Фотосъемка')
+Videography = InlineKeyboardButton(text='Видеосъемка', callback_data='Видеосъемка')
+Video_editing = InlineKeyboardButton(text='Монтаж видео', callback_data='Монтаж видео')
+Photo_editing = InlineKeyboardButton(text='Обработка фотографий', callback_data='Обработка фотографий')
+Other_foto_video = InlineKeyboardButton(text='Другие фото-видео-аудио услуги',
+                                        callback_data='Другие фото-видео-аудио услуги')
+
+
+# Helpers menu buttons ----------------------------------------------------------------------------------
+
+Babysitter = InlineKeyboardButton(text='Няни', callback_data='Няня')
+Nurse = InlineKeyboardButton(text='Сиделки', callback_data='Сиделки')
+Dog_walking = InlineKeyboardButton(text='Выгул собак', callback_data='Выгул собак')
+Animal_care = InlineKeyboardButton(text='Уход за животными', callback_data='Уход за животными')
+Other_helpers = InlineKeyboardButton(text='Другая помощь с близкими', callback_data='Другая помощь с близкими')
+
+
+# Languages menu buttons ----------------------------------------------------------------------------------
+
+Russian = InlineKeyboardButton(text='Русский язык и литература', callback_data='Русский язык и литература')
+English = InlineKeyboardButton(text='Английский', callback_data='Английский')
+Spanish = InlineKeyboardButton(text='Испанский', callback_data='Испанский')
+Turkish = InlineKeyboardButton(text='Турецкий', callback_data='Турецкий')
+Other_languages = InlineKeyboardButton(text='Другие языки', callback_data='Другие языки')
+
+
+# Other buttons ----------------------------------------------------------------------------------------
 
 yes = InlineKeyboardButton(text='Да', callback_data='yes')
 no = InlineKeyboardButton(text='Нет', callback_data='no')
@@ -48,21 +183,97 @@ Buenos_Aires = InlineKeyboardButton(text='Буэнос-Айрес', callback_dat
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
-Specialties.insert(VNG)
-Specialties.insert(Driver)
-Specialties.insert(Doctor)
-Specialties.insert(Catering)
-Specialties.insert(Cleaning)
-Specialties.insert(Manicurist)
-Specialties.insert(Serviceman)
-Specialties.insert(Babysitter)
-Specialties.insert(Exchange)
-Specialties.insert(Stylist)
-Specialties.insert(Psychologist)
-Specialties.insert(Tutor)
 Specialties.insert(Realtor)
-Specialties.insert(Photographer)
+Specialties.insert(Driver)
+Specialties.insert(Food_services)
+Specialties.insert(Beauty)
+Specialties.insert(Events)
+Specialties.insert(Exchange)
+Specialties.insert(Helper)
+Specialties.insert(Repair)
+Specialties.insert(Equipment_repair)
+Specialties.insert(Tutor)
+Specialties.insert(Housekeepers)
+Specialties.insert(Photo_video_audio)
 Specialties.insert(Lawyer)
+
+
+Driver_menu.insert(Trucking)
+Driver_menu.insert(Transfer)
+Driver_menu.insert(Rent_auto)
+Driver_menu.insert(Other_drivers)
+
+Food_services_menu.insert(Catering_ready)
+Food_services_menu.insert(Cooking)
+Food_services_menu.insert(Catering)
+Food_services_menu.insert(Other_food_delivery)
+
+Beauty_menu.insert(Beauticians)
+Beauty_menu.insert(Epilation)
+Beauty_menu.insert(Eyebrows_eyelashes)
+Beauty_menu.insert(Make_up)
+Beauty_menu.insert(Tatu)
+Beauty_menu.insert(Stylist)
+Beauty_menu.insert(Manicurist)
+Beauty_menu.insert(Massage)
+Beauty_menu.insert(Psychologist)
+Beauty_menu.insert(Personal_trainer)
+Beauty_menu.insert(Other_beauty)
+
+Events_menu.insert(Animators)
+Events_menu.insert(Events_help)
+
+Helper_menu.insert(Babysitter)
+Helper_menu.insert(Nurse)
+Helper_menu.insert(Dog_walking)
+Helper_menu.insert(Animal_care)
+Helper_menu.insert(Other_helpers)
+
+Repair_menu.insert(Serviceman)
+Repair_menu.insert(Furniture_assembly)
+Repair_menu.insert(House_repair)
+Repair_menu.insert(Other_repair)
+
+Equipment_repair_menu.insert(Phone_repair)
+Equipment_repair_menu.insert(Computer_repair)
+Equipment_repair_menu.insert(Appliances_repair)
+
+Tutor_menu.insert(Languages)
+Tutor_menu.insert(Mathematics_physics)
+Tutor_menu.insert(Biology_chemistry)
+Tutor_menu.insert(History_social_science)
+Tutor_menu.insert(Geography_economics)
+Tutor_menu.insert(Computer_science)
+Tutor_menu.insert(Preparation_for_school)
+Tutor_menu.insert(Music_dance_art)
+Tutor_menu.insert(Speech_therapists)
+Tutor_menu.insert(Sport)
+Tutor_menu.insert(Other_tutors)
+
+Housekeepers_menu.insert(Cleaning)
+Housekeepers_menu.insert(Sanitary)
+Housekeepers_menu.insert(Trash)
+Housekeepers_menu.insert(Seamstress)
+Housekeepers_menu.insert(Ironing)
+Housekeepers_menu.insert(Garden)
+Housekeepers_menu.insert(Window_cleaning)
+Housekeepers_menu.insert(Other_housekeepers)
+
+Photo_video_audio_menu.insert(Photography)
+Photo_video_audio_menu.insert(Videography)
+Photo_video_audio_menu.insert(Video_editing)
+Photo_video_audio_menu.insert(Photo_editing)
+Photo_video_audio_menu.insert(Other_foto_video)
+
+Lawyer_menu.insert(Legalization)
+Lawyer_menu.insert(Notary)
+Lawyer_menu.insert(Other_lawyer)
+
+Language_menu.insert(Russian)
+Language_menu.insert(English)
+Language_menu.insert(Spanish)
+Language_menu.insert(Turkish)
+Language_menu.insert(Other_languages)
 
 yes_no.insert(yes)
 yes_no.insert(no)
@@ -87,9 +298,38 @@ Cities.insert(Buenos_Aires)
 
 list_yes_no = ['yes', 'no']
 
-list_specialities = ['ВНЖ', 'Водитель', 'Врач', 'Доставка еды', 'Клининг', 'Мастер по маникюру', 'Няня',
-                     'Обмен валюты', 'Стилист', 'Психолог', 'Мастер по ремонту', 'Преподаватель', 'Риелтор',
-                     'Фотографы/Операторы', 'Юристы']
+list_specialities = ['Аренда и продажа недвижимости', 'Водители / перевозки / авто', 'Доставка и приготовление еды',
+                     'Красота и здоровье', 'Мероприятия', 'Обмен валюты', 'Помощь с детьми и близкими',
+                     'Ремонт и строительство', 'Ремонт техники', 'Репетиторы и обучение',
+                     'Уборка и помощь по хозяйству', 'Фото, видео, аудио', 'Юридическая и бух. помощь',
+                     'Косметологи', 'Эпиляция', 'Брови и ресницы', 'Визажисты', 'Тату и пирсинг',
+                     'Парикмахеры, стилисты', 'Маникюр', 'Массаж', 'Психологи и психотерапевты',
+                     'Персональные тренеры', 'Другие бьюти услуги',
+                     'Мастера на час', 'Сборка и ремонт мебели', 'Ремонт квартир и домов', 'Другие работы',
+                     'Языки', 'Математика и физика', 'Биология и химия', 'История и обществознание',
+                     'География и экономика', 'Информатика и программирование', 'Подготовка к школе',
+                     'Музыка, танцы и арт', 'Логопеды', 'Спорт', 'Другие преподаватели и тренера',
+                     'Уборка в квартире и в доме', 'Санитарные работы', 'Вынос мусора', 'Помощь швеи', 'Глажение белья',
+                     'Работы в саду, на участке', 'Мытье окон', 'Другие работы по дому',
+                     'Доставка готовой еды', 'Приготовление еды дома', 'Кейтеринг', 'Другие услуги с едой',
+                     'Грузоперевозки', 'Трансферы', 'Прокат авто', 'Другие авто услуги',
+                     'Помощь в легализации', 'Нотариальные услуги', 'Другие юр. и бух. услуги',
+                     'Ведущие и аниматоры', 'Помощь на мероприятиях',
+                     'Планшеты и телефоны', 'Комьютеры и ноутбуки', 'Бытовая техника',
+                     'Фотосъемка', 'Видеосъемка', 'Монтаж видео', 'Обработка фотографий',
+                     'Другие фото-видео-аудио услуги',
+                     'Няни', 'Сиделки', 'Выгул собак', 'Уход за животными', 'Другая помощь с близкими',
+                     'Русский язык и литература', 'Английский', 'Испанский', 'Турецкий', 'Другие языки']
+
+
+# list_specialities = ['Аренда и продажа недвижимости', 'Водители / перевозки / авто', 'Доставка и приготовление еды',
+#                      'Красота и здоровье', 'Мероприятия', 'Обмен валюты', 'Помощь с детьми и близкими',
+#                      'Ремонт и строительство', 'Ремонт техники', 'Репетиторы и обучение',
+#                      'Уборка и помощь по хозяйству', 'Фото, видео, аудио', 'Юридическая и бух. помощь']
+
+
+list_driver_menu = ['']
+
 
 list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name']
 

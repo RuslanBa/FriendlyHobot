@@ -5,7 +5,9 @@ from DB.add_log_db import add_new_log
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
 from Intents.classes import Find
-from inline_bottons import Specialties, Cities, list_specialities, list_cities
+from inline_bottons import Specialties, Cities, list_specialities, list_cities, Driver_menu, Food_services_menu, \
+     Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
+     Photo_video_audio_menu, Language_menu
 from aiogram.dispatcher.storage import FSMContext
 
 
@@ -32,6 +34,48 @@ async def answer2(message: types.Message):
 @dp.callback_query_handler(text=list_specialities, state=Find.Find_spec)
 async def answer3(message: types.Message, state: FSMContext):
     spec_name = str(dict(message).get('data'))
+
+    print('spec_name=', spec_name)
+
+    if spec_name == 'Водители / перевозки / авто':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+
+    elif spec_name == 'Доставка и приготовление еды':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+
+    elif spec_name == 'Красота и здоровье':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+
+    elif spec_name == 'Мероприятия':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+
+    elif spec_name == 'Помощь с детьми и близкими':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+
+    elif spec_name == 'Ремонт и строительство':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+
+    elif spec_name == 'Ремонт техники':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+
+    elif spec_name == 'Репетиторы и обучение':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+
+    elif spec_name == 'Языки':
+        await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+
+    elif spec_name == 'Уборка и помощь по хозяйству':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+
+    elif spec_name == 'Фото, видео, аудио':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+
+    else:
+        await show_specialists_by_filter(spec_name, state, message)
+
+
+async def show_specialists_by_filter(spec_name, state: FSMContext, message):
+
     data_masters.update({'spec_name': spec_name})
     print('Пользователь ищет - ', data_masters)
 

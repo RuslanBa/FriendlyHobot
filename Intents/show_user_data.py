@@ -23,7 +23,7 @@ async def take_user_data(tg_username, message: types.Message, state: FSMContext)
 
     await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
                                                       f'<b>Cтрана</b> - {country}\n'
-                                                      f'<b>Город</b> - {city}\n'
+                                                      f'<b>Город, где находится исполнитель</b> - {city}\n'
                                                       f'<b>Общая информация</b> - {about}\n'
                                                       f'<b>Дата рождения</b> - {birthdate}\n', parse_mode='HTML')
 
@@ -41,3 +41,5 @@ async def take_user_data(tg_username, message: types.Message, state: FSMContext)
     elif current_state in states_edit_other_list:
         await bot.send_message(message.from_user.id, 'Желаете что-то изменить в данных этого человека?',
                                reply_markup=save_other)
+    else:
+        print('Не нашел реакции на текущий state: ', current_state)

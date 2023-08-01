@@ -65,4 +65,4 @@ states_edit_other = [Other.Other_change_name, Other.Other_change_country, Other.
 
 states_edit_other_list = ['Other:Other_change_name', 'Other:Other_change_country', 'Other:Other_change_city',
                           'Other:Other_change_about', 'Other:Other_change_birthday', 'Other:Other_change',
-                          'Other:Other_spec_about', 'Other.Other_spec_city']
+                          'Other:Other_spec_about', 'Other:Other_spec_city']

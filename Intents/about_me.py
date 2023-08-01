@@ -1,6 +1,8 @@
 from aiogram import types
 from loader import dp, bot
-from inline_bottons import yes_no, list_yes_no, Specialties, list_specialities, Cities, list_cities
+from inline_bottons import yes_no, list_yes_no, Specialties, Cities, list_specialities, list_cities, Driver_menu, \
+     Food_services_menu, Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, \
+     Housekeepers_menu, Photo_video_audio_menu, Language_menu
 from bottons import menu_start, menu_main
 from aiogram.dispatcher.storage import FSMContext
 from Intents.classes import About
@@ -78,14 +80,46 @@ async def answer2(message: types.Message, state: FSMContext):
 
 @dp.callback_query_handler(text=list_specialities, state=About.AB_spec)
 async def answer3(message: types.Message, state: FSMContext):
-    spec_name_new = str(dict(message).get('data'))
-    data_speciality.update({'spec_name': spec_name_new})
+    spec_name = str(dict(message).get('data'))
 
-    await bot.send_message(message.from_user.id,
-                           f'Хорошо, запомнил вашу специализацию - {spec_name_new}')
-    await bot.send_message(message.from_user.id,
-                           text='Напишите о своем предложении')
-    await About.AB_about.set()
+    if spec_name == 'Водители / перевозки / авто':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+
+    elif spec_name == 'Доставка и приготовление еды':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+
+    elif spec_name == 'Красота и здоровье':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+
+    elif spec_name == 'Мероприятия':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+
+    elif spec_name == 'Помощь с детьми и близкими':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+
+    elif spec_name == 'Ремонт и строительство':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+
+    elif spec_name == 'Ремонт техники':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+
+    elif spec_name == 'Репетиторы и обучение':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+
+    elif spec_name == 'Языки':
+        await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+
+    elif spec_name == 'Уборка и помощь по хозяйству':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+
+    elif spec_name == 'Фото, видео, аудио':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+
+    else:
+        data_speciality.update({'spec_name': spec_name})
+        await bot.send_message(message.from_user.id, f'Хорошо, запомнил вашу специализацию - {spec_name}')
+        await bot.send_message(message.from_user.id, text='Напишите о своем предложении')
+        await About.AB_about.set()
 
 
 @dp.message_handler(state=About.AB_about)
@@ -94,7 +128,8 @@ async def answer4(message: types.Message, state: FSMContext):
     text_new = check_info_about(text)
     data_speciality.update({'spec_about': text_new})
     await message.answer(f'Запомнил описание вашей услуги - {text}\n'
-                         f'Напишите в каком городе вы готовы оказывать данную услугу', reply_markup=Cities)
+                         f'Напишите или выберите, в каком городе вы готовы оказывать данную услугу',
+                         reply_markup=Cities)
     await About.AB_city.set()
 
 
@@ -115,6 +150,22 @@ async def answer5(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=About.AB_city)
 async def answer6(message: types.Message, state: FSMContext):
+    city_new = message.text
+    data_speciality.update({'spec_city': city_new})
+    tg_username = str(message.from_user.username)
+    data_speciality.update({'spec_city': city_new})
+
+    add_spec(data_people['id_user'], data_speciality['spec_name'], data_speciality['spec_about'],
+             data_speciality['spec_city'], tg_username)
+
+    add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
+
+    await bot.send_message(message.from_user.id, 'Давайте посмотрим, что я теперь о вас знаю')
+    await take_user_data(tg_username, message, state)
+
+
+@dp.message_handler(state=About.AB_city)
+async def answer7(message: types.Message, state: FSMContext):
     text = message.text
     tg_username = str(message.from_user.username)
     data_speciality.update({'spec_city': text})
