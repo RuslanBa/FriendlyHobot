@@ -6,8 +6,8 @@ import psycopg2
 load_dotenv()
 
 
-def user_data_tg(tg_username):
-    """ Take user data from DB by tg_username """
+def user_data_by_id(id_user):
+    """ Take user data from DB by id_user """
     try:
         # connect to exist database
 
@@ -22,9 +22,10 @@ def user_data_tg(tg_username):
         with connection.cursor() as cursor:
 
             cursor.execute("SELECT * FROM users "
-                           "WHERE tg_username = %(tg_username)s::text", {'tg_username': tg_username})
+                           "WHERE id_user = %(id_user)s", {'id_user': id_user})
 
             user_data = cursor.fetchone()
+            print(user_data)
             name = user_data[0]
             tg_id = user_data[1]
             tg_name = user_data[2]
@@ -36,8 +37,9 @@ def user_data_tg(tg_username):
             birthdate = user_data[8]
             speciality_need = user_data[9]
             country = user_data[11]
+            phone = user_data[12]
             return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, \
-                   speciality_need, country
+                   speciality_need, country, phone
 
         connection.commit()
         print(f'[INFO] Connection to users commit')

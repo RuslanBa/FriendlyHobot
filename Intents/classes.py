@@ -30,8 +30,10 @@ class Find(StatesGroup):
 
 
 class Other(StatesGroup):
+    Other_identifiers = State()
     Other_name = State()
     Other_tg = State()
+    Other_phone = State()
     Other_spec = State()
     Other_spec_about = State()
     Other_spec_city = State()

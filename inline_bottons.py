@@ -8,6 +8,7 @@ yes_no = InlineKeyboardMarkup(row_width=1)
 save_self = InlineKeyboardMarkup(row_width=1)
 save_other = InlineKeyboardMarkup(row_width=1)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
+users_identifiers = InlineKeyboardMarkup(row_width=1)
 
 
 # Menu of specialities ---------------------------------------------------------------------------------
@@ -180,6 +181,9 @@ spec_name = InlineKeyboardButton(text='Услуги и описание', callba
 
 Buenos_Aires = InlineKeyboardButton(text='Буэнос-Айрес', callback_data='Буэнос-Айрес')
 
+tg = InlineKeyboardButton(text='Telegram id', callback_data='Telegram id')
+phone = InlineKeyboardButton(text='Телефон', callback_data='Телефон')
+
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -293,8 +297,13 @@ selfabout_fields.insert(spec_name)
 
 Cities.insert(Buenos_Aires)
 
+users_identifiers.insert(tg)
+users_identifiers.insert(phone)
+
+
 # Листы ответов ---------------------------------------------------------------------------------
 
+list_identifiers = ['Telegram id', 'Телефон']
 
 list_yes_no = ['yes', 'no']
 

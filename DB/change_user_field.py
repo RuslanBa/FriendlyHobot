@@ -6,7 +6,7 @@ import psycopg2
 load_dotenv()
 
 
-def change_fields(tg_username, user_field, new_value):
+def change_fields(id_user, user_field, new_value):
     """ Add new abject in DB """
     try:
         # connect to exist database
@@ -20,28 +20,28 @@ def change_fields(tg_username, user_field, new_value):
 
         with connection.cursor() as cursor:
             if user_field == 'name':
-                request = """UPDATE users SET name = %(new_value)s WHERE tg_username = %(tg_username)s"""
+                request = """UPDATE users SET name = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'country':
-                request = """UPDATE users SET country = %(new_value)s WHERE tg_username = %(tg_username)s"""
+                request = """UPDATE users SET country = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'city':
-                request = """UPDATE users SET city = %(new_value)s WHERE tg_username = %(tg_username)s"""
+                request = """UPDATE users SET city = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'about':
-                request = """UPDATE users SET about = %(new_value)s WHERE tg_username = %(tg_username)s"""
+                request = """UPDATE users SET about = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'birthdate':
-                request = """UPDATE users SET birthdate = %(new_value)s WHERE tg_username = %(tg_username)s"""
+                request = """UPDATE users SET birthdate = %(new_value)s WHERE id_user = %(id_user)s"""
             cursor.execute(request,
-                           {'tg_username': tg_username, 'user_field': user_field, 'new_value': new_value})
+                           {'id_user': id_user, 'user_field': user_field, 'new_value': new_value})
 
         connection.commit()
-        print(f'[INFO] Field changed. New value {new_value}')
+        print(f'[INFO change_fields] Field changed. New value {new_value}')
 
     except Exception as _ex:
-        print('[INFO] Error while working with PostgreSQL', _ex)
+        print('[INFO change_fields] Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO] PostgreSQL connection close')
+            print('[INFO change_fields] PostgreSQL connection close')
 
 
 # change_fields('176221727', 'name', 'rul')

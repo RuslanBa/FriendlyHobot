@@ -30,8 +30,8 @@ async def answer(message: types.Message, state: FSMContext):
     if check_user(tg_username) > 0:
         await message.answer('Видимо, мы уже знакомы)) Вот, что я о вас знаю', reply_markup=menu_main)
         await About.AB_know.set()
-        await take_user_data(tg_username, message, state)
         need_id = find_user_id(tg_username)
+        await take_user_data(need_id, message, state)
         data_people.update({'id_user': need_id})
 
     else:

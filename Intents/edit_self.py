@@ -6,6 +6,7 @@ from Intents.classes import Edit, About, Other, all_states, states_edit_self, st
 from Intents.edit_func import edit_any_user
 from aiogram.dispatcher.storage import FSMContext
 from DB.add_log_db import add_new_log
+from DB.find_id_by_username import find_user_id
 
 
 @dp.callback_query_handler(text='edit_self', state=all_states)
@@ -54,6 +55,7 @@ async def list_fields1(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=states_edit_self)
 async def edit_self(message: types.Message, state: FSMContext):
-    tg_username = str(message.from_user.username)
+    username = str(message.from_user.username)
+    id_user = find_user_id(username)
     mess = message
-    await edit_any_user(tg_username, mess, state)  # go to edit_func
+    await edit_any_user(id_user, mess, state)  # go to edit_func

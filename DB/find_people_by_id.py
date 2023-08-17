@@ -35,8 +35,9 @@ def find_people(id_user):
             birthdate = user_data[8]
             speciality_need = user_data[9]
             country = user_data[11]
+            phone = user_data[12]
             return name, tg_id, tg_name, tg_surname, tg_username, about, archetype, city, birthdate, \
-                   speciality_need, country
+                   speciality_need, country, phone
 
             connection.commit()
             return name, about, city, username

@@ -6,7 +6,7 @@ import psycopg2
 load_dotenv()
 
 
-def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city):
+def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city, phone):
     """ Add new abject in DB """
     try:
         # connect to exist database
@@ -20,12 +20,12 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city):
 
         with connection.cursor() as cursor:
             cursor.execute("INSERT INTO users"
-                           "(name, tg_id, tg_name, tg_surname, tg_username, city) "
+                           "(name, tg_id, tg_name, tg_surname, tg_username, city, phone) "
                            "VALUES (%(name)s, %(tg_id)s, %(tg_name)s, %(tg_surname)s, %(tg_username)s, "
-                           "%(city)s) "
+                           "%(city)s, %(phone)s) "
                            "RETURNING id_user",
                            {'name': name, 'tg_id': tg_id, 'tg_name': tg_name, 'tg_surname': tg_surname,
-                            'tg_username': tg_username, 'city': city})
+                            'tg_username': tg_username, 'city': city, 'phone': phone})
 
             id_of_new_row = cursor.fetchone()[0]
             print(id_of_new_row)

@@ -4,6 +4,7 @@ from bottons import menu_main, menu_start
 from DB.add_log_db import add_new_log
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
+from DB.find_quan_people_by_city import find_people_by_city
 from Intents.classes import Find
 from inline_bottons import Specialties, Cities, list_specialities, list_cities, Driver_menu, Food_services_menu, \
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
@@ -27,7 +28,11 @@ async def answer(message: types.Message):
 async def answer2(message: types.Message):
     city = str(dict(message).get('data'))
     data_masters.update({'city': city})
-    await bot.send_message(message.from_user.id, 'Запомнил ваш город. Выберите категорию', reply_markup=Specialties)
+    number = find_people_by_city(city)
+    await bot.send_message(message.from_user.id,
+                           f'Отлично! В городе {city} в моей базе зарергистрировано {number} предложений от разных '
+                           f'специалистов. '
+                           f'\nВыберите категорию:', reply_markup=Specialties)
     await Find.Find_spec.set()
 
 
@@ -99,6 +104,7 @@ async def show_specialists_by_filter(spec_name, state: FSMContext, message):
             city = user_data[7]
             birthdate = user_data[8]
             country = user_data[10]
+            phone = user_data[11]
 
             await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
                                                               f'<b>Cтрана</b> - {country}\n'
@@ -106,6 +112,7 @@ async def show_specialists_by_filter(spec_name, state: FSMContext, message):
                                                               f'<b>О специалисте</b> - {about}\n'
                                                               f'<b>Услуга</b> - {spec_name}\n'
                                                               f'<b>Описание услуги</b>:\n{spec_about}\n'
+                                                              f'<b>Телефон</b>:{phone}\n'
                                                               f'<b>Написать специалисту</b> - @{tg_username}',
                                    parse_mode="HTML")
     await state.finish()

@@ -1,4 +1,4 @@
-from DB.from_db_user_data import user_data_tg, user_spec
+from DB.from_db_user_data import user_data_by_id, user_spec
 from loader import bot
 from aiogram import types
 from inline_bottons import save_self, save_other
@@ -6,8 +6,8 @@ from aiogram.dispatcher.storage import FSMContext
 from Intents.classes import states_edit_self_list, states_edit_other_list
 
 
-async def take_user_data(tg_username, message: types.Message, state: FSMContext):
-    user_data = user_data_tg(tg_username)
+async def take_user_data(id_user, message: types.Message, state: FSMContext):
+    user_data = user_data_by_id(id_user)
     user_data = list(user_data)
     name = user_data[0]
     tg_id = user_data[1]
@@ -20,12 +20,14 @@ async def take_user_data(tg_username, message: types.Message, state: FSMContext)
     birthdate = user_data[8]
     speciality_need = user_data[9]
     country = user_data[10]
+    phone = user_data[11]
 
     await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
                                                       f'<b>Cтрана</b> - {country}\n'
                                                       f'<b>Город, где находится исполнитель</b> - {city}\n'
                                                       f'<b>Общая информация</b> - {about}\n'
-                                                      f'<b>Дата рождения</b> - {birthdate}\n', parse_mode='HTML')
+                                                      f'<b>Дата рождения</b> - {birthdate}\n'
+                                                      f'<b>Телефон</b> - {phone}', parse_mode='HTML')
 
     us_spec = user_spec(tg_username)
     for item in us_spec:

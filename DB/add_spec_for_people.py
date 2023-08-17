@@ -20,18 +20,18 @@ def add_spec(id_user, spec_name, spec_about, spec_city, tg_username):
 
         with connection.cursor() as cursor:
             cursor.execute("""SELECT COUNT(*) FROM user_spec 
-                              WHERE tg_username = %(tg_username)s and spec_name = %(spec_name)s """,
-                           {'tg_username': tg_username, 'spec_name': spec_name})
+                              WHERE id_user = %(id_user)s and spec_name = %(spec_name)s """,
+                           {'id_user': id_user, 'spec_name': spec_name})
             alfa = cursor.fetchone()[0]
             print('У пользователя уже есть такая специальность, строк = ', alfa)
 
             if alfa > 0:
-                cursor.execute("""UPDATE user_spec SET spec_about = %(spec_about)s WHERE tg_username = %(tg_username)s 
+                cursor.execute("""UPDATE user_spec SET spec_about = %(spec_about)s WHERE id_user = %(id_user)s 
                                AND spec_name = %(spec_name)s AND spec_city = %(spec_city)s """,
-                               {'spec_about': spec_about, 'tg_username': tg_username, 'spec_name': spec_name,
+                               {'spec_about': spec_about, 'id_user': id_user, 'spec_name': spec_name,
                                 'spec_city': spec_city})
                 connection.commit()
-                print(f'[INFO] Connection user-speciality updated')
+                print(f'[INFO add_spec] Connection user-speciality updated')
 
             else:
                 cursor.execute("INSERT INTO user_spec"
@@ -45,13 +45,13 @@ def add_spec(id_user, spec_name, spec_about, spec_city, tg_username):
                 print(id_of_new_row)
 
                 connection.commit()
-                print(f'[INFO] Id for new connection user-speciality created - {id_of_new_row}')
+                print(f'[INFO add_spec] Id for new connection user-speciality created - {id_of_new_row}')
                 return id_of_new_row
 
     except Exception as _ex:
-        print('[INFO] Error while working with PostgreSQL', _ex)
+        print('[INFO add_spec] Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO] PostgreSQL connection close')
+            print('[INFO add_spec] PostgreSQL connection close')
