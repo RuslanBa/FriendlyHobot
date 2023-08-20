@@ -203,4 +203,4 @@ async def add_people8(message: types.Message, state: FSMContext):
 @dp.message_handler(state=states_edit_other)
 async def edit_self(message: types.Message, state: FSMContext):
     mess = message
-    await edit_any_user(new_people['tg_username'], mess, state)
+    await edit_any_user(new_people['id_user'], mess, state)

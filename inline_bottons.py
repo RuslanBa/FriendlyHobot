@@ -180,6 +180,7 @@ birthdate = InlineKeyboardButton(text='Дата рождения', callback_data
 spec_name = InlineKeyboardButton(text='Услуги и описание', callback_data='spec_name')
 
 Buenos_Aires = InlineKeyboardButton(text='Буэнос-Айрес', callback_data='Буэнос-Айрес')
+Puerto_Iguazu = InlineKeyboardButton(text='Пуэрто-Игуасу', callback_data='Пуэрто-Игуасу')
 
 tg = InlineKeyboardButton(text='Telegram id', callback_data='Telegram id')
 phone = InlineKeyboardButton(text='Телефон', callback_data='Телефон')
@@ -296,6 +297,7 @@ selfabout_fields.insert(birthdate)
 selfabout_fields.insert(spec_name)
 
 Cities.insert(Buenos_Aires)
+Cities.insert(Puerto_Iguazu)
 
 users_identifiers.insert(tg)
 users_identifiers.insert(phone)
@@ -342,4 +344,4 @@ list_driver_menu = ['']
 
 list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name']
 
-list_cities = ['Буэнос-Айрес']
+list_cities = ['Буэнос-Айрес', 'Пуэрто-Игуасу']
