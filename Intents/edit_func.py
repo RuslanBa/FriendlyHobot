@@ -29,4 +29,8 @@ async def edit_any_user(id_user, message: types.Message, state: FSMContext):
         await message.answer(f'Отлично, запомнил дату вашего рождения - {text}')
         change_fields(id_user, 'birthdate', text)
 
+    elif current_state == 'Edit:Edit_phone' or current_state == 'Other:Other_change_phone':
+        await message.answer(f'Отлично, запомнил номер телефона - {text}')
+        change_fields(id_user, 'phone', text)
+
     await take_user_data(id_user, message, state)

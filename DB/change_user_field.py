@@ -29,6 +29,8 @@ def change_fields(id_user, user_field, new_value):
                 request = """UPDATE users SET about = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'birthdate':
                 request = """UPDATE users SET birthdate = %(new_value)s WHERE id_user = %(id_user)s"""
+            elif user_field == 'phone':
+                request = """UPDATE users SET phone = %(new_value)s WHERE id_user = %(id_user)s"""
             cursor.execute(request,
                            {'id_user': id_user, 'user_field': user_field, 'new_value': new_value})
 

@@ -65,9 +65,9 @@ async def add_people3(message: types.Message, state: FSMContext):
     if check_user(new_username) > 0:
         await message.answer('Человек с таким id уже существует. Вот, что я о нем знаю')
         await Other.Other_change.set()
-        await take_user_data(new_username, message, state)  # Go to edit_self
         need_id = find_user_id(new_username)
         new_people.update({'id_user': need_id})
+        await take_user_data(need_id, message, state)  # Go to edit_self
 
     else:
         await message.answer(f'Отлично, запомнил Username - @{new_username}')

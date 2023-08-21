@@ -294,6 +294,7 @@ selfabout_fields.insert(country)
 selfabout_fields.insert(city)
 selfabout_fields.insert(about)
 selfabout_fields.insert(birthdate)
+selfabout_fields.insert(phone)
 selfabout_fields.insert(spec_name)
 
 Cities.insert(Buenos_Aires)
@@ -342,6 +343,6 @@ list_specialities = ['Аренда и продажа недвижимости', 
 list_driver_menu = ['']
 
 
-list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name']
+list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name', 'Телефон']
 
 list_cities = ['Буэнос-Айрес', 'Пуэрто-Игуасу']

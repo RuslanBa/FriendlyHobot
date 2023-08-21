@@ -42,6 +42,10 @@ async def list_fields1(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
         await Edit.Edit_birthdate.set()
 
+    elif field == 'Телефон':
+        await bot.send_message(message.from_user.id, text='Введите новый телефон')
+        await Edit.Edit_phone.set()
+
     elif field == 'spec_name':
         await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
                                reply_markup=Specialties)
