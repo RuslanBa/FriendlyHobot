@@ -24,6 +24,19 @@ async def answer(message: types.Message):
     await Find.Find_city.set()
 
 
+@dp.message_handler(state=Find.Find_city)
+async def answer1(message: types.Message):
+    add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
+    city = message.text
+    data_masters.update({'city': city})
+    number = find_people_by_city(city)
+    await bot.send_message(message.from_user.id,
+                           f'Отлично! В городе {city} в моей базе зарергистрировано {number} предложений от разных '
+                           f'специалистов. '
+                           f'\nВыберите категорию:', reply_markup=Specialties)
+    await Find.Find_spec.set()
+
+
 @dp.callback_query_handler(text=list_cities, state=Find.Find_city)
 async def answer2(message: types.Message):
     city = str(dict(message).get('data'))
