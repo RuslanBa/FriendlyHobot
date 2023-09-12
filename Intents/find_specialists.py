@@ -15,7 +15,7 @@ from aiogram.dispatcher.storage import FSMContext
 data_masters = {'city': None, 'spec_name': None}
 
 
-@dp.message_handler(text='Найти специалиста')
+@dp.message_handler(text='Найти исполнителя')
 async def answer(message: types.Message):
     add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
     await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)

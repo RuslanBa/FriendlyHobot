@@ -39,11 +39,11 @@ async def list_fields2(message: types.Message, state: FSMContext):
 
     elif field == 'birthdate':
         await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
-        await Other.Other_change_phone.set()
+        await Other.Other_change_birthday.set()
 
     elif field == 'Телефон':
         await bot.send_message(message.from_user.id, text='Введите телефон')
-        await Other.Other_change_birthday.set()
+        await Other.Other_change_phone.set()
 
     elif field == 'spec_name':
         await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
