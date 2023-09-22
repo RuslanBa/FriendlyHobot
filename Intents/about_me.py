@@ -67,14 +67,26 @@ async def answer2(message: types.Message, state: FSMContext):
     data_people.update({'name': name_new, 'tg_id': tg_id_new, 'tg_name': tg_name_new, 'tg_surname': tg_surname_new,
                         'tg_username': tg_username_new, 'country': 'Страна не указана', 'city': 'Город не указан'})
 
-    new_user_id = add_new_people(name_new, tg_id_new, tg_name_new, tg_surname_new, tg_username_new, 'Алания')
-    print('добавлен пользователь с id ', new_user_id)
-    data_people.update({'id_user': new_user_id})
+    if tg_username_new is None:
+        await bot.send_message(message.from_user.id, text='В вашем аккаунте не добавлено имя пользователя Telegram. '
+                                                          'Чтобы добавить свое предложение и показывать его другим '
+                                                          'пользователям это необходимо сделать.\n\n'
+                                                          'Это очень просто и займет 1 минуту. Зайдите в свой профиль '
+                                                          'в Telegram и нажмите "Выбрать имя пользователя", придумайте '
+                                                          'его и сохраните.\n\n'
+                                                          'После этого добавьте ваше предложение еще раз))\n\n'
+                                                          'В другом случае нажмите кнопку ниже "Главное меню" '
+                                                          'или "меню".')
+    else:
+        new_user_id = add_new_people(name_new, tg_id_new, tg_name_new, tg_surname_new, tg_username_new, 'Не указан',
+                                     'Не указан')
+        print('добавлен пользователь с id ', new_user_id)
+        data_people.update({'id_user': new_user_id})
 
-    await message.answer(f'Отлично, запомнил ваше имя - {name_new}')
-    await bot.send_message(message.from_user.id,
-                           text='В какой категории услуг вы можете быть полезным другим людям?',
-                           reply_markup=Specialties)
+        await message.answer(f'Отлично, запомнил ваше имя - {name_new}')
+        await bot.send_message(message.from_user.id,
+                               text='В какой категории услуг вы можете быть полезным другим людям?',
+                               reply_markup=Specialties)
     await About.AB_spec.set()
 
 

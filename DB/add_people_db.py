@@ -31,16 +31,18 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city, phone):
             print(id_of_new_row)
 
         connection.commit()
-        print(f'[INFO] New user created - id - {id_of_new_row}')
+        print(f'[INFO add_new_people] New user created - id - {id_of_new_row} '
+              f'with data: name - {name}, tg_id - {tg_id}, tg_name - {tg_name}, tg_surname - {tg_surname}, '
+              f'tg_username - {tg_username}, city - {city}, phone - {phone}')
         return id_of_new_row
 
     except Exception as _ex:
-        print('[INFO] Error while working with PostgreSQL', _ex)
+        print('[INFO add_new_people] Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO] PostgreSQL connection close')
+            print('[INFO add_new_people] PostgreSQL connection close')
 
 
 # Create new column with serial id ----------------------------------------------------------
