@@ -77,6 +77,8 @@ async def answer2(message: types.Message, state: FSMContext):
                                                           'После этого добавьте ваше предложение еще раз))\n\n'
                                                           'В другом случае нажмите кнопку ниже "Главное меню" '
                                                           'или "меню".')
+        await state.finish()
+
     else:
         new_user_id = add_new_people(name_new, tg_id_new, tg_name_new, tg_surname_new, tg_username_new, 'Не указан',
                                      'Не указан')
@@ -87,7 +89,7 @@ async def answer2(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id,
                                text='В какой категории услуг вы можете быть полезным другим людям?',
                                reply_markup=Specialties)
-    await About.AB_spec.set()
+        await About.AB_spec.set()
 
 
 @dp.callback_query_handler(text=list_specialities, state=About.AB_spec)
