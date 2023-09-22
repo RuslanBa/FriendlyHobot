@@ -5,7 +5,7 @@ from DB.add_log_db import add_new_log
 from bottons import admin_menu
 
 
-admin_id = [176221727, 1825401343]
+admin_id = [176221727]
 
 
 @dp.message_handler(text='О Friendly Hobot')
