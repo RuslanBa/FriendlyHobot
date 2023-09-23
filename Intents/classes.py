@@ -47,6 +47,10 @@ class Other(StatesGroup):
     Other_change_phone = State()
 
 
+class Feedback(StatesGroup):
+    Feedback_send = State()
+
+
 all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.AB_know, About.AB_about, About.AB_city,
               About.AB_edit, About.AB_edit_ok, About.AB_go_change,
               Find.Find_spec, Find.Find_city,
@@ -54,7 +58,8 @@ all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.A
               Other.Other_change, Other.Other_change_name, Other.Other_change_country, Other.Other_change_city,
               Other.Other_change_about, Other.Other_change_birthday, Other.Other_change_phone,
               Edit.Edit_name, Edit.Edit_country, Edit.Edit_city, Edit.Edit_about, Edit.Edit_birthdate, Edit.Edit_phone,
-              Edit.Edit_spec_name, Edit.Edit_spec_about]
+              Edit.Edit_spec_name, Edit.Edit_spec_about,
+              Feedback.Feedback_send]
 
 states_edit_self = [Edit.Edit_name, Edit.Edit_country, Edit.Edit_city, Edit.Edit_about, Edit.Edit_birthdate,
                     Edit.Edit_spec_name, Edit.Edit_phone, Edit.Edit_spec_about, About.AB_know, About.AB_about,

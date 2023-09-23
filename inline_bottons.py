@@ -9,6 +9,7 @@ save_self = InlineKeyboardMarkup(row_width=1)
 save_other = InlineKeyboardMarkup(row_width=1)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
 users_identifiers = InlineKeyboardMarkup(row_width=1)
+feedback = InlineKeyboardMarkup(row_width=1)
 
 
 # Menu of specialities ---------------------------------------------------------------------------------
@@ -185,6 +186,8 @@ Puerto_Iguazu = InlineKeyboardButton(text='Пуэрто-Игуасу', callback_
 tg = InlineKeyboardButton(text='Telegram id', callback_data='Telegram id')
 phone = InlineKeyboardButton(text='Телефон', callback_data='Телефон')
 
+feedback_button = InlineKeyboardButton(text='Написать разработчикам', callback_data='Написать разработчикам')
+
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -302,6 +305,8 @@ Cities.insert(Puerto_Iguazu)
 
 users_identifiers.insert(tg)
 users_identifiers.insert(phone)
+
+feedback.insert(feedback_button)
 
 
 # Листы ответов ---------------------------------------------------------------------------------
