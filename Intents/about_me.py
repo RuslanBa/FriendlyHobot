@@ -2,10 +2,10 @@ from aiogram import types
 from loader import dp, bot
 from inline_bottons import yes_no, list_yes_no, Specialties, Cities, list_specialities, list_cities, Driver_menu, \
      Food_services_menu, Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, \
-     Housekeepers_menu, Photo_video_audio_menu, Language_menu
+     Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu
 from bottons import menu_start, menu_main
 from aiogram.dispatcher.storage import FSMContext
-from Intents.classes import About
+from classes import About
 from DB.add_people_db import add_new_people
 from DB.add_log_db import add_new_log
 from DB.add_spec_for_people import add_spec
@@ -129,6 +129,9 @@ async def answer3(message: types.Message, state: FSMContext):
     elif spec_name == 'Фото, видео, аудио':
         await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
 
+    elif spec_name == 'Юриcты, переводы, бухгалтерия':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
+
     else:
         data_speciality.update({'spec_name': spec_name})
         await bot.send_message(message.from_user.id, f'Хорошо, запомнил вашу специализацию - {spec_name}')
@@ -159,7 +162,7 @@ async def answer5(message: types.Message, state: FSMContext):
     add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
 
     await bot.send_message(message.from_user.id, 'Давайте посмотрим, что я теперь о вас знаю')
-    await take_user_data(tg_username, message, state)
+    await take_user_data(data_people['id_user'], message, state)
 
 
 @dp.message_handler(state=About.AB_city)

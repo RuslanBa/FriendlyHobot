@@ -42,15 +42,15 @@ def user_data_by_id(id_user):
                    speciality_need, country, phone
 
         connection.commit()
-        print(f'[INFO] Connection to users commit')
+        print(f'[INFO user_data_by_id] Connection to users commit')
 
     except Exception as _ex:
-        print('[INFO] Error while working with PostgreSQL', _ex)
+        print('[INFO user_data_by_id] Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO] PostgreSQL connection close')
+            print('[INFO user_data_by_id] PostgreSQL connection close')
 
 
 def user_spec(tg_username):
@@ -77,20 +77,21 @@ def user_spec(tg_username):
             for row in user_data:
                 spec_name = row[1]
                 spec_about = row[4]
-                uu = {'name': spec_name, 'about': spec_about}
+                spec_id = row[6]
+                uu = {'name': spec_name, 'about': spec_about, 'spec_id': spec_id}
                 result.append(uu)
             return result
 
         connection.commit()
-        print(f'[INFO] Connection to user information commit')
+        print(f'[INFO user_spec] Connection to user information commit')
 
     except Exception as _ex:
-        print('[INFO] Error while working with PostgreSQL', _ex)
+        print('[INFO user_spec] Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO] PostgreSQL connection close')
+            print('[INFO user_spec] PostgreSQL connection close')
 
 
 # print(user_data_tg('176221727'))

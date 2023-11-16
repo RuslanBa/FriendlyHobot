@@ -5,10 +5,10 @@ from DB.add_log_db import add_new_log
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
 from DB.find_quan_people_by_city import find_people_by_city
-from Intents.classes import Find
+from classes import Find
 from inline_bottons import Specialties, Cities, list_specialities, list_cities, Driver_menu, Food_services_menu, \
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
-     Photo_video_audio_menu, Language_menu
+     Photo_video_audio_menu, Language_menu, Lawyer_menu
 from aiogram.dispatcher.storage import FSMContext
 
 
@@ -87,6 +87,9 @@ async def answer3(message: types.Message, state: FSMContext):
 
     elif spec_name == 'Фото, видео, аудио':
         await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+
+    elif spec_name == 'Юриcты, переводы, бухгалтерия':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
 
     else:
         await show_specialists_by_filter(spec_name, state, message)

@@ -5,11 +5,11 @@ from DB.add_log_db import add_new_log
 from DB.add_people_db import add_new_people
 from DB.check_user_in_db import check_user
 from DB.find_id_by_username import find_user_id
-from Intents.classes import Other, states_edit_other
+from classes import Other, states_edit_other
 from Intents.edit_self import edit_any_user
 from inline_bottons import Specialties, list_specialities, Driver_menu, Food_services_menu, Beauty_menu, Events_menu, \
      Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, Photo_video_audio_menu, \
-     Language_menu, Cities, list_cities, users_identifiers, list_identifiers
+     Language_menu, Cities, list_cities, users_identifiers, list_identifiers, Lawyer_menu
 from Intents.show_user_data import take_user_data
 from aiogram.dispatcher.storage import FSMContext
 from DB.add_spec_for_people import add_spec
@@ -25,7 +25,8 @@ data_speciality = {'spec_name': '-', 'spec_city': '-', 'spec_about': '-', 'tg_us
 @dp.message_handler(text='Добавить/изменить другого')
 async def add_people(message: types.Message):
     add_new_log(message.from_user.id, message.from_user.username, 'add people"')
-    await message.answer('Пользователя можно добавить, указав какой-то идентификатор', reply_markup=menu_main)
+    await message.answer('Пользователя можно добавить или отредактировать, указав какой-то идентификатор',
+                         reply_markup=menu_main)
     await bot.send_message(message.from_user.id, text='Выберите идентификатор для нового пользователя: ',
                            reply_markup=users_identifiers)
     await Other.Other_identifiers.set()
@@ -142,6 +143,9 @@ async def add_people5(message: types.Message, state: FSMContext):
 
     elif spec_name == 'Фото, видео, аудио':
         await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+
+    elif spec_name == 'Юриcты, переводы, бухгалтерия':
+        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
 
     else:
         data_speciality.update({'spec_name': spec_name})

@@ -1,8 +1,8 @@
-from inline_bottons import list_fields, Specialties, selfabout_fields
+from inline_bottons import list_self, Specialties, selfabout_fields
 from bottons import menu_start
 from loader import dp, bot
 from aiogram import types
-from Intents.classes import Edit, About, Other, all_states, states_edit_self, states_edit_other
+from classes import Edit, About, all_states, states_edit_self, states_pers_data_edit
 from Intents.edit_func import edit_any_user
 from aiogram.dispatcher.storage import FSMContext
 from DB.add_log_db import add_new_log
@@ -17,7 +17,7 @@ async def answer9(message: types.Message):
                            reply_markup=selfabout_fields)
 
 
-@dp.callback_query_handler(text=list_fields, state=states_edit_self)
+@dp.callback_query_handler(text=list_self, state=states_edit_self)
 async def list_fields1(message: types.Message, state: FSMContext):
     """ Edit self information from button edit """
     field = str(dict(message).get('data'))
@@ -46,20 +46,22 @@ async def list_fields1(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, text='Введите новый телефон')
         await Edit.Edit_phone.set()
 
-    elif field == 'spec_name':
-        await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
-                               reply_markup=Specialties)
-        await About.AB_spec.set()
-
     else:
         await bot.send_message(message.from_user.id, text='Отлично! Возвращаемся в главное меню',
                                reply_markup=menu_start)
         await state.finish()
 
 
-@dp.message_handler(state=states_edit_self)
+@dp.message_handler(state=states_pers_data_edit)
 async def edit_self(message: types.Message, state: FSMContext):
     username = str(message.from_user.username)
     id_user = find_user_id(username)
     mess = message
     await edit_any_user(id_user, mess, state)  # go to edit_func
+
+
+@dp.callback_query_handler(text='spec_name', state=states_edit_self)
+async def list_fields1(message: types.Message, state: FSMContext):
+    await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
+                           reply_markup=Specialties)
+    await About.AB_spec.set()

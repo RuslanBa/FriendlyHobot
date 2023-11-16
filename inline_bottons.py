@@ -5,11 +5,12 @@ import emoji
 
 Cities = InlineKeyboardMarkup(row_width=1)
 yes_no = InlineKeyboardMarkup(row_width=1)
-save_self = InlineKeyboardMarkup(row_width=1)
-save_other = InlineKeyboardMarkup(row_width=1)
+save_self = InlineKeyboardMarkup(row_width=2)
+save_other = InlineKeyboardMarkup(row_width=2)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
 users_identifiers = InlineKeyboardMarkup(row_width=1)
 feedback = InlineKeyboardMarkup(row_width=1)
+add_service_menu = InlineKeyboardMarkup(row_width=1)
 
 
 # Menu of specialities ---------------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Equipment_repair = InlineKeyboardButton(text='Ремонт техники', call
 Tutor = InlineKeyboardButton(text='Репетиторы и обучение', callback_data='Репетиторы и обучение')
 Housekeepers = InlineKeyboardButton(text='Уборка и помощь по хозяйству', callback_data='Уборка и помощь по хозяйству')
 Photo_video_audio = InlineKeyboardButton(text='Фото, видео, аудио', callback_data='Фото, видео, аудио')
-Lawyer = InlineKeyboardButton(text='Юридическая и бух. помощь', callback_data='Юридическая и бух. помощь')
+Lawyer = InlineKeyboardButton(text='Юриcты, переводы, бухгалтерия', callback_data='Юриcты, переводы, бухгалтерия')
 
 
 # Beauty menu buttons ----------------------------------------------------------------------------------------
@@ -119,7 +120,9 @@ Other_drivers = InlineKeyboardButton(text='Другие авто услуги', 
 # Lawyer menu buttons ----------------------------------------------------------------------------------------
 
 Legalization = InlineKeyboardButton(text='Помощь в легализации', callback_data='Помощь в легализации')
-Notary = InlineKeyboardButton(text='Нотариальные услуги', callback_data='Нотариальные услуги')
+Translators = InlineKeyboardButton(text='Переводчики и нотариусы', callback_data='Переводчики и нотариусы')
+Bankruptcy = InlineKeyboardButton(text='Услуги по банкротству', callback_data='Услуги по банкротству')
+Bank_services = InlineKeyboardButton(text='Банковские услуги', callback_data='Банковские услуги')
 Other_lawyer = InlineKeyboardButton(text='Другие юр. и бух. услуги', callback_data='Другие юр. и бух. услуги')
 
 
@@ -148,7 +151,7 @@ Other_foto_video = InlineKeyboardButton(text='Другие фото-видео-�
 
 # Helpers menu buttons ----------------------------------------------------------------------------------
 
-Babysitter = InlineKeyboardButton(text='Няни', callback_data='Няня')
+Babysitter = InlineKeyboardButton(text='Няни', callback_data='Няни')
 Nurse = InlineKeyboardButton(text='Сиделки', callback_data='Сиделки')
 Dog_walking = InlineKeyboardButton(text='Выгул собак', callback_data='Выгул собак')
 Animal_care = InlineKeyboardButton(text='Уход за животными', callback_data='Уход за животными')
@@ -169,8 +172,8 @@ Other_languages = InlineKeyboardButton(text='Другие языки', callback_
 yes = InlineKeyboardButton(text='Да', callback_data='yes')
 no = InlineKeyboardButton(text='Нет', callback_data='no')
 
-edit_self = InlineKeyboardButton(text='Редактировать', callback_data='edit_self')
-edit_other = InlineKeyboardButton(text='Редактировать', callback_data='edit_other')
+edit_self = InlineKeyboardButton(text='Изменить данные', callback_data='edit_self')
+edit_other = InlineKeyboardButton(text='Изменить данные', callback_data='edit_other')
 dont_change = InlineKeyboardButton(text='Оставляем так', callback_data='dont_change')
 
 name = InlineKeyboardButton(text='Имя', callback_data='name')
@@ -178,7 +181,7 @@ about = InlineKeyboardButton(text='О себе', callback_data='about')
 country = InlineKeyboardButton(text='Страна', callback_data='country')
 city = InlineKeyboardButton(text='Город', callback_data='city')
 birthdate = InlineKeyboardButton(text='Дата рождения', callback_data='birthdate')
-spec_name = InlineKeyboardButton(text='Услуги и описание', callback_data='spec_name')
+spec_name = InlineKeyboardButton(text='Добавить услугу', callback_data='spec_name')
 
 Buenos_Aires = InlineKeyboardButton(text='Буэнос-Айрес', callback_data='Буэнос-Айрес')
 Puerto_Iguazu = InlineKeyboardButton(text='Пуэрто-Игуасу', callback_data='Пуэрто-Игуасу')
@@ -204,7 +207,6 @@ Specialties.insert(Tutor)
 Specialties.insert(Housekeepers)
 Specialties.insert(Photo_video_audio)
 Specialties.insert(Lawyer)
-
 
 Driver_menu.insert(Trucking)
 Driver_menu.insert(Transfer)
@@ -273,8 +275,10 @@ Photo_video_audio_menu.insert(Video_editing)
 Photo_video_audio_menu.insert(Photo_editing)
 Photo_video_audio_menu.insert(Other_foto_video)
 
+Lawyer_menu.insert(Translators)
 Lawyer_menu.insert(Legalization)
-Lawyer_menu.insert(Notary)
+Lawyer_menu.insert(Bank_services)
+Lawyer_menu.insert(Bankruptcy)
 Lawyer_menu.insert(Other_lawyer)
 
 Language_menu.insert(Russian)
@@ -287,10 +291,12 @@ yes_no.insert(yes)
 yes_no.insert(no)
 
 save_self.insert(edit_self)
-save_self.insert(dont_change)
+save_self.insert(spec_name)
 
 save_other.insert(edit_other)
-save_other.insert(dont_change)
+save_other.insert(spec_name)
+
+add_service_menu.insert(dont_change)
 
 selfabout_fields.insert(name)
 selfabout_fields.insert(country)
@@ -298,10 +304,8 @@ selfabout_fields.insert(city)
 selfabout_fields.insert(about)
 selfabout_fields.insert(birthdate)
 selfabout_fields.insert(phone)
-selfabout_fields.insert(spec_name)
 
 Cities.insert(Buenos_Aires)
-Cities.insert(Puerto_Iguazu)
 
 users_identifiers.insert(tg)
 users_identifiers.insert(phone)
@@ -318,7 +322,7 @@ list_yes_no = ['yes', 'no']
 list_specialities = ['Аренда и продажа недвижимости', 'Водители / перевозки / авто', 'Доставка и приготовление еды',
                      'Красота и здоровье', 'Мероприятия', 'Обмен валюты', 'Помощь с детьми и близкими',
                      'Ремонт и строительство', 'Ремонт техники', 'Репетиторы и обучение',
-                     'Уборка и помощь по хозяйству', 'Фото, видео, аудио', 'Юридическая и бух. помощь',
+                     'Уборка и помощь по хозяйству', 'Фото, видео, аудио', 'Юриcты, переводы, бухгалтерия',
                      'Косметологи', 'Эпиляция', 'Брови и ресницы', 'Визажисты', 'Тату и пирсинг',
                      'Парикмахеры, стилисты', 'Маникюр', 'Массаж', 'Психологи и психотерапевты',
                      'Персональные тренеры', 'Другие бьюти услуги',
@@ -330,7 +334,8 @@ list_specialities = ['Аренда и продажа недвижимости', 
                      'Работы в саду, на участке', 'Мытье окон', 'Другие работы по дому',
                      'Доставка готовой еды', 'Приготовление еды дома', 'Кейтеринг', 'Другие услуги с едой',
                      'Грузоперевозки', 'Трансферы', 'Прокат авто', 'Другие авто услуги',
-                     'Помощь в легализации', 'Нотариальные услуги', 'Другие юр. и бух. услуги',
+                     'Помощь в легализации', 'Другие юр. и бух. услуги', 'Банковские услуги',
+                     'Переводчики и нотариусы', 'Услуги по банкротству',
                      'Ведущие и аниматоры', 'Помощь на мероприятиях',
                      'Планшеты и телефоны', 'Комьютеры и ноутбуки', 'Бытовая техника',
                      'Фотосъемка', 'Видеосъемка', 'Монтаж видео', 'Обработка фотографий',
@@ -339,15 +344,29 @@ list_specialities = ['Аренда и продажа недвижимости', 
                      'Русский язык и литература', 'Английский', 'Испанский', 'Турецкий', 'Другие языки']
 
 
-# list_specialities = ['Аренда и продажа недвижимости', 'Водители / перевозки / авто', 'Доставка и приготовление еды',
-#                      'Красота и здоровье', 'Мероприятия', 'Обмен валюты', 'Помощь с детьми и близкими',
-#                      'Ремонт и строительство', 'Ремонт техники', 'Репетиторы и обучение',
-#                      'Уборка и помощь по хозяйству', 'Фото, видео, аудио', 'Юридическая и бух. помощь']
-
-
 list_driver_menu = ['']
 
 
-list_fields = ['name', 'country', 'city', 'about', 'birthdate', 'spec_name', 'Телефон']
+list_self = ['name', 'country', 'city', 'about', 'birthdate', 'Телефон']
 
 list_cities = ['Буэнос-Айрес', 'Пуэрто-Игуасу']
+
+
+# Программируемые кнопки ---------------------------------------------------------------------------------
+
+def edit_services_btn(spec_id, id_user):
+
+    edit_spec = InlineKeyboardMarkup(row_width=2)
+
+    btn_edit = f'btn_edit_{spec_id}_{id_user}'
+    btn_delete = f'btn_delete_{spec_id}_{id_user}'
+
+    print('Выведены кнопки ', btn_edit, btn_delete)
+
+    delete_one_spec = InlineKeyboardButton(text='Удалить услугу', callback_data=btn_delete)
+    edit_one_spec = InlineKeyboardButton(text='Изменить описание', callback_data=btn_edit)
+
+    edit_spec.insert(delete_one_spec)
+    edit_spec.insert(edit_one_spec)
+
+    return edit_spec

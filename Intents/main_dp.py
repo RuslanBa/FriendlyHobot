@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from Intents.classes import all_states
-from bottons import menu_start, menu_main
+from classes import all_states
+from bottons import menu_start
 from loader import bot, dp
 
 

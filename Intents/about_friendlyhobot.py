@@ -4,7 +4,7 @@ from loader import dp, bot
 from inline_bottons import feedback
 from DB.add_log_db import add_new_log
 from bottons import admin_menu
-from Intents.classes import Feedback
+from classes import Feedback
 
 
 admin_id = [176221727]
