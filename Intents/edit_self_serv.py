@@ -7,6 +7,7 @@ from bottons import menu_start
 from DB.find_id_by_username import find_user_id
 from Intents.show_user_data import take_user_data
 from DB.edit_spec_db import edit_spec
+from Checks_text.Check_info_about import check_info_about
 
 
 data_need = {'id_user': None, 'spec_id': None}
@@ -29,6 +30,7 @@ async def edit_serv1(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Edit.Edit_spec_about)
 async def edit_serv2(message: types.Message, state: FSMContext):
     text = str(message.text)
+    text = check_info_about(text)
 
     print(f'Task for change {data_need}')
     edit_spec(data_need['id_user'], data_need['spec_id'], text)

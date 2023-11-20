@@ -7,7 +7,7 @@ from bottons import admin_menu
 from classes import Feedback
 
 
-admin_id = [176221727]
+admin_id = [176221727, 5939780351]
 
 
 @dp.message_handler(text='О Friendly Hobot')
