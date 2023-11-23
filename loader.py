@@ -12,3 +12,6 @@ bot = Bot(token=os.getenv("TOKEN"))
 
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
+
+
+admin_id = [176221727, 5939780351]

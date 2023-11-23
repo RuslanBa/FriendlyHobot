@@ -5,9 +5,7 @@ from inline_bottons import feedback
 from DB.add_log_db import add_new_log
 from bottons import admin_menu
 from classes import Feedback
-
-
-admin_id = [176221727, 5939780351]
+from loader import admin_id
 
 
 @dp.message_handler(text='О Friendly Hobot')

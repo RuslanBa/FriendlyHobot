@@ -51,6 +51,7 @@ class Other(StatesGroup):
     Other_change_about = State()
     Other_change_birthday = State()
     Other_change_phone = State()
+    Other_catalog = State()
 
 
 class Feedback(StatesGroup):
@@ -62,7 +63,7 @@ all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.A
               Find.Find_spec, Find.Find_city,
               Other.Other_tg, Other.Other_name, Other.Other_spec, Other.Other_spec_about, Other.Other_spec_city,
               Other.Other_change, Other.Other_change_name, Other.Other_change_country, Other.Other_change_city,
-              Other.Other_change_about, Other.Other_change_birthday, Other.Other_change_phone,
+              Other.Other_change_about, Other.Other_change_birthday, Other.Other_change_phone, Other.Other_catalog,
               Edit.Edit_name, Edit.Edit_country, Edit.Edit_city, Edit.Edit_about, Edit.Edit_birthdate, Edit.Edit_phone,
               Edit.New_spec_name, Edit.New_spec_about, Edit.Edit_spec_about,
               Feedback.Feedback_send,
@@ -83,9 +84,9 @@ states_pers_data_edit = [Edit.Edit_name, Edit.Edit_country, Edit.Edit_city, Edit
 
 states_edit_other = [Other.Other_change_name, Other.Other_change_country, Other.Other_change_city,
                      Other.Other_change_about, Other.Other_change_birthday, Other.Other_change, Other.Other_spec_about,
-                     Other.Other_spec_city, Other.Other_change_phone, Delete.Delete_other_spec]
+                     Other.Other_spec_city, Other.Other_change_phone, Other.Other_catalog, Delete.Delete_other_spec]
 
 states_edit_other_list = ['Other:Other_change_name', 'Other:Other_change_country', 'Other:Other_change_city',
                           'Other:Other_change_about', 'Other:Other_change_birthday', 'Other:Other_change',
                           'Other:Other_spec_about', 'Other:Other_spec_city', 'Other:Other_change_phone',
-                          'Delete:Delete_other_spec']
+                          'Other:Other_catalog', 'Delete:Delete_other_spec']

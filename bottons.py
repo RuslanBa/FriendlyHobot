@@ -32,7 +32,7 @@ admin_menu = ReplyKeyboardMarkup(
             KeyboardButton(text='Ваши услуги и резюме')
         ],
         [
-            KeyboardButton(text="Посмотреть запросы"),
+            KeyboardButton(text="Редактировать в каталоге"),
             KeyboardButton(text='Добавить/изменить другого'),
             KeyboardButton(text='О Friendly Hobot')
         ]

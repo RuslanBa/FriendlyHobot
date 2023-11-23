@@ -10,14 +10,29 @@ from inline_bottons import Specialties, Cities, list_specialities, list_cities, 
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
      Photo_video_audio_menu, Language_menu, Lawyer_menu
 from aiogram.dispatcher.storage import FSMContext
+from Intents.show_catalog import show_specialists_by_filter
+from Intents_admin.show_catalog_admin import catalog_for_admin
+from loader import admin_id
 
 
-data_masters = {'city': None, 'spec_name': None}
+data_masters = {'user': None, 'city': None, 'spec_name': None}
 
 
 @dp.message_handler(text='Найти исполнителя')
 async def answer(message: types.Message):
     add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
+    await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
+    await message.answer(text='В каком городе вы ищете исполнителя? (пока я могу поискать только ним)',
+                         reply_markup=Cities)
+    await Find.Find_city.set()
+
+
+@dp.message_handler(text='Редактировать в каталоге')
+async def answer_adm(message: types.Message):
+    add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
+    id = message.from_user.id
+    if id in admin_id:
+        data_masters.update({'user': 'admin'})
     await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
     await message.answer(text='В каком городе вы ищете исполнителя? (пока я могу поискать только ним)',
                          reply_markup=Cities)
@@ -92,43 +107,11 @@ async def answer3(message: types.Message, state: FSMContext):
         await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
 
     else:
-        await show_specialists_by_filter(spec_name, state, message)
+        data_masters.update({'spec_name': spec_name})
 
-
-async def show_specialists_by_filter(spec_name, state: FSMContext, message):
-
-    data_masters.update({'spec_name': spec_name})
-    print('Пользователь ищет - ', data_masters)
-
-    base_data = find_masters(data_masters['city'], data_masters['spec_name'])
-    print('these people was found -', base_data)
-
-    if base_data[0] == 'n':
-        await bot.send_message(message.from_user.id, text='Никого не нашел. Попробуйте позже. '
-                                                          'Возвращаемся в главное меню', reply_markup=menu_start)
-
-    else:
-        for item in base_data:
-            id_user = int(item[0])
-            spec_name = item[1]
-            spec_about = item[4]
-            user_data = find_people(id_user)
-            name = user_data[0]
-            tg_username = user_data[4]
-            about = user_data[5]
-            archetype = user_data[6]
-            city = user_data[7]
-            birthdate = user_data[8]
-            country = user_data[10]
-            phone = user_data[11]
-
-            await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
-                                                              f'<b>Cтрана</b> - {country}\n'
-                                                              f'<b>Город</b> - {city}\n'
-                                                              f'<b>О специалисте</b> - {about}\n'
-                                                              f'<b>Услуга</b> - {spec_name}\n'
-                                                              f'<b>Описание услуги</b>:\n{spec_about}\n'
-                                                              f'<b>Телефон</b>:{phone}\n'
-                                                              f'<b>Написать специалисту</b> - @{tg_username}',
-                                   parse_mode="HTML")
-    await state.finish()
+        if data_masters['user'] == 'admin':
+            print('Администратор ищет - ', data_masters)
+            await catalog_for_admin(spec_name, data_masters['city'], state, message)
+        else:
+            print('Пользователь ищет - ', data_masters)
+            await show_specialists_by_filter(spec_name, data_masters['city'], state, message)
