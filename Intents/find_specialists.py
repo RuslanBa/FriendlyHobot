@@ -16,14 +16,19 @@ from loader import admin_id
 
 
 data_masters = {'user': None, 'city': None, 'spec_name': None}
+msg_id = []
 
 
 @dp.message_handler(text='Найти исполнителя')
 async def answer(message: types.Message):
     add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
     await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
-    await message.answer(text='В каком городе вы ищете исполнителя? (пока я могу поискать только ним)',
-                         reply_markup=Cities)
+    aaa = await message.answer(text='В каком городе вы ищете исполнителя?',
+                               reply_markup=Cities)
+
+    msg_id.clear()
+    msg_id.append(aaa.message_id)
+
     await Find.Find_city.set()
 
 
@@ -34,8 +39,11 @@ async def answer_adm(message: types.Message):
     if id in admin_id:
         data_masters.update({'user': 'admin'})
     await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
-    await message.answer(text='В каком городе вы ищете исполнителя? (пока я могу поискать только ним)',
-                         reply_markup=Cities)
+    aaa = await message.answer(text='В каком городе вы ищете исполнителя?', reply_markup=Cities)
+
+    msg_id.clear()
+    msg_id.append(aaa.message_id)
+
     await Find.Find_city.set()
 
 
@@ -45,10 +53,16 @@ async def answer1(message: types.Message):
     city = message.text
     data_masters.update({'city': city})
     number = find_people_by_city(city)
-    await bot.send_message(message.from_user.id,
+
+    await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+    msg_id.clear()
+
+    aaa = await bot.send_message(message.from_user.id,
                            f'Отлично! В городе {city} в моей базе зарергистрировано {number} предложений от разных '
                            f'специалистов. '
                            f'\nВыберите категорию:', reply_markup=Specialties)
+    msg_id.append(aaa.message_id)
+
     await Find.Find_spec.set()
 
 
@@ -57,10 +71,16 @@ async def answer2(message: types.Message):
     city = str(dict(message).get('data'))
     data_masters.update({'city': city})
     number = find_people_by_city(city)
-    await bot.send_message(message.from_user.id,
+
+    await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+    msg_id.clear()
+
+    aaa = await bot.send_message(message.from_user.id,
                            f'Отлично! В городе {city} в моей базе зарергистрировано {number} предложений от разных '
                            f'специалистов. '
                            f'\nВыберите категорию:', reply_markup=Specialties)
+    msg_id.append(aaa.message_id)
+
     await Find.Find_spec.set()
 
 
@@ -70,47 +90,64 @@ async def answer3(message: types.Message, state: FSMContext):
 
     print('spec_name=', spec_name)
 
+    if msg_id:
+        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+        msg_id.clear()
+
     if spec_name == 'Водители / перевозки / авто':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Доставка и приготовление еды':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Красота и здоровье':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Мероприятия':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Помощь с детьми и близкими':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Ремонт и строительство':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Ремонт техники':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Репетиторы и обучение':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Языки':
-        await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Уборка и помощь по хозяйству':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Фото, видео, аудио':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Юриcты, переводы, бухгалтерия':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
+        msg_id.append(aaa.message_id)
 
     else:
         data_masters.update({'spec_name': spec_name})
 
         if data_masters['user'] == 'admin':
             print('Администратор ищет - ', data_masters)
+            data_masters.update({'user': None})
             await catalog_for_admin(spec_name, data_masters['city'], state, message)
         else:
             print('Пользователь ищет - ', data_masters)
