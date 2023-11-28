@@ -14,4 +14,4 @@ storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
 
-admin_id = [176221727]
+admin_id = [176221727, 351191999]
