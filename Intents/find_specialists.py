@@ -58,7 +58,7 @@ async def answer1(message: types.Message):
     msg_id.clear()
 
     aaa = await bot.send_message(message.from_user.id,
-                           f'Отлично! В городе {city} в моей базе зарергистрировано {number} предложений от разных '
+                           f'Отлично! В городе {city} в моей базе зарегистрировано {number} предложений от разных '
                            f'специалистов. '
                            f'\nВыберите категорию:', reply_markup=Specialties)
     msg_id.append(aaa.message_id)

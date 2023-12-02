@@ -15,6 +15,7 @@ async def catalog_for_admin(spec_name, city, state: FSMContext, message):
     if base_data[0] == 'n':
         await bot.send_message(message.from_user.id, text='Никого не нашел. Попробуйте позже. '
                                                           'Возвращаемся в главное меню', reply_markup=menu_start)
+        await state.finish()
 
     else:
         await Other.Other_catalog.set()
