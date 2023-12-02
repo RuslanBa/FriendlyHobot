@@ -191,6 +191,7 @@ phone = InlineKeyboardButton(text='Телефон', callback_data='Телефо�
 
 feedback_button = InlineKeyboardButton(text='Написать разработчикам', callback_data='Написать разработчикам')
 
+back_button = InlineKeyboardButton(text='⏪⏪⏪ Назад', callback_data='Назад')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -207,16 +208,19 @@ Specialties.insert(Tutor)
 Specialties.insert(Housekeepers)
 Specialties.insert(Photo_video_audio)
 Specialties.insert(Lawyer)
+Specialties.insert(back_button)
 
 Driver_menu.insert(Trucking)
 Driver_menu.insert(Transfer)
 Driver_menu.insert(Rent_auto)
 Driver_menu.insert(Other_drivers)
+Driver_menu.insert(back_button)
 
 Food_services_menu.insert(Catering_ready)
 Food_services_menu.insert(Cooking)
 Food_services_menu.insert(Catering)
 Food_services_menu.insert(Other_food_delivery)
+Food_services_menu.insert(back_button)
 
 Beauty_menu.insert(Beauticians)
 Beauty_menu.insert(Epilation)
@@ -229,24 +233,29 @@ Beauty_menu.insert(Massage)
 Beauty_menu.insert(Psychologist)
 Beauty_menu.insert(Personal_trainer)
 Beauty_menu.insert(Other_beauty)
+Beauty_menu.insert(back_button)
 
 Events_menu.insert(Animators)
 Events_menu.insert(Events_help)
+Events_menu.insert(back_button)
 
 Helper_menu.insert(Babysitter)
 Helper_menu.insert(Nurse)
 Helper_menu.insert(Dog_walking)
 Helper_menu.insert(Animal_care)
 Helper_menu.insert(Other_helpers)
+Helper_menu.insert(back_button)
 
 Repair_menu.insert(Serviceman)
 Repair_menu.insert(Furniture_assembly)
 Repair_menu.insert(House_repair)
 Repair_menu.insert(Other_repair)
+Repair_menu.insert(back_button)
 
 Equipment_repair_menu.insert(Phone_repair)
 Equipment_repair_menu.insert(Computer_repair)
 Equipment_repair_menu.insert(Appliances_repair)
+Equipment_repair_menu.insert(back_button)
 
 Tutor_menu.insert(Languages)
 Tutor_menu.insert(Mathematics_physics)
@@ -259,6 +268,7 @@ Tutor_menu.insert(Music_dance_art)
 Tutor_menu.insert(Speech_therapists)
 Tutor_menu.insert(Sport)
 Tutor_menu.insert(Other_tutors)
+Tutor_menu.insert(back_button)
 
 Housekeepers_menu.insert(Cleaning)
 Housekeepers_menu.insert(Sanitary)
@@ -268,24 +278,28 @@ Housekeepers_menu.insert(Ironing)
 Housekeepers_menu.insert(Garden)
 Housekeepers_menu.insert(Window_cleaning)
 Housekeepers_menu.insert(Other_housekeepers)
+Housekeepers_menu.insert(back_button)
 
 Photo_video_audio_menu.insert(Photography)
 Photo_video_audio_menu.insert(Videography)
 Photo_video_audio_menu.insert(Video_editing)
 Photo_video_audio_menu.insert(Photo_editing)
 Photo_video_audio_menu.insert(Other_foto_video)
+Photo_video_audio_menu.insert(back_button)
 
 Lawyer_menu.insert(Translators)
 Lawyer_menu.insert(Legalization)
 Lawyer_menu.insert(Bank_services)
 Lawyer_menu.insert(Bankruptcy)
 Lawyer_menu.insert(Other_lawyer)
+Lawyer_menu.insert(back_button)
 
 Language_menu.insert(Russian)
 Language_menu.insert(English)
 Language_menu.insert(Spanish)
 Language_menu.insert(Turkish)
 Language_menu.insert(Other_languages)
+Language_menu.insert(back_button)
 
 yes_no.insert(yes)
 yes_no.insert(no)

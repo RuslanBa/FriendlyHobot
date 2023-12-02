@@ -5,7 +5,7 @@ from DB.add_log_db import add_new_log
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
 from DB.find_quan_people_by_city import find_people_by_city
-from classes import Find
+from classes import Find, all_states
 from inline_bottons import Specialties, Cities, list_specialities, list_cities, Driver_menu, Food_services_menu, \
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
      Photo_video_audio_menu, Language_menu, Lawyer_menu
@@ -94,6 +94,8 @@ async def answer3(message: types.Message, state: FSMContext):
         await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
         msg_id.clear()
 
+    data_masters.update({'spec_name': spec_name})
+
     if spec_name == 'Водители / перевозки / авто':
         aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
         msg_id.append(aaa.message_id)
@@ -143,8 +145,6 @@ async def answer3(message: types.Message, state: FSMContext):
         msg_id.append(aaa.message_id)
 
     else:
-        data_masters.update({'spec_name': spec_name})
-
         if data_masters['user'] == 'admin':
             print('Администратор ищет - ', data_masters)
             data_masters.update({'user': None})
@@ -152,3 +152,20 @@ async def answer3(message: types.Message, state: FSMContext):
         else:
             print('Пользователь ищет - ', data_masters)
             await show_specialists_by_filter(spec_name, data_masters['city'], state, message)
+
+
+@dp.callback_query_handler(text='Назад', state=Find.Find_spec)
+async def back_func(message: types.Message, state: FSMContext):
+
+    if data_masters['spec_name'] is None:
+        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+        aaa = await bot.send_message(message.from_user.id, text='Какой город вас интересует?', reply_markup=Cities)
+        await Find.Find_city.set()
+
+    elif data_masters['spec_name'] in list_specialities:
+        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+        aaa = await bot.send_message(message.from_user.id, text='Выберите категорию:', reply_markup=Specialties)
+        await Find.Find_spec.set()
+
+    msg_id.clear()
+    msg_id.append(aaa.message_id)
