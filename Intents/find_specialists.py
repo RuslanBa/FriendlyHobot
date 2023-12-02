@@ -163,6 +163,7 @@ async def back_func(message: types.Message, state: FSMContext):
         await Find.Find_city.set()
 
     elif data_masters['spec_name'] in list_specialities:
+        data_masters.update({'spec_name': None})
         await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
         aaa = await bot.send_message(message.from_user.id, text='Выберите категорию:', reply_markup=Specialties)
         await Find.Find_spec.set()
