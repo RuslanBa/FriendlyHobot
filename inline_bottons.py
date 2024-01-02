@@ -10,7 +10,7 @@ save_other = InlineKeyboardMarkup(row_width=2)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
 users_identifiers = InlineKeyboardMarkup(row_width=1)
 feedback = InlineKeyboardMarkup(row_width=1)
-add_service_menu = InlineKeyboardMarkup(row_width=1)
+dont_change_menu = InlineKeyboardMarkup(row_width=1)
 
 
 # Menu of specialities ---------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ Events_help = InlineKeyboardButton(text='Помощь на мероприяти�
 # Equipment_repair menu buttons --------------------------------------------------------------------------------------
 
 Phone_repair = InlineKeyboardButton(text='Планшеты и телефоны', callback_data='Планшеты и телефоны')
-Computer_repair = InlineKeyboardButton(text='Комьютеры и ноутбуки', callback_data='Компьютеры и ноутбуки')
+Computer_repair = InlineKeyboardButton(text='Компьютеры и ноутбуки', callback_data='Компьютеры и ноутбуки')
 Appliances_repair = InlineKeyboardButton(text='Бытовая техника', callback_data='Бытовая техника')
 
 
@@ -310,7 +310,7 @@ save_self.insert(spec_name)
 save_other.insert(edit_other)
 save_other.insert(spec_name)
 
-add_service_menu.insert(dont_change)
+dont_change_menu.insert(dont_change)
 
 selfabout_fields.insert(name)
 selfabout_fields.insert(country)
@@ -351,7 +351,7 @@ list_specialities = ['Аренда и продажа недвижимости', 
                      'Помощь в легализации', 'Другие юр. и бух. услуги', 'Банковские услуги',
                      'Переводчики и нотариусы', 'Услуги по банкротству',
                      'Ведущие и аниматоры', 'Помощь на мероприятиях',
-                     'Планшеты и телефоны', 'Комьютеры и ноутбуки', 'Бытовая техника',
+                     'Планшеты и телефоны', 'Компьютеры и ноутбуки', 'Бытовая техника',
                      'Фотосъемка', 'Видеосъемка', 'Монтаж видео', 'Обработка фотографий',
                      'Другие фото-видео-аудио услуги',
                      'Няни', 'Сиделки', 'Выгул собак', 'Уход за животными', 'Другая помощь с близкими',
@@ -384,3 +384,21 @@ def edit_services_btn(spec_id, id_user):
     edit_spec.insert(edit_one_spec)
 
     return edit_spec
+
+
+def edit_order_btn(order_id, id_user):
+
+    edit_order = InlineKeyboardMarkup(row_width=2)
+
+    btn_order_edit = f'btn_order_edit_{order_id}_{id_user}'
+    btn_order_delete = f'btn_order_delete_{order_id}_{id_user}'
+
+    print('Выведены кнопки ', btn_order_edit, btn_order_delete)
+
+    delete_one_order = InlineKeyboardButton(text='Удалить заявку', callback_data=btn_order_delete)
+    edit_one_order = InlineKeyboardButton(text='Изменить заявку', callback_data=btn_order_edit)
+
+    edit_order.insert(delete_one_order)
+    edit_order.insert(edit_one_order)
+
+    return edit_order

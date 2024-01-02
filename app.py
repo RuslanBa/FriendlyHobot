@@ -2,10 +2,9 @@ from aiogram.utils import executor
 from aiogram import types
 from loader import dp
 from schedular import scheduler
+import Intents
+import Intents_admin
 from bottons import menu_start
-from Intents import main_dp, find_specialists, about_friendlyhobot, about_me, edit_self, show_user_data, \
-    find_specialists, delete_self_serv, edit_self_serv
-from Intents_admin import add_people, edit_other, delete_other_serv
 from DB.add_log_db import add_new_log
 
 

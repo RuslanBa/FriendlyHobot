@@ -15,3 +15,5 @@ dp = Dispatcher(bot, storage=storage)
 
 
 admin_id = [176221727, 351191999]
+
+msg_id = []     # message for deleting when new message come

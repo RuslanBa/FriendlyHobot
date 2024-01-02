@@ -1,8 +1,10 @@
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from classes import all_states
+from Classes.states_classes import all_states, Order
+from Classes.client_classes import alfa_user
 from bottons import menu_start
 from loader import bot, dp
+from Intents.meeting_user import meetings0
 
 
 # Переход в главное меню -----------------------------------------------
@@ -18,6 +20,23 @@ async def go_main(message: types.Message, state: FSMContext):
     await message.answer('Давайте вернемся в главное меню. Выберите, что вас интересует', reply_markup=menu_start)
     await state.finish()
 
+
+# Проверка заказов -----------------------------------------------
+
+@dp.message_handler(text='Мои заявки')
+async def my_orders(message: types.Message, state: FSMContext):
+    alfa_user.intent = 'мои заказы'
+    alfa_user.update_alfa_user(message, alfa_user.intent)
+
+    if alfa_user.name is None or alfa_user.city is None:
+        await meetings0(message)
+
+    else:
+        await Order.Order_my.set()
+        await alfa_user.show_user_orders(message, state)
+
+
+# Возвращение в главное меню после кнопки не сохранять изменения -----------------------------------------------
 
 @dp.callback_query_handler(text='dont_change', state=all_states)
 async def answer7(message: types.Message, state: FSMContext):

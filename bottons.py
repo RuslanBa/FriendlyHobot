@@ -7,11 +7,11 @@ menu_start = ReplyKeyboardMarkup(
             KeyboardButton(text='Найти исполнителя'),
             KeyboardButton(text='Ваши услуги и резюме'),
             KeyboardButton(text='О Friendly Hobot')
+        ],
+        [
+            KeyboardButton(text='Оставить заявку'),
+            KeyboardButton(text='Мои заявки')
         ]
-        # [
-        #     KeyboardButton(text="Посмотреть запросы"),
-        #
-        # ]
     ],
     resize_keyboard=True)
 
@@ -29,7 +29,8 @@ admin_menu = ReplyKeyboardMarkup(
     keyboard=[
         [
             KeyboardButton(text="Найти исполнителя"),
-            KeyboardButton(text='Ваши услуги и резюме')
+            KeyboardButton(text='Ваши услуги и резюме'),
+            KeyboardButton(text='Заявки пользователей')
         ],
         [
             KeyboardButton(text="Редактировать в каталоге"),

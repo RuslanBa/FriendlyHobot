@@ -19,8 +19,8 @@ def change_fields(id_user, user_field, new_value):
             sslmode='require')
 
         with connection.cursor() as cursor:
-            if user_field == 'name':
-                request = """UPDATE users SET name = %(new_value)s WHERE id_user = %(id_user)s"""
+            if user_field == 'user_name':
+                request = """UPDATE users SET user_name = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'country':
                 request = """UPDATE users SET country = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'city':
@@ -31,6 +31,9 @@ def change_fields(id_user, user_field, new_value):
                 request = """UPDATE users SET birthdate = %(new_value)s WHERE id_user = %(id_user)s"""
             elif user_field == 'phone':
                 request = """UPDATE users SET phone = %(new_value)s WHERE id_user = %(id_user)s"""
+            elif user_field == 'tg_id':
+                request = """UPDATE users SET tg_id = %(new_value)s WHERE id_user = %(id_user)s"""
+
             cursor.execute(request,
                            {'id_user': id_user, 'user_field': user_field, 'new_value': new_value})
 

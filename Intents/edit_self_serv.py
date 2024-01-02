@@ -1,10 +1,7 @@
 from loader import dp, bot
-from classes import all_states, Delete, states_edit_self_list, Edit
+from Classes.states_classes import all_states, Edit
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
-from inline_bottons import yes_no, list_yes_no
-from bottons import menu_start
-from DB.find_id_by_username import find_user_id
 from Intents.show_user_data import take_user_data
 from DB.edit_spec_db import edit_spec
 from Checks_text.Check_info_about import check_info_about

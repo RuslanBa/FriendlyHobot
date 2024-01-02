@@ -42,7 +42,6 @@ def add_spec(id_user, spec_name, spec_about, spec_city, tg_username):
                                 'spec_city': spec_city, 'tg_username': tg_username})
 
                 id_of_new_row = cursor.fetchone()[0]
-                print(id_of_new_row)
 
                 connection.commit()
                 print(f'[INFO add_spec] Id for new connection user-speciality created - {id_of_new_row}')

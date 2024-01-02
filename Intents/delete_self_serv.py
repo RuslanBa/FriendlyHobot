@@ -1,5 +1,5 @@
 from loader import dp, bot
-from classes import all_states, Delete, states_edit_self_list, states_edit_other_list
+from Classes.states_classes import Delete, states_edit_self_list
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
 from inline_bottons import yes_no, list_yes_no

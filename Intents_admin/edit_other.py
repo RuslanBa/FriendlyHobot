@@ -2,7 +2,7 @@ from inline_bottons import list_self, Specialties, selfabout_fields
 from bottons import menu_start
 from loader import dp, bot
 from aiogram import types
-from classes import Other, states_edit_other, all_states
+from Classes.states_classes import Other, states_edit_other, all_states
 from aiogram.dispatcher.storage import FSMContext
 from DB.add_log_db import add_new_log
 

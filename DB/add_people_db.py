@@ -20,11 +20,11 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city, phone):
 
         with connection.cursor() as cursor:
             cursor.execute("INSERT INTO users"
-                           "(name, tg_id, tg_name, tg_surname, tg_username, city, phone) "
+                           "(user_name, tg_id, tg_name, tg_surname, tg_username, city, phone) "
                            "VALUES (%(name)s, %(tg_id)s, %(tg_name)s, %(tg_surname)s, %(tg_username)s, "
                            "%(city)s, %(phone)s) "
                            "RETURNING id_user",
-                           {'name': name, 'tg_id': tg_id, 'tg_name': tg_name, 'tg_surname': tg_surname,
+                           {'user_name': name, 'tg_id': tg_id, 'tg_name': tg_name, 'tg_surname': tg_surname,
                             'tg_username': tg_username, 'city': city, 'phone': phone})
 
             id_of_new_row = cursor.fetchone()[0]
@@ -32,7 +32,7 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city, phone):
 
         connection.commit()
         print(f'[INFO add_new_people] New user created - id - {id_of_new_row} '
-              f'with data: name - {name}, tg_id - {tg_id}, tg_name - {tg_name}, tg_surname - {tg_surname}, '
+              f'with data: user_name - {name}, tg_id - {tg_id}, tg_name - {tg_name}, tg_surname - {tg_surname}, '
               f'tg_username - {tg_username}, city - {city}, phone - {phone}')
         return id_of_new_row
 

@@ -1,10 +1,10 @@
-from loader import dp, bot
+from loader import bot
 from aiogram.dispatcher.storage import FSMContext
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
 from bottons import menu_start
 from inline_bottons import edit_services_btn
-from classes import Other
+from Classes.states_classes import Other
 
 
 async def catalog_for_admin(spec_name, city, state: FSMContext, message):

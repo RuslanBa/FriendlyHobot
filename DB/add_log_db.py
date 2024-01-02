@@ -45,10 +45,32 @@ def add_new_log(tg_id, tg_username, activity):
 
 # Create new column with serial id ----------------------------------------------------------
 
-# with connection.cursor() as cursor:
-#     cursor.execute(
-#         """ALTER TABLE objects
-#         ADD Id SERIAL NOT NULL"""
-#     )
-#     connection.commit()
-#     print('готово')
+# def make_new_id():
+#     try:
+#         # connect to exist database
+#         connection = psycopg2.connect(
+#             host=os.getenv("DB_HOST"),
+#             user=os.getenv("MY_USER"),
+#             password=os.getenv("PASSWORD"),
+#             database=os.getenv("DB_NAME"),
+#             port=os.getenv("DB_PORT"),
+#             sslmode="require")
+#
+#         with connection.cursor() as cursor:
+#             cursor.execute(
+#                 """ALTER TABLE orders
+#                 ADD Id SERIAL NOT NULL"""
+#             )
+#             connection.commit()
+#             print('готово')
+#
+#     except Exception as _ex:
+#         print('[INFO] Error while working with PostgreSQL', _ex)
+#
+#     finally:
+#         if connection:
+#             connection.close()
+#             print('[INFO] PostgreSQL connection close')
+#
+#
+# make_new_id()

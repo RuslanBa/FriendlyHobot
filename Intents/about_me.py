@@ -5,7 +5,7 @@ from inline_bottons import yes_no, list_yes_no, Specialties, Cities, list_specia
      Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu
 from bottons import menu_start, menu_main
 from aiogram.dispatcher.storage import FSMContext
-from classes import About
+from Classes.states_classes import About
 from DB.add_people_db import add_new_people
 from DB.add_log_db import add_new_log
 from DB.add_spec_for_people import add_spec

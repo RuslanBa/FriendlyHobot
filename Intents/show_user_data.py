@@ -1,9 +1,9 @@
 from DB.from_db_user_data import user_data_by_id, user_spec
 from loader import bot
 from aiogram import types
-from inline_bottons import save_self, save_other, add_service_menu, edit_services_btn
+from inline_bottons import save_self, save_other, dont_change_menu, edit_services_btn
 from aiogram.dispatcher.storage import FSMContext
-from classes import states_edit_self_list, states_edit_other_list
+from Classes.states_classes import states_edit_self_list, states_edit_other_list
 
 
 async def take_user_data(id_user, message: types.Message, state: FSMContext):
@@ -46,7 +46,7 @@ async def take_user_data(id_user, message: types.Message, state: FSMContext):
                                    reply_markup=edit_services_btn(spec_id, id_user))
 
         await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно?',
-                               reply_markup=add_service_menu)
+                               reply_markup=dont_change_menu)
 
     elif current_state in states_edit_other_list:
         await bot.send_message(message.from_user.id, text=f'<b>Имя</b> - {name}\n'
@@ -68,7 +68,7 @@ async def take_user_data(id_user, message: types.Message, state: FSMContext):
                                    reply_markup=edit_services_btn(spec_id, id_user))
 
         await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно у этого пользователя?',
-                               reply_markup=add_service_menu)
+                               reply_markup=dont_change_menu)
 
     else:
         await bot.send_message(message.from_user.id,

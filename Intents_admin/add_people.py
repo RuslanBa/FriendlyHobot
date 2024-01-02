@@ -5,7 +5,7 @@ from DB.add_log_db import add_new_log
 from DB.add_people_db import add_new_people
 from DB.check_user_in_db import check_user
 from DB.find_id_by_username import find_user_id
-from classes import Other, states_edit_other
+from Classes.states_classes import Other, states_edit_other
 from Intents.edit_self import edit_any_user
 from inline_bottons import Specialties, list_specialities, Driver_menu, Food_services_menu, Beauty_menu, Events_menu, \
      Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, Photo_video_audio_menu, \

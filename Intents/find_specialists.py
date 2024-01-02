@@ -1,11 +1,9 @@
 from aiogram import types
 from loader import dp, bot
-from bottons import menu_main, menu_start
+from bottons import menu_main
 from DB.add_log_db import add_new_log
-from DB.find_specialists_db import find_masters
-from DB.find_people_by_id import find_people
 from DB.find_quan_people_by_city import find_people_by_city
-from classes import Find, all_states
+from Classes.states_classes import Find
 from inline_bottons import Specialties, Cities, list_specialities, list_cities, Driver_menu, Food_services_menu, \
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
      Photo_video_audio_menu, Language_menu, Lawyer_menu
