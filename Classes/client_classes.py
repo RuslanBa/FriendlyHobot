@@ -1,12 +1,15 @@
 from loader import bot
 from aiogram import types
+from aiogram.dispatcher.storage import FSMContext
 from DB.check_user_db_tgid import check_user_tgid
 from DB.find_id_by_username import find_user_id
 from DB.change_user_field import change_fields
 from DB.add_people_db import add_new_people
+from DB.add_spec_for_people import add_spec
 from DB.find_orders_by_user import find_orders_db
-from inline_bottons import edit_order_btn, dont_change_menu
-from aiogram.dispatcher.storage import FSMContext
+from DB.from_db_user_data import user_data_by_id, user_spec
+from inline_bottons import dont_change_menu, save_self, save_other, edit_services_btn, edit_order_btn
+from Classes.states_classes import states_edit_self_list, states_edit_other_list
 
 
 class Client:
@@ -27,6 +30,13 @@ class Client:
         self.id_user = None
         self.country = None
         self.phone = None
+
+    def add_to_db(self):
+        self.id_user = add_new_people(self.name, self.tg_id, self.tg_name, self.tg_surname, self.tg_username,
+                                      self.city, self.phone)
+
+    def add_user_spec(self, spec_name, spec_about, spec_city):
+        add_spec(self.id_user, spec_name, spec_about, spec_city, self.tg_username)
 
     def update_alfa_user(self, message: types.Message, intent):
         self.intent = intent
@@ -64,6 +74,57 @@ class Client:
     def change_user_data(self, user_field, new_value):
         change_fields(self.id_user, user_field, new_value)
 
+    async def show_user_data(self, message: types.Message, state: FSMContext):
+        if self.id_user is None and self.tg_username:
+            self.id_user = find_user_id(self.tg_username)
+        elif self.id_user is None and self.tg_username is None:
+            print('[show_user_data] no id and username for searching user')
+
+        xxx = user_data_by_id(self.id_user)
+        self.name = xxx[0]
+        self.tg_id = xxx[1]
+        self.tg_name = xxx[2]
+        self.tg_surname = xxx[3]
+        self.tg_username = xxx[4]
+        self.about = xxx[5]
+        self.archetype = xxx[6]
+        self.city = xxx[7]
+        self.birthdate = xxx[8]
+        self.speciality_need = xxx[9]
+        self.country = xxx[10]
+        self.phone = xxx[11]
+
+        us_spec = user_spec(self.tg_username)
+        print('us_spec =', us_spec)
+
+        current_state = await state.get_state()
+        ttt = None
+        if current_state in states_edit_self_list:
+            ttt = save_self
+        elif current_state in states_edit_other_list:
+            ttt = save_other
+
+        await bot.send_message(message.from_user.id,
+                               text=f'<b>Имя</b> - {self.name}\n'
+                                    f'<b>Cтрана</b> - {self.country}\n'
+                                    f'<b>Город исполнителя</b> - {self.city}\n'
+                                    f'<b>Общая информация</b> - {self.about}\n'
+                                    f'<b>Дата рождения</b> - {self.birthdate}\n'
+                                    f'<b>Телефон</b> - {self.phone}', parse_mode='HTML',
+                               reply_markup=ttt)
+        for item in us_spec:
+            name_spec = item['name']
+            about_spec = item['about']
+            spec_id = item['spec_id']
+            text_spec = '<b>Услуги</b>\nCпециальность:\n' + name_spec + '\nОписание услуги:\n' + about_spec
+            await bot.send_message(message.from_user.id,
+                                   text=text_spec,
+                                   parse_mode='HTML',
+                                   reply_markup=edit_services_btn(spec_id, self.id_user))
+
+        await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно у этого пользователя?',
+                               reply_markup=dont_change_menu)
+
     async def show_user_orders(self, message: types.Message, state: FSMContext):
         data_orders = find_orders_db(self.id_user)
         print('for user - ', self.id_user, 'found orders:', data_orders)
@@ -91,3 +152,4 @@ class Client:
 
 
 alfa_user = Client()
+betta_user = Client()

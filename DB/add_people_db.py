@@ -21,7 +21,7 @@ def add_new_people(name, tg_id, tg_name, tg_surname, tg_username, city, phone):
         with connection.cursor() as cursor:
             cursor.execute("INSERT INTO users"
                            "(user_name, tg_id, tg_name, tg_surname, tg_username, city, phone) "
-                           "VALUES (%(name)s, %(tg_id)s, %(tg_name)s, %(tg_surname)s, %(tg_username)s, "
+                           "VALUES (%(user_name)s, %(tg_id)s, %(tg_name)s, %(tg_surname)s, %(tg_username)s, "
                            "%(city)s, %(phone)s) "
                            "RETURNING id_user",
                            {'user_name': name, 'tg_id': tg_id, 'tg_name': tg_name, 'tg_surname': tg_surname,

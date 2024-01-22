@@ -75,10 +75,11 @@ def user_spec(tg_username):
             result = []
 
             for row in user_data:
+                id_user = row[0]
                 spec_name = row[1]
                 spec_about = row[4]
                 spec_id = row[6]
-                uu = {'name': spec_name, 'about': spec_about, 'spec_id': spec_id}
+                uu = {'id_user': id_user, 'name': spec_name, 'about': spec_about, 'spec_id': spec_id}
                 result.append(uu)
             return result
 
