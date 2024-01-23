@@ -151,7 +151,7 @@ async def add_people7(message: types.Message, state: FSMContext):
     add_new_log(message.from_user.id, message.from_user.username, 'New user_spec added"')
 
     await bot.send_message(message.from_user.id, 'Давайте посмотрим, что я теперь я знаю об этом человеке')
-    await betta_user.show_user_data()
+    await betta_user.show_user_data(message, state)
 
 
 @dp.message_handler(state=Other.Other_spec_city)
