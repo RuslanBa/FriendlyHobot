@@ -3,6 +3,7 @@ from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from DB.check_user_db_tgid import check_user_tgid
 from DB.find_id_by_username import find_user_id
+from DB.check_user_in_db import check_user
 from DB.change_user_field import change_fields
 from DB.add_people_db import add_new_people
 from DB.add_spec_for_people import add_spec
@@ -34,9 +35,18 @@ class Client:
     def add_to_db(self):
         self.id_user = add_new_people(self.name, self.tg_id, self.tg_name, self.tg_surname, self.tg_username,
                                       self.city, self.phone)
+        print('[add_to_db] After saving user in DB his self.id_user =', self.id_user)
 
     def add_user_spec(self, spec_name, spec_about, spec_city):
         add_spec(self.id_user, spec_name, spec_about, spec_city, self.tg_username)
+        print('[add_user_spec] Trying to save user_spec in DB with self.id_user =', self.id_user)
+
+    def find_id_user_by_tg(self):
+        aaa = check_user(betta_user.tg_username)
+        if aaa > 0:
+            self.id_user = find_user_id(self.tg_username)
+        else:
+            self.id_user = None
 
     def update_alfa_user(self, message: types.Message, intent):
         self.intent = intent

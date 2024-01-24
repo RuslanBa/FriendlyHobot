@@ -56,11 +56,11 @@ async def add_people3(message: types.Message, state: FSMContext):
     betta_user.tg_username = check_username(new_username)
     print('администратор добавил пользователя с username @', betta_user.tg_username)
 
-    if check_user(betta_user.tg_username) > 0:
+    betta_user.find_id_user_by_tg()
+    if betta_user.id_user is not None:
         await message.answer('Человек с таким id уже существует. Вот, что я о нем знаю')
         await Other.Other_change.set()
         await betta_user.show_user_data(message, state)
-
     else:
         await message.answer(f'Отлично, запомнил Username - @{betta_user.tg_username}')
         await message.answer('Напишите имя этого человека. Можете добавить фамилию и отчество')
