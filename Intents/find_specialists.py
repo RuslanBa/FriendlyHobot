@@ -17,17 +17,17 @@ data_masters = {'user': None, 'city': None, 'spec_name': None}
 msg_id = []
 
 
-@dp.message_handler(text='Найти исполнителя')
-async def answer(message: types.Message):
-    add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
-    await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
-    aaa = await message.answer(text='В каком городе вы ищете исполнителя?',
-                               reply_markup=Cities)
-
-    msg_id.clear()
-    msg_id.append(aaa.message_id)
-
-    await Find.Find_city.set()
+# @dp.message_handler(text='Найти исполнителя')
+# async def answer(message: types.Message):
+#     add_new_log(message.from_user.id, message.from_user.username, 'find specialist"')
+#     await message.answer(text='Давайте подберем того, кто сможет вам помочь', reply_markup=menu_main)
+#     aaa = await message.answer(text='В каком городе вы ищете исполнителя?',
+#                                reply_markup=Cities)
+#
+#     msg_id.clear()
+#     msg_id.append(aaa.message_id)
+#
+#     await Find.Find_city.set()
 
 
 @dp.message_handler(text='Редактировать в каталоге')

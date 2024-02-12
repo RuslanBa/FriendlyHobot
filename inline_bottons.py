@@ -3,14 +3,16 @@ import emoji
 
 # Menu ---------------------------------------------------------------------------------
 
+admin_buttons = InlineKeyboardMarkup(row_width=1)
 Cities = InlineKeyboardMarkup(row_width=1)
-yes_no = InlineKeyboardMarkup(row_width=1)
+dont_change_menu = InlineKeyboardMarkup(row_width=1)
+intents_first = InlineKeyboardMarkup(row_width=1)
+feedback = InlineKeyboardMarkup(row_width=1)
 save_self = InlineKeyboardMarkup(row_width=2)
 save_other = InlineKeyboardMarkup(row_width=2)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
 users_identifiers = InlineKeyboardMarkup(row_width=1)
-feedback = InlineKeyboardMarkup(row_width=1)
-dont_change_menu = InlineKeyboardMarkup(row_width=1)
+yes_no = InlineKeyboardMarkup(row_width=1)
 
 
 # Menu of specialities ---------------------------------------------------------------------------------
@@ -167,6 +169,15 @@ Turkish = InlineKeyboardButton(text='Турецкий', callback_data='Туре�
 Other_languages = InlineKeyboardButton(text='Другие языки', callback_data='Другие языки')
 
 
+# Intents_first menu buttons ----------------------------------------------------------------------------------
+
+Need_specialist = InlineKeyboardButton(text='Ищу специалиста', callback_data='need_specialist')
+Suggest_service = InlineKeyboardButton(text='Предлагаю услугу', callback_data='suggest_service')
+Need_buy = InlineKeyboardButton(text='Хочет купить', callback_data='need_buy')
+Need_sell = InlineKeyboardButton(text='Хочет продать', callback_data='need_sell')
+None_target = InlineKeyboardButton(text='Нецелевой', callback_data='none_target')
+
+
 # Other buttons ----------------------------------------------------------------------------------------
 
 yes = InlineKeyboardButton(text='Да', callback_data='yes')
@@ -192,6 +203,10 @@ phone = InlineKeyboardButton(text='Телефон', callback_data='Телефо�
 feedback_button = InlineKeyboardButton(text='Написать разработчикам', callback_data='Написать разработчикам')
 
 back_button = InlineKeyboardButton(text='⏪⏪⏪ Назад', callback_data='Назад')
+
+message_for_marking = InlineKeyboardButton(text='Сообщения для маркировки', callback_data='message_for_marking')
+orders_users = InlineKeyboardButton(text='Заявки пользователей (не работает)', callback_data='orders_users')
+stats = InlineKeyboardButton(text='Статистика базы (не работает)', callback_data='stats')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -326,6 +341,16 @@ users_identifiers.insert(phone)
 
 feedback.insert(feedback_button)
 
+admin_buttons.insert(message_for_marking)
+admin_buttons.insert(orders_users)
+admin_buttons.insert(stats)
+
+intents_first.insert(Suggest_service)
+intents_first.insert(Need_specialist)
+intents_first.insert(Need_buy)
+intents_first.insert(Need_sell)
+intents_first.insert(None_target)
+
 
 # Листы ответов ---------------------------------------------------------------------------------
 
@@ -365,6 +390,10 @@ list_self = ['name', 'country', 'city', 'about', 'birthdate', 'Телефон']
 
 list_cities = ['Буэнос-Айрес', 'Пуэрто-Игуасу']
 
+list_marking = ['suggest_service', 'need_specialist']
+
+list_final_intents = ['need_sell', 'need_buy', 'none_target']
+
 
 # Программируемые кнопки ---------------------------------------------------------------------------------
 
@@ -374,14 +403,17 @@ def edit_services_btn(spec_id, id_user):
 
     btn_edit = f'btn_edit_{spec_id}_{id_user}'
     btn_delete = f'btn_delete_{spec_id}_{id_user}'
+    btn_find_orders = f'btn_find_{spec_id}_{id_user}'
 
-    print('Выведены кнопки ', btn_edit, btn_delete)
+    print('Выведены кнопки ', btn_edit, btn_delete, btn_find_orders)
 
     delete_one_spec = InlineKeyboardButton(text='Удалить услугу', callback_data=btn_delete)
     edit_one_spec = InlineKeyboardButton(text='Изменить описание', callback_data=btn_edit)
+    find_orders = InlineKeyboardButton(text='Посмотреть заявки', callback_data=btn_find_orders)
 
     edit_spec.insert(delete_one_spec)
     edit_spec.insert(edit_one_spec)
+    edit_spec.insert(find_orders)
 
     return edit_spec
 
@@ -402,3 +434,15 @@ def edit_order_btn(order_id, id_user):
     edit_order.insert(edit_one_order)
 
     return edit_order
+
+
+def edit_intent_btn(table_name, mes_id):
+
+    edit_intent = InlineKeyboardMarkup(row_width=1)
+    btn_intent_edit = f'btn_intent_edit_{table_name}_{mes_id}'
+    print('Show button ', btn_intent_edit)
+
+    edit_one_intent = InlineKeyboardButton(text='Изменить интент', callback_data=btn_intent_edit)
+    edit_intent.insert(edit_one_intent)
+
+    return edit_intent

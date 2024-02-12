@@ -1,7 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from loader import dp, bot
-from inline_bottons import feedback
+from inline_bottons import feedback, admin_buttons
 from DB.add_log_db import add_new_log
 from bottons import admin_menu
 from Classes.states_classes import Feedback
@@ -12,18 +12,17 @@ from loader import admin_id
 async def about_one(message: types.Message):
     id = message.from_user.id
     add_new_log(message.from_user.id, message.from_user.username, 'Аbout FriendlyHobot"')
+
+    await message.answer('Привет! Я сервис, помогающий подбирать нужных людей друг для друга. '
+                         'Я еще "молод" - работаю сейчас только в Буэнос-Айресе, гуляю по чатам и собираю людей, '
+                         'которые готовы помогать другими, предлагают свои услуги.\n\n'
+                         'Если вы такой человек, то обязательно нажимайте на кнопку "Ваши услуги и резюме". '
+                         'Я задам несколько вопросов и создам ваш профиль в своей базе, чтобы показывать'
+                         'его другим))\n\n'
+                         'А если вы чем-то хотите поделиться с моими разрабочикам, напишите! '
+                         'Обязательно передам им ваши пожелания и замечания!', reply_markup=feedback)
     if id in admin_id:
-        await message.answer('Привет, Коллега! Вижу, что ты админ)) Что ты хочешь сделать?',
-                             reply_markup=admin_menu)
-    else:
-        await message.answer('Привет! Я сервис, помогающий подбирать нужных людей друг для друга. '
-                             'Я еще "молод" - работаю сейчас только в Буэнос-Айресе, гуляю по чатам и собираю людей, '
-                             'которые готовы помогать другими, предлагают свои услуги.\n\n'
-                             'Если вы такой человек, то обязательно нажимайте на кнопку "Ваши услуги и резюме". '
-                             'Я задам несколько вопросов и создам ваш профиль в своей базе, чтобы показывать'
-                             'его другим))\n\n'
-                             'А если вы чем-то хотите поделиться с моими разрабочикам, напишите! '
-                             'Обязательно передам им ваши пожелания и замечания!', reply_markup=feedback)
+        await message.answer('Меню для админа:', reply_markup=admin_buttons)
 
 
 @dp.callback_query_handler(text='Написать разработчикам')

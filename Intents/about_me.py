@@ -21,7 +21,7 @@ data_people = {'name': '-', 'tg_id': '-', 'tg_name': '-', 'tg_surname': '-', 'tg
 data_speciality = {'spec_name': None, 'spec_about': None, 'spec_city': None, 'tg_username': None}
 
 
-@dp.message_handler(text='Ваши услуги и резюме')
+@dp.message_handler(text='Найти заказы')
 async def answer(message: types.Message, state: FSMContext):
     tg_username = str(message.from_user.username)
 
@@ -178,19 +178,4 @@ async def answer6(message: types.Message, state: FSMContext):
     add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
 
     await bot.send_message(message.from_user.id, 'Давайте посмотрим, что я теперь о вас знаю')
-    await take_user_data(tg_username, message, state)
-
-
-@dp.message_handler(state=About.AB_city)
-async def answer7(message: types.Message, state: FSMContext):
-    text = message.text
-    tg_username = str(message.from_user.username)
-    data_speciality.update({'spec_city': text})
-
-    add_spec(data_people['id_user'], data_speciality['spec_name'], data_speciality['spec_about'],
-             data_speciality['spec_city'], tg_username)
-
-    add_new_log(message.from_user.id, message.from_user.username, 'All questions done"')
-
-    await message.answer('Давайте посмотрим, что я теперь о вас знаю')
     await take_user_data(tg_username, message, state)

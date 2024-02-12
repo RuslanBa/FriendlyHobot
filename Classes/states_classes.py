@@ -72,6 +72,10 @@ class Order(StatesGroup):
     Order_my = State()
 
 
+class Marking(StatesGroup):
+    Marking_needs = State()
+
+
 all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.AB_know, About.AB_about, About.AB_city,
               About.AB_edit, About.AB_edit_ok, About.AB_go_change,
               Find.Find_spec, Find.Find_city,
