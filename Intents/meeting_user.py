@@ -1,9 +1,10 @@
 from aiogram import types
 from loader import dp, bot, msg_id
-from Classes.states_classes import Meeting, Order
+from Classes.states_classes import Meeting, Order, About
 from Classes.client_classes import Client, alfa_user
 from aiogram.dispatcher.storage import FSMContext
-from inline_bottons import yes_no
+from inline_bottons import yes_no, Specialties
+from bottons import menu_main
 
 
 async def meetings0(message: types.Message):
@@ -48,6 +49,12 @@ async def meetings1(message: types.Message, state: FSMContext):
             await message.answer('Теперь давайте вернемся к вашим заказам и посмотрим на них:')
             await alfa_user.show_user_orders(message, state)
 
+        elif alfa_user.intent == 'найти заказы':
+            await message.answer(text='Теперь давайте вернемся к поиску заказов', reply_markup=menu_main)
+            await message.answer(text='В какой категории услуг вы можете быть полезным другим людям?',
+                                 reply_markup=Specialties)
+            await About.AB_spec.set()
+
         else:
             await message.answer('Напишите или выберите вопрос, который вас интересует')
             await state.finish()
@@ -69,6 +76,12 @@ async def meetings2(message: types.Message, state: FSMContext):
     elif alfa_user.intent == 'мои заказы':
         await message.answer('Теперь давайте вернемся к вашим заказам и посмотрим на них:')
         await alfa_user.show_user_orders(message, state)
+
+    elif alfa_user.intent == 'найти заказы':
+        await message.answer(text='Теперь давайте вернемся к поиску заказов', reply_markup=menu_main)
+        await message.answer(text='В какой категории услуг вы можете быть полезным другим людям?',
+                             reply_markup=Specialties)
+        await About.AB_spec.set()
 
     else:
         await message.answer('Напишите или выберите вопрос, который вас интересует')

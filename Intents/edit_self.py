@@ -1,16 +1,16 @@
 from inline_bottons import list_self, Specialties, selfabout_fields
 from bottons import menu_start
 from loader import dp, bot
-from aiogram import types
-from Classes.states_classes import Edit, About, all_states, states_edit_self, states_pers_data_edit
-from Intents.edit_func import edit_any_user
-from aiogram.dispatcher.storage import FSMContext
+from Classes.states_classes import Edit, About, all_states, states_edit_self
 from DB.add_log_db import add_new_log
-from DB.find_id_by_username import find_user_id
+from aiogram import types
+from aiogram.dispatcher.storage import FSMContext
+from DB.change_user_field import change_fields
+from Classes.client_classes import alfa_user
 
 
 @dp.callback_query_handler(text='edit_self', state=all_states)
-async def answer9(message: types.Message):
+async def edit_self1(message: types.Message):
     """ Edit button in menu for user fiedls """
     add_new_log(message.from_user.id, message.from_user.username, 'Edit user"')
     await bot.send_message(message.from_user.id, text='Какое поле вы хотите отредактировать?',
@@ -18,7 +18,7 @@ async def answer9(message: types.Message):
 
 
 @dp.callback_query_handler(text=list_self, state=states_edit_self)
-async def list_fields1(message: types.Message, state: FSMContext):
+async def edit_self2(message: types.Message, state: FSMContext):
     """ Edit self information from button edit """
     field = str(dict(message).get('data'))
 
@@ -52,16 +52,41 @@ async def list_fields1(message: types.Message, state: FSMContext):
         await state.finish()
 
 
-@dp.message_handler(state=states_pers_data_edit)
-async def edit_self(message: types.Message, state: FSMContext):
-    username = str(message.from_user.username)
-    id_user = find_user_id(username)
-    mess = message
-    await edit_any_user(id_user, mess, state)  # go to edit_func
-
-
 @dp.callback_query_handler(text='spec_name', state=states_edit_self)
-async def list_fields1(message: types.Message, state: FSMContext):
+async def edit_self4(message: types.Message, state: FSMContext):
     await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
                            reply_markup=Specialties)
     await About.AB_spec.set()
+
+
+@dp.message_handler(state=states_edit_self)
+async def edit_self5(message: types.Message, state: FSMContext):
+    """ Change difference fields in a user data """
+    text = message.text
+    current_state = await state.get_state()
+
+    if current_state == 'Edit:Edit_name':
+        await message.answer(f'Отлично, запомнил ваше имя - {text}')
+        change_fields(alfa_user.id_user, 'name', text)
+
+    elif current_state == 'Edit:Edit_country':
+        await message.answer(f'Отлично, запомнил вашу страну - {text}')
+        change_fields(alfa_user.id_user, 'country', text)
+
+    elif current_state == 'Edit:Edit_city':
+        await message.answer(f'Отлично, запомнил ваш город - {text}')
+        change_fields(alfa_user.id_user, 'city', text)
+
+    elif current_state == 'Edit:Edit_about':
+        await message.answer(f'Отлично, запомнил новую информацию о вас - {text}')
+        change_fields(alfa_user.id_user, 'about', text)
+
+    elif current_state == 'Edit:Edit_birthdate':
+        await message.answer(f'Отлично, запомнил дату вашего рождения - {text}')
+        change_fields(alfa_user.id_user, 'birthdate', text)
+
+    elif current_state == 'Edit:Edit_phone':
+        await message.answer(f'Отлично, запомнил номер телефона - {text}')
+        change_fields(alfa_user.id_user, 'phone', text)
+
+    await alfa_user.show_user_data(message, state)

@@ -1,4 +1,4 @@
-from loader import bot
+from loader import bot, msg_id
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from DB.check_user_db_tgid import check_user_tgid
@@ -9,6 +9,7 @@ from DB.add_people_db import add_new_people
 from DB.add_spec_for_people import add_spec
 from DB.find_orders_by_user import find_orders_db
 from DB.from_db_user_data import user_data_by_id, user_spec
+from DB.find_spec_id_by_spec_name import find_spec_id
 from inline_bottons import dont_change_menu, save_self, save_other, edit_services_btn, edit_order_btn
 from Classes.states_classes import states_edit_self_list, states_edit_other_list
 
@@ -37,8 +38,8 @@ class Client:
                                       self.city, self.phone)
         print('[add_to_db] After saving user in DB his self.id_user =', self.id_user)
 
-    def add_user_spec(self, spec_name, spec_about, spec_city):
-        add_spec(self.id_user, spec_name, spec_about, spec_city, self.tg_username)
+    def add_user_spec(self, spec_id, spec_about, spec_city):
+        add_spec(self.id_user, spec_id, spec_about, spec_city, self.tg_username)
         print('[add_user_spec] Trying to save user_spec in DB with self.id_user =', self.id_user)
 
     def find_id_user_by_tg(self):
@@ -114,23 +115,26 @@ class Client:
         elif current_state in states_edit_other_list:
             ttt = save_other
 
-        await bot.send_message(message.from_user.id,
-                               text=f'<b>Имя</b> - {self.name}\n'
-                                    f'<b>Cтрана</b> - {self.country}\n'
-                                    f'<b>Город исполнителя</b> - {self.city}\n'
-                                    f'<b>Общая информация</b> - {self.about}\n'
-                                    f'<b>Дата рождения</b> - {self.birthdate}\n'
-                                    f'<b>Телефон</b> - {self.phone}', parse_mode='HTML',
-                               reply_markup=ttt)
+        aaa = await bot.send_message(message.from_user.id,
+                                     text=f'<b>Имя</b> - {self.name}\n'
+                                          f'<b>Cтрана</b> - {self.country}\n'
+                                          f'<b>Город исполнителя</b> - {self.city}\n'
+                                          f'<b>Общая информация</b> - {self.about}\n'
+                                          f'<b>Дата рождения</b> - {self.birthdate}\n'
+                                          f'<b>Телефон</b> - {self.phone}', parse_mode='HTML',
+                                     reply_markup=ttt)
+        msg_id.append(aaa.message_id)
+
         for item in us_spec:
-            name_spec = item['name']
+            spec_name = item['spec_name']
             about_spec = item['about']
+            service_id = item['service_id']
             spec_id = item['spec_id']
-            text_spec = '<b>Услуги</b>\nCпециальность:\n' + name_spec + '\nОписание услуги:\n' + about_spec
+            text_spec = '<b>Услуги</b>\nCпециальность:\n' + spec_name + '\nОписание услуги:\n' + about_spec
             await bot.send_message(message.from_user.id,
                                    text=text_spec,
                                    parse_mode='HTML',
-                                   reply_markup=edit_services_btn(spec_id, self.id_user))
+                                   reply_markup=edit_services_btn(service_id, self.id_user, spec_id))
 
         await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно у этого пользователя?',
                                reply_markup=dont_change_menu)
@@ -149,11 +153,11 @@ class Client:
                 id_user = xxx['id_user']
                 id_order = xxx['id_order']
                 city = xxx['city']
-                spec = xxx['spec_name']
+                spec_id = xxx['spec_id']
                 description = xxx['description']
                 await bot.send_message(message.from_user.id,
                                        text=f'Город - {city}\n'
-                                            f'Категория - {spec}\n'
+                                            f'Категория - {spec_id}\n'
                                             f'Описание задачи:\n'
                                             f'{description}',
                                        reply_markup=edit_order_btn(id_order, id_user))

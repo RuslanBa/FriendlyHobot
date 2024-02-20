@@ -6,8 +6,8 @@ import psycopg2
 load_dotenv()
 
 
-def find_table_names_db():
-    """ Take table_names for finding messages for marking """
+def find_spec_id(spec_name):
+    """ Take speciality from DB """
     try:
         # connect to exist database
 
@@ -21,26 +21,23 @@ def find_table_names_db():
 
         with connection.cursor() as cursor:
 
-            cursor.execute("SELECT * FROM channels")
+            cursor.execute(f"SELECT id_spec FROM specialities WHERE rus_name = '{spec_name}' ")
 
-            order_data = cursor.fetchall()
-            result = []
-
-            for row in order_data:
-                table_name = row[1]
-                result.append(table_name)
+            spec_data = cursor.fetchone()
+            spec_id = spec_data[0]
+            return spec_id
 
             connection.commit()
-            return result
+            return name, about, city, username
 
     except Exception as _ex:
-        print('[INFO find_mes_for_marking_db] Error while working with PostgreSQL', _ex)
+        print('[INFO find_speciality] find_people. Error while working with PostgreSQL', _ex)
 
     finally:
         if connection:
             connection.close()
-            print('[INFO find_mes_for_marking_db] PostgreSQL connection close')
+            print('[INFO find_speciality] PostgreSQL connection close')
 
 
-# aaa = find_table_names_db()
+# aaa = find_spec_id('Языки')
 # print(aaa)

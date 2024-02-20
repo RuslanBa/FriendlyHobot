@@ -33,9 +33,9 @@ def find_orders_db(id_user):
                 id_order = row[3]
                 date = row[4]
                 time = row[5]
-                spec_name = row[6]
+                spec_id = row[6]
                 uu = {'id_user': id_user, 'description': description, 'city': city, 'id_order': id_order,
-                      'date': date, 'time': time, 'spec_name': spec_name}
+                      'date': date, 'time': time, 'spec_id': spec_id}
                 result.append(uu)
 
             connection.commit()

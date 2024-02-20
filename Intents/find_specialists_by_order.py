@@ -113,8 +113,8 @@ async def order_spec(message: types.Message):
 
     else:
         print('Пользователь хочет оставить заявку на  - ', spec_name)
-        await bot.send_message(message.from_user.id, text='Категорию запомнил\n, '
-                                                          'напишите суть задачи, что именно нужно сделать?')
+        await bot.send_message(message.from_user.id, text='Категорию запомнил\n'
+                                                          'Напишите суть задачи, что именно нужно сделать?')
         await Order.Order_text.set()
 
 

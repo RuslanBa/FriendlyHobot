@@ -1,11 +1,12 @@
 from loader import dp, bot
 from Classes.states_classes import Delete, states_edit_self_list
+from Classes.client_classes import alfa_user
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
 from inline_bottons import yes_no, list_yes_no
 from bottons import menu_start
 from DB.find_id_by_username import find_user_id
-from Intents.show_user_data import take_user_data
+from Intents.OLD_show_user_data import take_user_data
 from DB.delete_spec_db import delete_spec
 
 
@@ -34,7 +35,7 @@ async def delete2(message: types.Message, state: FSMContext):
         spec_delete.clear()
         await bot.send_message(message.from_user.id, text='Хорошо, такой услуги в вашем портфолио больше нет))'
                                                           '\nДавайте посмотрим, что я теперь знаю о вас')
-        await take_user_data(need_id, message, state)
+        await alfa_user.show_user_data(message, state)
 
     else:
         await bot.send_message(message.from_user.id,

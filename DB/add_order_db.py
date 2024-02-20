@@ -7,7 +7,7 @@ from datetime import datetime
 load_dotenv()
 
 
-def add_order(id_user, spec_name, description, city):
+def add_order(id_user, spec_id, description, city):
     """ Add new order in DB """
     try:
         # connect to exist database
@@ -26,10 +26,10 @@ def add_order(id_user, spec_name, description, city):
             time_added = time_added.strftime('%H:%M:%S')
 
             cursor.execute("INSERT INTO orders"
-                           "(id_user, spec_name, description, city, date, time) "
-                           "VALUES (%(id_user)s, %(spec_name)s, %(description)s, %(city)s, %(date)s, %(time)s) "
+                           "(id_user, spec_id, description, city, date, time) "
+                           "VALUES (%(id_user)s, %(spec_id)s, %(description)s, %(city)s, %(date)s, %(time)s) "
                            "RETURNING id_order",
-                           {'id_user': id_user, 'spec_name': spec_name, 'description': description,
+                           {'id_user': id_user, 'spec_id': spec_id, 'description': description,
                             'city': city, 'date': date_added, 'time': time_added})
 
             new_order_id = cursor.fetchone()[0]

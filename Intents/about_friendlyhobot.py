@@ -3,7 +3,6 @@ from aiogram.dispatcher.storage import FSMContext
 from loader import dp, bot
 from inline_bottons import feedback, admin_buttons
 from DB.add_log_db import add_new_log
-from bottons import admin_menu
 from Classes.states_classes import Feedback
 from loader import admin_id
 

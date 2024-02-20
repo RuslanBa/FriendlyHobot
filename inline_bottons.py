@@ -206,7 +206,7 @@ back_button = InlineKeyboardButton(text='⏪⏪⏪ Назад', callback_data='�
 
 message_for_marking = InlineKeyboardButton(text='Сообщения для маркировки', callback_data='message_for_marking')
 orders_users = InlineKeyboardButton(text='Заявки пользователей (не работает)', callback_data='orders_users')
-stats = InlineKeyboardButton(text='Статистика базы (не работает)', callback_data='stats')
+stats = InlineKeyboardButton(text='Статистика базы', callback_data='stats')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -397,13 +397,13 @@ list_final_intents = ['need_sell', 'need_buy', 'none_target']
 
 # Программируемые кнопки ---------------------------------------------------------------------------------
 
-def edit_services_btn(spec_id, id_user):
+def edit_services_btn(service_id, id_user, spec_id):
 
     edit_spec = InlineKeyboardMarkup(row_width=2)
 
-    btn_edit = f'btn_edit_{spec_id}_{id_user}'
-    btn_delete = f'btn_delete_{spec_id}_{id_user}'
-    btn_find_orders = f'btn_find_{spec_id}_{id_user}'
+    btn_edit = f'btn_edit_{service_id}_{id_user}'
+    btn_delete = f'btn_delete_{service_id}_{id_user}'
+    btn_find_orders = f'btn_find_orders_{service_id}_{spec_id}_{id_user}'
 
     print('Выведены кнопки ', btn_edit, btn_delete, btn_find_orders)
 

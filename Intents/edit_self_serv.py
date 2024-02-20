@@ -2,7 +2,7 @@ from loader import dp, bot
 from Classes.states_classes import all_states, Edit
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
-from Intents.show_user_data import take_user_data
+from Intents.OLD_show_user_data import take_user_data
 from DB.edit_spec_db import edit_spec
 from Checks_text.Check_info_about import check_info_about
 

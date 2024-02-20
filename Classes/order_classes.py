@@ -1,6 +1,7 @@
 from DB.add_order_db import add_order
 from DB.change_order_field import change_fields_ord
 from DB.delete_order_db import delete_order_db
+from DB.find_spec_id_by_spec_name import find_spec_id
 
 
 class Order:
@@ -10,6 +11,7 @@ class Order:
         self.id_order = None
         self.id_user = None
         self.spec_name = None
+        self.spec_id = None
         self.tg_username = None
         self.description = None
         self.city = None
@@ -17,7 +19,8 @@ class Order:
         self.time = None
 
     def save_order(self):
-        new_order_id = add_order(self.id_user, self.spec_name, self.description, self.city)
+        self.spec_id = find_spec_id(self.spec_name)
+        new_order_id = add_order(self.id_user, self.spec_id, self.description, self.city)
         return new_order_id
 
     def change_betta_order(self, order_field, new_value):

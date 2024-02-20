@@ -1,13 +1,14 @@
 from loader import dp, admin_id, bot, msg_id
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from bottons import menu_main
+from bottons import menu_start
 from inline_bottons import edit_intent_btn, intents_first, list_marking, Specialties, list_specialities, Driver_menu, \
     Food_services_menu, Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, \
     Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu, admin_buttons, list_final_intents
 from DB.find_table_names_db import find_table_names_db
 from DB.find_mes_for_marking_db import find_mes_for_marking_db
 from DB.save_intent_db import save_intent_db
+from DB.find_spec_id_by_spec_name import find_spec_id
 from Classes.message_classes import Message, mark_message
 from Classes.states_classes import Marking
 
@@ -18,7 +19,7 @@ async def marking1(message: types.Message, state: FSMContext):
     if user_id not in admin_id:
         await bot.send_message(message.from_user.id,
                                text='Вы заставили меня задуматься, отправляю вас в главное меню',
-                               reply_markup=menu_main)
+                               reply_markup=menu_start)
         await state.finish()
     else:
         table_names = find_table_names_db()
@@ -56,7 +57,7 @@ async def marking2(message: types.Message, state: FSMContext):
 @dp.callback_query_handler(text=list_final_intents, state=Marking.Marking_needs)
 async def marking3(message: types.Message, state: FSMContext):
     mark_message.intent = str(dict(message).get('data'))
-    save_intent_db(mark_message.table_name, mark_message.mes_id, mark_message.intent)
+    save_intent_db(mark_message.table_name, mark_message.mes_id, mark_message.intent, mark_message.spec_id)
 
     if msg_id:
         await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
@@ -136,8 +137,8 @@ async def marking5(message: types.Message, state: FSMContext):
         msg_id.append(aaa.message_id)
 
     else:
-        mark_message.intent = str(mark_message.intent) + '_' + str(spec_name)
-        save_intent_db(mark_message.table_name, mark_message.mes_id, mark_message.intent)
+        mark_message.spec_id = find_spec_id(spec_name)
+        save_intent_db(mark_message.table_name, mark_message.mes_id, mark_message.intent, mark_message.spec_id)
 
         await bot.send_message(message.from_user.id, text='Готово, запомнил интент. Выбери следующее действие',
                                reply_markup=admin_buttons)

@@ -6,7 +6,7 @@ import psycopg2
 load_dotenv()
 
 
-def find_masters(city, spec_name):
+def find_masters(city, spec_id):
     """ Take specialists """
     try:
         # connect to exist database
@@ -21,16 +21,16 @@ def find_masters(city, spec_name):
 
         with connection.cursor() as cursor:
 
-            cursor.execute("""SELECT COUNT(*) FROM user_spec WHERE spec_name = %(spec_name)s::text 
+            cursor.execute("""SELECT COUNT(*) FROM user_spec WHERE spec_id = %(spec_id)s::text 
                               AND spec_city = %(spec_city)s::text""",
-                           {'spec_name': spec_name, 'spec_city': city})
+                           {'spec_id': spec_id, 'spec_city': city})
             alfa = cursor.fetchone()[0]
             print('Number of specialists, which found = ', alfa)
 
             if alfa > 0:
-                cursor.execute("""SELECT * FROM user_spec WHERE spec_name = %(spec_name)s::text 
+                cursor.execute("""SELECT * FROM user_spec WHERE spec_id = %(spec_id)s::text 
                                   AND spec_city = %(spec_city)s::text""",
-                               {'spec_name': spec_name, 'spec_city': city})
+                               {'spec_id': spec_id, 'spec_city': city})
 
                 user_data = cursor.fetchall()
                 return user_data

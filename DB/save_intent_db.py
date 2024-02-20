@@ -7,7 +7,7 @@ from datetime import datetime
 load_dotenv()
 
 
-def save_intent_db(table_name, message_id, intent):
+def save_intent_db(table_name, message_id, intent, spec_id):
     try:
         # connect to exist database
         connection = psycopg2.connect(
@@ -19,12 +19,13 @@ def save_intent_db(table_name, message_id, intent):
             sslmode="require")
 
         with connection.cursor() as cursor:
-            cursor.execute(f"UPDATE {table_name} SET intent = '{intent}', check_admin = '1' "
+            cursor.execute(f"UPDATE {table_name} SET intent = '{intent}', check_admin = '1', spec_id = '{spec_id}' "
                            f"WHERE message_id = '{message_id}'")
 
             connection.commit()
             print(f'[INFO save_intent_db] '
-                  f'In {table_name} for message with message_id {message_id} set new intent {intent}')
+                  f'In {table_name} for message with message_id {message_id} set new intent {intent} '
+                  f'and spec_id = {spec_id}')
 
     except Exception as _ex:
         print('[INFO save_intent_db] Error while working with PostgreSQL', _ex)

@@ -73,13 +73,20 @@ def user_spec(tg_username):
 
             user_data = cursor.fetchall()
             result = []
+            print(user_data)
 
             for row in user_data:
                 id_user = row[0]
-                spec_name = row[1]
-                spec_about = row[4]
-                spec_id = row[6]
-                uu = {'id_user': id_user, 'name': spec_name, 'about': spec_about, 'spec_id': spec_id}
+                spec_about = row[3]
+                service_id = row[5]
+                spec_id = row[7]
+
+                cursor.execute(f"SELECT rus_name FROM specialities WHERE id_spec = '{spec_id}' ")
+                spec_name = cursor.fetchall()
+                spec_name = spec_name[0][0]
+
+                uu = {'id_user': id_user, 'spec_name': spec_name, 'about': spec_about, 'service_id': service_id,
+                      'spec_id': spec_id}
                 result.append(uu)
             return result
 
@@ -104,3 +111,44 @@ def user_spec(tg_username):
 #     e = a['name']
 #     f = a['about']
 #     print(e, f)
+
+
+# def xxxxxxxxx():
+#     """ Take user data from DB by tg_id """
+#     try:
+#         # connect to exist database
+#
+#         connection = psycopg2.connect(
+#             host=os.getenv('DB_HOST'),
+#             user=os.getenv('MY_USER'),
+#             password=os.getenv('PASSWORD'),
+#             database=os.getenv('DB_NAME'),
+#             port=os.getenv('DB_PORT'),
+#             sslmode='require')
+#
+#         with connection.cursor() as cursor:
+#
+#             cursor.execute("SELECT * FROM user_spec WHERE spec_name is NOT NULL")
+#             user_data = cursor.fetchall()
+#
+#             for elements in user_data:
+#                 id_x = elements[6]
+#                 spec_name = elements[1]
+#                 print(f'id_x = {id_x}, spec_name = {spec_name}')
+#
+#                 cursor.execute(f"SELECT id_spec FROM specialities WHERE rus_name='{spec_name}' ")
+#                 spec_id = cursor.fetchall()
+#                 print(f'id_x = {id_x}, spec_name = {spec_name}, spec_id = {spec_id}')
+#
+#                 cursor.execute(f"UPDATE user_spec SET spec_id='{spec_id[0][0]}' WHERE id='{id_x}' ")
+#
+#         connection.commit()
+#         print(f'[INFO user_spec] Connection to user information commit')
+#
+#     except Exception as _ex:
+#         print('[INFO user_spec] Error while working with PostgreSQL', _ex)
+#
+#     finally:
+#         if connection:
+#             connection.close()
+#             print('[INFO user_spec] PostgreSQL connection close')

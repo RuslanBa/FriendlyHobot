@@ -2,16 +2,15 @@ from aiogram import types
 from bottons import menu_main
 from loader import dp, bot
 from DB.add_log_db import add_new_log
-from DB.check_user_in_db import check_user
 from Classes.states_classes import Other, states_edit_other
 from Classes.client_classes import betta_user
-from Intents.edit_self import edit_any_user
 from inline_bottons import Specialties, list_specialities, Driver_menu, Food_services_menu, Beauty_menu, Events_menu, \
      Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, Photo_video_audio_menu, \
      Language_menu, Cities, list_cities, users_identifiers, list_identifiers, Lawyer_menu
 from aiogram.dispatcher.storage import FSMContext
 from Checks_text.Check_add_username import check_username
 from Checks_text.Check_info_about import check_info_about
+from Intents_admin.edit_other_func import betta_user_edit
 
 
 data_speciality = {'spec_name': '-', 'spec_city': '-', 'spec_about': '-', 'tg_username': '-'}
@@ -172,4 +171,4 @@ async def add_people8(message: types.Message, state: FSMContext):
 @dp.message_handler(state=states_edit_other)
 async def edit_self(message: types.Message, state: FSMContext):
     mess = message
-    await edit_any_user(betta_user.id_user, mess, state)
+    await betta_user_edit(mess, state)

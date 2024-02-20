@@ -23,8 +23,8 @@ def change_fields_ord(id_order, order_field, new_value):
                 request = """UPDATE orders SET description = %(new_value)s WHERE id_order = %(id_order)s"""
             elif order_field == 'city':
                 request = """UPDATE orders SET city = %(new_value)s WHERE id_order = %(id_order)s"""
-            elif order_field == 'spec_name':
-                request = """UPDATE orders SET spec_name = %(new_value)s WHERE id_order = %(id_order)s"""
+            elif order_field == 'spec_id':
+                request = """UPDATE orders SET spec_id = %(new_value)s WHERE id_order = %(id_order)s"""
 
             cursor.execute(request,
                            {'id_order': id_order, 'order_field': order_field, 'new_value': new_value})

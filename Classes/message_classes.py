@@ -12,6 +12,7 @@ class Message:
         self.text = None
         self.id = None
         self.intent = None
+        self.spec_id = None
         self.probability = None
         self.check_admin = None
 
