@@ -401,15 +401,15 @@ def edit_services_btn(service_id, id_user, spec_id):
 
     edit_spec = InlineKeyboardMarkup(row_width=2)
 
-    btn_edit = f'btn_edit_{service_id}_{id_user}'
-    btn_delete = f'btn_delete_{service_id}_{id_user}'
+    btn_edit = f'btn_edit_{service_id}_{spec_id}_{id_user}'
+    btn_delete = f'btn_delete_{service_id}_{spec_id}_{id_user}'
     btn_find_orders = f'btn_find_orders_{service_id}_{spec_id}_{id_user}'
 
     print('Выведены кнопки ', btn_edit, btn_delete, btn_find_orders)
 
     delete_one_spec = InlineKeyboardButton(text='Удалить услугу', callback_data=btn_delete)
     edit_one_spec = InlineKeyboardButton(text='Изменить описание', callback_data=btn_edit)
-    find_orders = InlineKeyboardButton(text='Посмотреть заявки', callback_data=btn_find_orders)
+    find_orders = InlineKeyboardButton(text='⭐️ Посмотреть заявки', callback_data=btn_find_orders)
 
     edit_spec.insert(delete_one_spec)
     edit_spec.insert(edit_one_spec)

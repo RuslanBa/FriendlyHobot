@@ -93,13 +93,12 @@ all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.A
 
 
 states_edit_self = [Edit.Edit_name, Edit.Edit_country, Edit.Edit_city, Edit.Edit_about, Edit.Edit_birthdate,
-                    Edit.New_spec_name, Edit.Edit_phone, Edit.New_spec_about, Edit.Edit_spec_about, Edit.Edit_order,
+                    Edit.Edit_phone,
                     About.AB_know, About.AB_about, About.AB_city,
                     Delete.Delete_self_spec, Delete.Delete_self_order]
 
 states_edit_self_list = ['Edit:Edit_name', 'Edit:Edit_country', 'Edit:Edit_city', 'Edit:Edit_about',
-                         'Edit:Edit_birthdate', 'Edit:Edit_phone', 'Edit:New_spec_name', 'Edit:New_spec_about',
-                         'Edit:Edit_spec_about', 'Edit:Edit_order',
+                         'Edit:Edit_birthdate', 'Edit:Edit_phone',
                          'About:AB_know', 'About:AB_about', 'About:AB_city',
                          'Delete:Delete_self_spec', 'Delete:Delete_self_order']
 

@@ -37,41 +37,55 @@ async def answer(message: types.Message, state: FSMContext):
 async def answer3(message: types.Message, state: FSMContext):
     spec_name = str(dict(message).get('data'))
 
+    await alfa_user.delete_dialog(message)
+
     if spec_name == 'Водители / перевозки / авто':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Driver_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Доставка и приготовление еды':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Food_services_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Красота и здоровье':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Beauty_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Мероприятия':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Events_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Помощь с детьми и близкими':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Helper_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Ремонт и строительство':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Repair_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Ремонт техники':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Equipment_repair_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Репетиторы и обучение':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Tutor_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Языки':
-        await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Какой язык вас интересует?', reply_markup=Language_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Уборка и помощь по хозяйству':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Housekeepers_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Фото, видео, аудио':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Photo_video_audio_menu)
+        msg_id.append(aaa.message_id)
 
     elif spec_name == 'Юриcты, переводы, бухгалтерия':
-        await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
+        aaa = await bot.send_message(message.from_user.id, 'Выберите подкатегорию', reply_markup=Lawyer_menu)
+        msg_id.append(aaa.message_id)
 
     else:
         spec_id = find_spec_id(spec_name)
@@ -86,9 +100,10 @@ async def answer4(message: types.Message, state: FSMContext):
     text = message.text
     text_new = check_info_about(text)
     data_speciality.update({'spec_about': text_new})
-    await message.answer(f'Запомнил описание вашей услуги - {text}\n'
-                         f'Напишите или выберите, в каком городе вы готовы оказывать данную услугу',
-                         reply_markup=Cities)
+    aaa = await message.answer(f'Запомнил описание вашей услуги - {text}\n'
+                               f'Напишите или выберите, в каком городе вы готовы оказывать данную услугу',
+                               reply_markup=Cities)
+    msg_id.append(aaa.message_id)
     await About.AB_city.set()
 
 
@@ -96,6 +111,8 @@ async def answer4(message: types.Message, state: FSMContext):
 async def answer5(message: types.Message, state: FSMContext):
     city_new = str(dict(message).get('data'))
     data_speciality.update({'spec_city': city_new})
+
+    await alfa_user.delete_dialog(message)
 
     alfa_user.add_user_spec(data_speciality['spec_id'], data_speciality['spec_about'], data_speciality['spec_city'])
 
@@ -107,6 +124,8 @@ async def answer5(message: types.Message, state: FSMContext):
 async def answer6(message: types.Message, state: FSMContext):
     city_new = message.text
     data_speciality.update({'spec_city': city_new})
+
+    await alfa_user.delete_dialog(message)
 
     alfa_user.add_user_spec(data_speciality['spec_id'], data_speciality['spec_about'], data_speciality['spec_city'])
 

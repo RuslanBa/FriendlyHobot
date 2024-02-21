@@ -12,6 +12,7 @@ from DB.from_db_user_data import user_data_by_id, user_spec
 from DB.find_spec_id_by_spec_name import find_spec_id
 from inline_bottons import dont_change_menu, save_self, save_other, edit_services_btn, edit_order_btn
 from Classes.states_classes import states_edit_self_list, states_edit_other_list
+from bottons import menu_main
 
 
 class Client:
@@ -32,6 +33,7 @@ class Client:
         self.id_user = None
         self.country = None
         self.phone = None
+        self.services = None
 
     def add_to_db(self):
         self.id_user = add_new_people(self.name, self.tg_id, self.tg_name, self.tg_surname, self.tg_username,
@@ -85,6 +87,12 @@ class Client:
     def change_user_data(self, user_field, new_value):
         change_fields(self.id_user, user_field, new_value)
 
+    async def delete_dialog(self, message: types.Message):
+        for id_messages in msg_id:
+            await bot.delete_message(message.from_user.id, message_id=int(id_messages))
+        msg_id.clear()
+        print('msg_id now is - ', msg_id)
+
     async def show_user_data(self, message: types.Message, state: FSMContext):
         if self.id_user is None and self.tg_username:
             self.id_user = find_user_id(self.tg_username)
@@ -105,8 +113,8 @@ class Client:
         self.country = xxx[10]
         self.phone = xxx[11]
 
-        us_spec = user_spec(self.tg_username)
-        print('us_spec =', us_spec)
+        alfa_user.services = user_spec(self.tg_username)
+        print('us_spec =', alfa_user.services)
 
         current_state = await state.get_state()
         ttt = None
@@ -125,19 +133,56 @@ class Client:
                                      reply_markup=ttt)
         msg_id.append(aaa.message_id)
 
-        for item in us_spec:
+        bbb = await bot.send_message(message.from_user.id, text='<b>Услуги</b>\n', parse_mode='HTML',
+                                     reply_markup=menu_main)
+        msg_id.append(bbb.message_id)
+
+        for item in alfa_user.services:
             spec_name = item['spec_name']
             about_spec = item['about']
             service_id = item['service_id']
             spec_id = item['spec_id']
-            text_spec = '<b>Услуги</b>\nCпециальность:\n' + spec_name + '\nОписание услуги:\n' + about_spec
-            await bot.send_message(message.from_user.id,
-                                   text=text_spec,
-                                   parse_mode='HTML',
-                                   reply_markup=edit_services_btn(service_id, self.id_user, spec_id))
+            text_spec = 'Cпециальность:\n' + spec_name + '\nОписание услуги:\n' + about_spec
+            ccc = await bot.send_message(message.from_user.id,
+                                         text=text_spec,
+                                         parse_mode='HTML',
+                                         reply_markup=edit_services_btn(service_id, self.id_user, spec_id))
+            msg_id.append(ccc.message_id)
 
-        await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно у этого пользователя?',
-                               reply_markup=dont_change_menu)
+        ddd = await bot.send_message(message.from_user.id,
+                                     text='Проверьте все ли указано корректно у этого пользователя?',
+                                     reply_markup=dont_change_menu)
+        msg_id.append(ddd.message_id)
+        print('msg_id now is - ', msg_id)
+
+    async def show_pers_data(self, message: types.Message):
+        if self.id_user is None and self.tg_username:
+            self.id_user = find_user_id(self.tg_username)
+        elif self.id_user is None and self.tg_username is None:
+            print('[show_user_data] no id and username for searching user')
+
+        xxx = user_data_by_id(self.id_user)
+        self.name = xxx[0]
+        self.tg_id = xxx[1]
+        self.tg_name = xxx[2]
+        self.tg_surname = xxx[3]
+        self.tg_username = xxx[4]
+        self.about = xxx[5]
+        self.archetype = xxx[6]
+        self.city = xxx[7]
+        self.birthdate = xxx[8]
+        self.speciality_need = xxx[9]
+        self.country = xxx[10]
+        self.phone = xxx[11]
+
+        aaa = await bot.send_message(message.from_user.id,
+                                     text=f'<b>Имя</b> - {self.name}\n'
+                                          f'<b>Cтрана</b> - {self.country}\n'
+                                          f'<b>Город исполнителя</b> - {self.city}\n'
+                                          f'<b>Общая информация</b> - {self.about}\n'
+                                          f'<b>Дата рождения</b> - {self.birthdate}\n'
+                                          f'<b>Телефон</b> - {self.phone}', parse_mode='HTML')
+        msg_id.append(aaa.message_id)
 
     async def show_user_orders(self, message: types.Message, state: FSMContext):
         data_orders = find_orders_db(self.id_user)

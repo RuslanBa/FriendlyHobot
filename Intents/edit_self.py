@@ -1,6 +1,6 @@
 from inline_bottons import list_self, Specialties, selfabout_fields
 from bottons import menu_start
-from loader import dp, bot
+from loader import dp, bot, msg_id
 from Classes.states_classes import Edit, About, all_states, states_edit_self
 from DB.add_log_db import add_new_log
 from aiogram import types
@@ -12,38 +12,53 @@ from Classes.client_classes import alfa_user
 @dp.callback_query_handler(text='edit_self', state=all_states)
 async def edit_self1(message: types.Message):
     """ Edit button in menu for user fiedls """
+
+    alfa_user.delete_dialog(message)
+
+    await alfa_user.show_pers_data(message)
+
     add_new_log(message.from_user.id, message.from_user.username, 'Edit user"')
-    await bot.send_message(message.from_user.id, text='Какое поле вы хотите отредактировать?',
-                           reply_markup=selfabout_fields)
+    bbb = await bot.send_message(message.from_user.id, text='Какое поле вы хотите отредактировать?',
+                                 reply_markup=selfabout_fields)
+    msg_id.append(bbb.message_id)
 
 
 @dp.callback_query_handler(text=list_self, state=states_edit_self)
 async def edit_self2(message: types.Message, state: FSMContext):
     """ Edit self information from button edit """
     field = str(dict(message).get('data'))
+    alfa_user.delete_dialog(message)
+
+    await alfa_user.show_pers_data(message)
 
     if field == 'name':
-        await bot.send_message(message.from_user.id, text='Введите новое имя')
+        bbb = await bot.send_message(message.from_user.id, text='Введите новое имя')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_name.set()
 
     elif field == 'country':
-        await bot.send_message(message.from_user.id, text='Введите название страны')
+        bbb = await bot.send_message(message.from_user.id, text='Введите название страны')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_country.set()
 
     elif field == 'city':
-        await bot.send_message(message.from_user.id, text='Введите новый город')
+        bbb = await bot.send_message(message.from_user.id, text='Введите новый город')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_city.set()
 
     elif field == 'about':
-        await bot.send_message(message.from_user.id, text='Введите новый текст о себе')
+        bbb = await bot.send_message(message.from_user.id, text='Введите новый текст о себе')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_about.set()
 
     elif field == 'birthdate':
-        await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
+        bbb = await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_birthdate.set()
 
     elif field == 'Телефон':
-        await bot.send_message(message.from_user.id, text='Введите новый телефон')
+        bbb = await bot.send_message(message.from_user.id, text='Введите новый телефон')
+        msg_id.append(bbb.message_id)
         await Edit.Edit_phone.set()
 
     else:
@@ -54,8 +69,11 @@ async def edit_self2(message: types.Message, state: FSMContext):
 
 @dp.callback_query_handler(text='spec_name', state=states_edit_self)
 async def edit_self4(message: types.Message, state: FSMContext):
-    await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
-                           reply_markup=Specialties)
+    await alfa_user.delete_dialog(message)
+    aaa = await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
+                                 reply_markup=Specialties)
+    msg_id.append(aaa.message_id)
+
     await About.AB_spec.set()
 
 
@@ -67,7 +85,7 @@ async def edit_self5(message: types.Message, state: FSMContext):
 
     if current_state == 'Edit:Edit_name':
         await message.answer(f'Отлично, запомнил ваше имя - {text}')
-        change_fields(alfa_user.id_user, 'name', text)
+        change_fields(alfa_user.id_user, 'user_name', text)
 
     elif current_state == 'Edit:Edit_country':
         await message.answer(f'Отлично, запомнил вашу страну - {text}')

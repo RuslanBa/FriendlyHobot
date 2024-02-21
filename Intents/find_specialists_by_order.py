@@ -34,8 +34,7 @@ async def start_order(message: types.Message):
 async def make_order(message: types.Message, state: FSMContext):
     text = str(dict(message).get('data'))
 
-    await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
-    msg_id.clear()
+    await alfa_user.delete_dialog(message)
 
     if text == 'yes':
         aaa = await bot.send_message(message.from_user.id, text='В какой категории вам нужна услуга?',
@@ -57,9 +56,7 @@ async def make_order(message: types.Message, state: FSMContext):
 async def order_spec(message: types.Message):
     spec_name = str(dict(message).get('data'))
 
-    if msg_id:
-        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
-        msg_id.clear()
+    alfa_user.delete_dialog(message)
 
     alfa_order.spec_name = spec_name
 
@@ -134,15 +131,13 @@ async def order_text(message: types.Message, state: FSMContext):
 async def back_order(message: types.Message, state: FSMContext):
 
     if alfa_order.spec_name is None:
-        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
-        msg_id.clear()
+        await alfa_user.delete_dialog(message)
         await bot.send_message(message.from_user.id, text='Давайте вернемся в главное меню))\n'
                                                           'Выберете, что вас интересует', reply_markup=menu_start)
         await state.finish()
 
     elif alfa_order.spec_name in list_specialities:
         alfa_order.spec_name = None
-        await bot.delete_message(message.from_user.id, message_id=int(msg_id[0]))
+        await alfa_user.delete_dialog(message)
         aaa = await bot.send_message(message.from_user.id, text='Выберите категорию:', reply_markup=Specialties)
-        msg_id.clear()
         msg_id.append(aaa.message_id)
