@@ -8,6 +8,7 @@ Cities = InlineKeyboardMarkup(row_width=1)
 dont_change_menu = InlineKeyboardMarkup(row_width=1)
 intents_first = InlineKeyboardMarkup(row_width=1)
 feedback = InlineKeyboardMarkup(row_width=1)
+finish_orders = InlineKeyboardMarkup(row_width=1)
 save_self = InlineKeyboardMarkup(row_width=2)
 save_other = InlineKeyboardMarkup(row_width=2)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
@@ -208,6 +209,8 @@ message_for_marking = InlineKeyboardButton(text='Сообщения для ма�
 orders_users = InlineKeyboardButton(text='Заявки пользователей (не работает)', callback_data='orders_users')
 stats = InlineKeyboardButton(text='Статистика базы', callback_data='stats')
 
+make_order = InlineKeyboardButton(text='Создать заявку', callback_data='make_order')
+
 # Добавление кнопок ---------------------------------------------------------------------------------
 
 Specialties.insert(Realtor)
@@ -350,6 +353,9 @@ intents_first.insert(Need_specialist)
 intents_first.insert(Need_buy)
 intents_first.insert(Need_sell)
 intents_first.insert(None_target)
+
+finish_orders.insert(dont_change)
+finish_orders.insert(make_order)
 
 
 # Листы ответов ---------------------------------------------------------------------------------

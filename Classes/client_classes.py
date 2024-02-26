@@ -9,9 +9,10 @@ from DB.add_people_db import add_new_people
 from DB.add_spec_for_people import add_spec
 from DB.find_orders_by_user import find_orders_db
 from DB.from_db_user_data import user_data_by_id, user_spec
-from DB.find_spec_id_by_spec_name import find_spec_id
-from inline_bottons import dont_change_menu, save_self, save_other, edit_services_btn, edit_order_btn
-from Classes.states_classes import states_edit_self_list, states_edit_other_list
+from DB.find_spec_by_id import find_speciality
+from inline_bottons import dont_change_menu, save_self, save_other, edit_services_btn, edit_order_btn, yes_no, \
+    finish_orders
+from Classes.states_classes import states_edit_self_list, states_edit_other_list, Order
 from bottons import menu_main
 
 
@@ -34,6 +35,7 @@ class Client:
         self.country = None
         self.phone = None
         self.services = None
+        self.orders = None
 
     def add_to_db(self):
         self.id_user = add_new_people(self.name, self.tg_id, self.tg_name, self.tg_surname, self.tg_username,
@@ -88,10 +90,13 @@ class Client:
         change_fields(self.id_user, user_field, new_value)
 
     async def delete_dialog(self, message: types.Message):
-        for id_messages in msg_id:
-            await bot.delete_message(message.from_user.id, message_id=int(id_messages))
-        msg_id.clear()
-        print('msg_id now is - ', msg_id)
+        if msg_id:
+            for id_messages in msg_id:
+                await bot.delete_message(message.from_user.id, message_id=int(id_messages))
+            msg_id.clear()
+            print('msg_id cleaned and now is - ', msg_id)
+        else:
+            print("can't clean msg_id - it is clean")
 
     async def show_user_data(self, message: types.Message, state: FSMContext):
         if self.id_user is None and self.tg_username:
@@ -113,8 +118,8 @@ class Client:
         self.country = xxx[10]
         self.phone = xxx[11]
 
-        alfa_user.services = user_spec(self.tg_username)
-        print('us_spec =', alfa_user.services)
+        self.services = user_spec(self.tg_username)
+        print('us_spec =', self.services)
 
         current_state = await state.get_state()
         ttt = None
@@ -185,29 +190,46 @@ class Client:
         msg_id.append(aaa.message_id)
 
     async def show_user_orders(self, message: types.Message, state: FSMContext):
-        data_orders = find_orders_db(self.id_user)
-        print('for user - ', self.id_user, 'found orders:', data_orders)
+        self.orders = find_orders_db(self.id_user)
+        print('for user - ', self.id_user, 'found orders:', self.orders)
 
-        if not data_orders:
-            await message.answer('У вас нет размещенных задач на поиск исполнителя.\n'
-                                 'Возвращаемся в главное меню.')
-            await state.finish()
+        if not self.orders:
+            await bot.send_message(message.from_user.id, text='У вас нет размещенных задач на поиск исполнителя',
+                                   reply_markup=menu_main)
+            aaa = await bot.send_message(message.from_user.id,
+                                         text='Хотите, чтобы я самостоятельно подобрал потенциальных '
+                                              'исполнителей под ваш запрос?\n'
+                                              'Это бесплатно. Я задам вам несколько вопросов, '
+                                              'пойму, что вам нужно и создам зявку.\n'
+                                              'Далее покажу вам отклики тех испонителей, которые будут согласны ее '
+                                              'выполнить.',
+                                         reply_markup=yes_no)
+            msg_id.append(aaa.message_id)
+            await Order.Order_start.set()
 
         else:
-            for xxx in data_orders:
+            await bot.send_message(message.from_user.id, text='Вижу, у вас уже есть размещенные заявки\n',
+                                   reply_markup=menu_main)
+            for xxx in self.orders:
                 id_user = xxx['id_user']
                 id_order = xxx['id_order']
                 city = xxx['city']
-                spec_id = xxx['spec_id']
+                spec_data = find_speciality(xxx['spec_id'])
+                spec_name = spec_data[2]
+                xxx['spec_name'] = spec_name
                 description = xxx['description']
-                await bot.send_message(message.from_user.id,
-                                       text=f'Город - {city}\n'
-                                            f'Категория - {spec_id}\n'
-                                            f'Описание задачи:\n'
-                                            f'{description}',
-                                       reply_markup=edit_order_btn(id_order, id_user))
-            await bot.send_message(message.from_user.id, text='Проверьте все ли указано корректно?',
-                                   reply_markup=dont_change_menu)
+                aaa = await bot.send_message(message.from_user.id,
+                                             text=f'Город - {city}\n'
+                                                  f'Категория - {spec_name}\n'
+                                                  f'Описание задачи:\n'
+                                                  f'{description}',
+                                             reply_markup=edit_order_btn(id_order, id_user))
+                msg_id.append(aaa.message_id)
+
+            bbb = await bot.send_message(message.from_user.id, text='Что делаем дальше?',
+                                         reply_markup=finish_orders)
+            msg_id.append(bbb.message_id)
+            await Order.Order_change.set()
 
 
 alfa_user = Client()

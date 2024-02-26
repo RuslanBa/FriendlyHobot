@@ -70,6 +70,7 @@ class Order(StatesGroup):
     Order_spec = State()
     Order_text = State()
     Order_my = State()
+    Order_change = State()
 
 
 class Marking(StatesGroup):
@@ -85,7 +86,7 @@ all_states = [About.AB_go, About.AB_name, About.AB_spec, About.AB_price, About.A
               Find.Find_spec, Find.Find_city,
               Marking.Marking_needs,
               Meeting.Meet_city, Meeting.Meet_name,
-              Order.Order_spec, Order.Order_start, Order.Order_text, Order.Order_my,
+              Order.Order_spec, Order.Order_start, Order.Order_text, Order.Order_my, Order.Order_change,
               Other.Other_tg, Other.Other_name, Other.Other_spec, Other.Other_spec_about, Other.Other_spec_city,
               Other.Other_change, Other.Other_change_name, Other.Other_change_country, Other.Other_change_city,
               Other.Other_change_about, Other.Other_change_birthday, Other.Other_change_phone, Other.Other_catalog,

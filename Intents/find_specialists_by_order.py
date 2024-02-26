@@ -12,22 +12,15 @@ from Intents.meeting_user import meetings0
 
 
 @dp.message_handler(text='Найти исполнителя')
-async def start_order(message: types.Message):
+async def start_order(message: types.Message, state: FSMContext):
 
     alfa_user.intent = 'оставить заявку'
     alfa_user.update_alfa_user(message, alfa_user.intent)
 
-    await message.answer('Вы можете оставить заявку с указанием того, кто вам нужен и на каких условиях.\n'
-                         'Я самостоятельно подберу потенциальных исполнителей и отправлю им ваш запрос\n\n',
-                         reply_markup=menu_main)
+    await alfa_user.show_user_orders(message, state)
 
     if alfa_user.name is None or alfa_user.city is None:
         await meetings0(message)
-
-    else:
-        aaa = await message.answer('Я задам вам несколько вопросов, готовы?', reply_markup=yes_no)
-        msg_id.append(aaa.message_id)
-        await Order.Order_start.set()
 
 
 @dp.callback_query_handler(text=list_yes_no, state=Order.Order_start)
@@ -56,7 +49,7 @@ async def make_order(message: types.Message, state: FSMContext):
 async def order_spec(message: types.Message):
     spec_name = str(dict(message).get('data'))
 
-    alfa_user.delete_dialog(message)
+    await alfa_user.delete_dialog(message)
 
     alfa_order.spec_name = spec_name
 
@@ -141,3 +134,17 @@ async def back_order(message: types.Message, state: FSMContext):
         await alfa_user.delete_dialog(message)
         aaa = await bot.send_message(message.from_user.id, text='Выберите категорию:', reply_markup=Specialties)
         msg_id.append(aaa.message_id)
+
+
+@dp.callback_query_handler(text='make_order', state=Order.Order_change)
+async def make_order(message: types.Message, state: FSMContext):
+    await alfa_user.delete_dialog(message)
+    aaa = await bot.send_message(message.from_user.id, text='В какой категории вам нужна услуга?',
+                                 reply_markup=Specialties)
+    msg_id.append(aaa.message_id)
+
+    alfa_order.tg_username = message.from_user.username
+    alfa_order.city = alfa_user.city
+    alfa_order.id_user = alfa_user.id_user
+
+    await Order.Order_spec.set()
