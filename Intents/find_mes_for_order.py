@@ -1,5 +1,6 @@
 from aiogram import types
-from loader import dp, bot, msg_id
+from loader import dp, bot
+# from Intents.dialog import msg_id, delete_dialog
 from Classes.states_classes import all_states
 from Classes.client_classes import alfa_user
 from aiogram.dispatcher.storage import FSMContext
@@ -22,12 +23,12 @@ async def find_mes_order1(message: types.Message, state: FSMContext):
 
     aaa = await bot.send_message(message.from_user.id, text=f'Давайте посмотрим заявки для вашей услуги:',
                                  reply_markup=menu_main)
-    msg_id.append(aaa.message_id)
+    await alfa_user.add_msg_id(message, aaa)
 
     if not result_mes:
-        bbb = await bot.send_message(message.from_user.id,
+        aaa = await bot.send_message(message.from_user.id,
                                      text='Сообщений в данной тематике нет, попробуйте проверить позже')
-        msg_id.append(bbb.message_id)
+        await alfa_user.add_msg_id(message, aaa)
 
     else:
         for elements in result_mes:
@@ -35,8 +36,8 @@ async def find_mes_order1(message: types.Message, state: FSMContext):
             date = elements[2]
             time = elements[3]
             text = elements[6]
-            bbb = await bot.send_message(message.from_user.id, text=f'{date}\n'
+            aaa = await bot.send_message(message.from_user.id, text=f'{date}\n'
                                                                     f'{time}\n'
                                                                     f'{link}\n'
                                                                     f'{text}', disable_web_page_preview=True)
-            msg_id.append(bbb.message_id)
+            await alfa_user.add_msg_id(message, aaa)

@@ -4,11 +4,15 @@ from loader import dp, bot
 from inline_bottons import feedback, admin_buttons
 from DB.add_log_db import add_new_log
 from Classes.states_classes import Feedback
+from Classes.client_classes import alfa_user
 from loader import admin_id
 
 
 @dp.message_handler(text='О Friendly Hobot')
 async def about_one(message: types.Message):
+
+    await alfa_user.add_alfa_user(message, 'O FH')
+
     id = message.from_user.id
     add_new_log(message.from_user.id, message.from_user.username, 'Аbout FriendlyHobot"')
 

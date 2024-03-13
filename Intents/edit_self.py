@@ -1,6 +1,7 @@
 from inline_bottons import list_self, Specialties, selfabout_fields
 from bottons import menu_start
-from loader import dp, bot, msg_id
+from loader import dp, bot
+# from Intents.dialog import msg_id, delete_dialog
 from Classes.states_classes import Edit, About, all_states, states_edit_self
 from DB.add_log_db import add_new_log
 from aiogram import types
@@ -13,52 +14,52 @@ from Classes.client_classes import alfa_user
 async def edit_self1(message: types.Message):
     """ Edit button in menu for user fiedls """
 
-    alfa_user.delete_dialog(message)
+    await alfa_user.delete_dialog(message)
 
     await alfa_user.show_pers_data(message)
 
     add_new_log(message.from_user.id, message.from_user.username, 'Edit user"')
-    bbb = await bot.send_message(message.from_user.id, text='Какое поле вы хотите отредактировать?',
+    aaa = await bot.send_message(message.from_user.id, text='Какое поле вы хотите отредактировать?',
                                  reply_markup=selfabout_fields)
-    msg_id.append(bbb.message_id)
+    await alfa_user.add_msg_id(message, aaa)
 
 
 @dp.callback_query_handler(text=list_self, state=states_edit_self)
 async def edit_self2(message: types.Message, state: FSMContext):
     """ Edit self information from button edit """
     field = str(dict(message).get('data'))
-    alfa_user.delete_dialog(message)
+    await alfa_user.delete_dialog(message)
 
     await alfa_user.show_pers_data(message)
 
     if field == 'name':
-        bbb = await bot.send_message(message.from_user.id, text='Введите новое имя')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите новое имя')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_name.set()
 
     elif field == 'country':
-        bbb = await bot.send_message(message.from_user.id, text='Введите название страны')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите название страны')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_country.set()
 
     elif field == 'city':
-        bbb = await bot.send_message(message.from_user.id, text='Введите новый город')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите новый город')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_city.set()
 
     elif field == 'about':
-        bbb = await bot.send_message(message.from_user.id, text='Введите новый текст о себе')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите новый текст о себе')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_about.set()
 
     elif field == 'birthdate':
-        bbb = await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите новую дату рождения')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_birthdate.set()
 
     elif field == 'Телефон':
-        bbb = await bot.send_message(message.from_user.id, text='Введите новый телефон')
-        msg_id.append(bbb.message_id)
+        aaa = await bot.send_message(message.from_user.id, text='Введите новый телефон')
+        await alfa_user.add_msg_id(message, aaa)
         await Edit.Edit_phone.set()
 
     else:
@@ -72,7 +73,7 @@ async def edit_self4(message: types.Message, state: FSMContext):
     await alfa_user.delete_dialog(message)
     aaa = await bot.send_message(message.from_user.id, text='Выберите услугу, которую вы можете оказывать',
                                  reply_markup=Specialties)
-    msg_id.append(aaa.message_id)
+    await alfa_user.add_msg_id(message, aaa)
 
     await About.AB_spec.set()
 

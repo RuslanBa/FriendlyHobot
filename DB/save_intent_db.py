@@ -19,8 +19,10 @@ def save_intent_db(table_name, message_id, intent, spec_id):
             sslmode="require")
 
         with connection.cursor() as cursor:
-            cursor.execute(f"UPDATE {table_name} SET intent = '{intent}', check_admin = '1', spec_id = '{spec_id}' "
-                           f"WHERE message_id = '{message_id}'")
+
+            cursor.execute(f"""UPDATE {table_name} SET intent = %(intent)s, check_admin = '1', 
+                              spec_id = %(spec_id)s WHERE message_id = %(message_id)s """,
+                           {'intent': intent, 'spec_id': spec_id, 'message_id': message_id})
 
             connection.commit()
             print(f'[INFO save_intent_db] '

@@ -3,10 +3,10 @@ from Classes.states_classes import all_states, Edit
 from Classes.client_classes import alfa_user
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
-from Intents.OLD_show_user_data import take_user_data
 from DB.edit_spec_db import edit_spec
 from Checks_text.Check_info_about import check_info_about
 from bottons import menu_main
+# from Intents.dialog import msg_id, delete_dialog
 
 
 data_need = {'service_id': None, 'spec_name': None, 'about': None}
@@ -52,4 +52,3 @@ async def edit_serv2(message: types.Message, state: FSMContext):
     await bot.send_message(message.from_user.id, text='Отлично, текст я заменил'
                                                       '\nДавайте посмотрим, что я теперь знаю:')
     await alfa_user.show_user_data(message, state)
-

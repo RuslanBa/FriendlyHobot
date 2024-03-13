@@ -3,7 +3,8 @@ from aiogram.dispatcher.storage import FSMContext
 from Classes.states_classes import all_states, Order
 from Classes.client_classes import alfa_user
 from bottons import menu_start
-from loader import bot, dp, msg_id
+from loader import bot, dp
+# from Intents.dialog import delete_dialog
 from Intents.meeting_user import meetings0
 
 
@@ -12,6 +13,7 @@ from Intents.meeting_user import meetings0
 
 @dp.message_handler(text='Главное меню')
 async def advertising(message: types.Message):
+    await alfa_user.add_alfa_user(message, None)
     await alfa_user.delete_dialog(message)
     await message.answer('Это мое главное меню. Чтобы вы хотели сделать?', reply_markup=menu_start)
 

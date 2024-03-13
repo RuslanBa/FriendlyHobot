@@ -445,7 +445,7 @@ def edit_order_btn(order_id, id_user):
 def edit_intent_btn(table_name, mes_id):
 
     edit_intent = InlineKeyboardMarkup(row_width=1)
-    btn_intent_edit = f'btn_intent_edit_{table_name}_{mes_id}'
+    btn_intent_edit = f'btn-intent-edit-{table_name}-{mes_id}'
     print('Show button ', btn_intent_edit)
 
     edit_one_intent = InlineKeyboardButton(text='Изменить интент', callback_data=btn_intent_edit)

@@ -21,6 +21,7 @@ def find_orders_db(id_user):
 
         with connection.cursor() as cursor:
 
+            print('[INFO find_orders_db] trying find orders for id_user - ', id_user)
             cursor.execute("SELECT * FROM orders WHERE id_user = %(id_user)s", {'id_user': id_user})
 
             order_data = cursor.fetchall()
@@ -39,6 +40,7 @@ def find_orders_db(id_user):
                 result.append(uu)
 
             connection.commit()
+            print('[INFO find_orders_db] found orders - ', result)
             return result
 
     except Exception as _ex:

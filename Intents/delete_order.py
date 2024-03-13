@@ -1,4 +1,5 @@
-from loader import dp, bot, msg_id
+from loader import dp, bot
+# from Intents.dialog import msg_id, delete_dialog
 from Classes.states_classes import Delete, all_states
 from Classes.order_classes import betta_order
 from Classes.client_classes import alfa_user
@@ -13,10 +14,12 @@ async def delete_ord1(message: types.Message, state: FSMContext):
     await alfa_user.delete_dialog(message)
     text = str(dict(message).get('data'))
     data = text.split('_')      # 'btn_order_delete_{order_id}_{id_user}
-    betta_order.id_user = data[4]
-    betta_order.id_order = data[3]
 
-    for orders in alfa_user.orders:
+    await betta_order.add_alfa_order(message)
+    betta_order.orders[message.from_user.id]['id_order'] = data[3]
+    betta_order.orders[message.from_user.id]['id_user'] = data[4]
+
+    for orders in alfa_user.users[message.from_user.id]['orders']:
         if orders['id_order'] == int(data[3]):
             service_need = orders['spec_name']
             now_about = orders['description']
@@ -27,8 +30,9 @@ async def delete_ord1(message: types.Message, state: FSMContext):
                                                             f'Вы уверены, что хотите удалить заявку?',
                                  parse_mode='HTML',
                                  reply_markup=yes_no)
-    msg_id.append(aaa.message_id)
-    print(f'Order for deleting - {betta_order.id_order} for user - {betta_order.id_user}')
+    await alfa_user.add_msg_id(message, aaa)
+    print(f'Order for deleting - {betta_order.orders[message.from_user.id]["id_order"]} '
+          f'for user - {betta_order.orders[message.from_user.id]["id_user"]}')
     await Delete.Delete_self_order.set()
 
 
@@ -38,7 +42,7 @@ async def delete_ord2(message: types.Message, state: FSMContext):
     text = str(dict(message).get('data'))
 
     if text == 'yes':
-        betta_order.delete_betta_order()
+        betta_order.delete_betta_order(message)
         await bot.send_message(message.from_user.id, text='Хорошо, такого заказа больше нет))\n'
                                                           'Давайте посмотрим, какие заказы у вас остались')
         await alfa_user.show_user_orders(message, state)
