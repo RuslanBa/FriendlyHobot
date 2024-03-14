@@ -17,10 +17,10 @@ async def start_order(message: types.Message, state: FSMContext):
 
     await alfa_user.add_alfa_user(message, 'оставить заявку')
 
-    await alfa_user.show_user_orders(message, state)
-
     if alfa_user.users[message.from_user.id]['name'] is None or alfa_user.users[message.from_user.id]['city'] is None:
         await meetings0(message)
+    else:
+        await alfa_user.show_user_orders(message, state)
 
 
 @dp.callback_query_handler(text=list_yes_no, state=Order.Order_start)

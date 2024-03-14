@@ -27,7 +27,7 @@ async def meetings0(message: types.Message):
 @dp.message_handler(state=Meeting.Meet_name)
 async def meetings1(message: types.Message, state: FSMContext):
     alfa_user.users[message.from_user.id]['name'] = message.text
-    alfa_user.change_user_data('user_name', alfa_user.users[message.from_user.id]['name'])
+    alfa_user.change_user_data(message, 'user_name', alfa_user.users[message.from_user.id]['name'])
 
     if alfa_user.users[message.from_user.id]['city'] is None:
         await message.answer(f'Хорошо, запомнил ваше имя {alfa_user.users[message.from_user.id]["name"]}.\n'
@@ -64,7 +64,7 @@ async def meetings1(message: types.Message, state: FSMContext):
 @dp.message_handler(state=Meeting.Meet_city)
 async def meetings2(message: types.Message, state: FSMContext):
     alfa_user.users[message.from_user.id]['city'] = message.text
-    alfa_user.change_user_data('city', alfa_user.users[message.from_user.id]['city'])
+    alfa_user.change_user_data(message, 'city', alfa_user.users[message.from_user.id]['city'])
 
     await message.answer(f'Отлично, запомнил ваш город {alfa_user.users[message.from_user.id]["city"]}')
 
