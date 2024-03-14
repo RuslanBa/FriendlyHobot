@@ -33,6 +33,9 @@ def find_mes_for_user_db(first_intent, spec_id):
             end_sql = sql[:-25]
             print('[INFO find_mes_for_user_db] Full SQL for parsing - ', end_sql)
 
+            print(f'[NFO find_mes_for_user_db] Trying to find mes for spec_id = "{spec_id}" '
+                  f'and intent = "{first_intent}"')
+
             cursor.execute(f"SELECT * FROM ({str(end_sql)}) AS mes "
                            f"WHERE spec_id = '{spec_id}' AND intent = '{first_intent}' ")
 

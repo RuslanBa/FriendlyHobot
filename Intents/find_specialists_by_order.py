@@ -139,8 +139,5 @@ async def make_order(message: types.Message, state: FSMContext):
                                  reply_markup=Specialties)
     await alfa_user.add_msg_id(message, aaa)
 
-    alfa_order.tg_username = message.from_user.username
-    alfa_order.city = alfa_user.city
-    alfa_order.id_user = alfa_user.id_user
-
+    await alfa_order.add_alfa_order(message)
     await Order.Order_spec.set()

@@ -415,7 +415,7 @@ def edit_services_btn(service_id, id_user, spec_id):
 
     delete_one_spec = InlineKeyboardButton(text='Удалить услугу', callback_data=btn_delete)
     edit_one_spec = InlineKeyboardButton(text='Изменить описание', callback_data=btn_edit)
-    find_orders = InlineKeyboardButton(text='⭐️ Посмотреть заявки', callback_data=btn_find_orders)
+    find_orders = InlineKeyboardButton(text='⭐️ Найте запросы в чатах', callback_data=btn_find_orders)
 
     edit_spec.insert(delete_one_spec)
     edit_spec.insert(edit_one_spec)
@@ -424,20 +424,23 @@ def edit_services_btn(service_id, id_user, spec_id):
     return edit_spec
 
 
-def edit_order_btn(order_id, id_user):
+def edit_order_btn(order_id, id_user, spec_id):
 
     edit_order = InlineKeyboardMarkup(row_width=2)
 
-    btn_order_edit = f'btn_order_edit_{order_id}_{id_user}'
-    btn_order_delete = f'btn_order_delete_{order_id}_{id_user}'
+    btn_order_edit = f'btn_order_edit_{order_id}_{spec_id}_{id_user}'
+    btn_order_delete = f'btn_order_delete_{order_id}_{spec_id}_{id_user}'
+    btn_find_offers = f'btn_find_offers_{order_id}_{spec_id}_{id_user}'
 
     print('Выведены кнопки ', btn_order_edit, btn_order_delete)
 
     delete_one_order = InlineKeyboardButton(text='Удалить заявку', callback_data=btn_order_delete)
     edit_one_order = InlineKeyboardButton(text='Изменить заявку', callback_data=btn_order_edit)
+    find_offers = InlineKeyboardButton(text='⭐️ Найти предложения в чатах', callback_data=btn_find_offers)
 
     edit_order.insert(delete_one_order)
     edit_order.insert(edit_one_order)
+    edit_order.insert(find_offers)
 
     return edit_order
 

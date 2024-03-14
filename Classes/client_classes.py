@@ -92,10 +92,12 @@ class Client:
         msg_id = self.users[message.from_user.id]['msg_id']
 
         if msg_id:
-        # if self.msg_id:
             print('need to delete - ', msg_id)
             for id_messages in msg_id:
-                await bot.delete_message(message.from_user.id, message_id=int(id_messages))
+                try:
+                    await bot.delete_message(message.from_user.id, message_id=int(id_messages))
+                except Exception as _ex:
+                    print('[client_classes] Error in delete_dialog - ', _ex)
             msg_id.clear()
             print('self.msg_id cleaned and now is - ', msg_id)
         else:
@@ -263,7 +265,8 @@ class Client:
                 id_user = xxx['id_user']
                 id_order = xxx['id_order']
                 city = xxx['city']
-                spec_data = find_speciality(xxx['spec_id'])
+                spec_id = xxx['spec_id']
+                spec_data = find_speciality(spec_id)
                 spec_name = spec_data[2]
                 xxx['spec_name'] = spec_name
                 description = xxx['description']
@@ -272,7 +275,7 @@ class Client:
                                                   f'Категория - {spec_name}\n'
                                                   f'Описание задачи:\n'
                                                   f'{description}',
-                                             reply_markup=edit_order_btn(id_order, id_user))
+                                             reply_markup=edit_order_btn(id_order, id_user, spec_id))
                 self.users[message.from_user.id]["msg_id"].append(aaa.message_id)
 
             bbb = await bot.send_message(message.from_user.id, text='Что делаем дальше?',
