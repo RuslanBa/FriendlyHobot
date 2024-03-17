@@ -6,18 +6,18 @@ from Classes.client_classes import alfa_user
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
 from inline_bottons import yes_no, list_yes_no
-from bottons import menu_start
+from inline_bottons import menu_start
 
 
 @dp.callback_query_handler(text_startswith='btn_order_delete', state=all_states)
 async def delete_ord1(message: types.Message, state: FSMContext):
     await alfa_user.delete_dialog(message)
     text = str(dict(message).get('data'))
-    data = text.split('_')      # 'btn_order_delete_{order_id}_{id_user}
+    data = text.split('_')      # btn_order_delete_{order_id}_{spec_id}_{id_user}
 
     await betta_order.add_alfa_order(message)
     betta_order.orders[message.from_user.id]['id_order'] = data[3]
-    betta_order.orders[message.from_user.id]['id_user'] = data[4]
+    betta_order.orders[message.from_user.id]['id_user'] = data[5]
 
     for orders in alfa_user.users[message.from_user.id]['orders']:
         if orders['id_order'] == int(data[3]):
@@ -43,12 +43,11 @@ async def delete_ord2(message: types.Message, state: FSMContext):
 
     if text == 'yes':
         betta_order.delete_betta_order(message)
-        await bot.send_message(message.from_user.id, text='Хорошо, такого заказа больше нет))\n'
-                                                          'Давайте посмотрим, какие заказы у вас остались')
         await alfa_user.show_user_orders(message, state)
 
     else:
-        await bot.send_message(message.from_user.id,
-                               text='Давайте вернемся в главное меню))\nВыберете, что вас интересует',
-                               reply_markup=menu_start)
+        aaa = await bot.send_message(message.from_user.id,
+                                     text='Давайте вернемся в главное меню))\nВыберете, что вас интересует',
+                                     reply_markup=menu_start)
+        await alfa_user.add_msg_id(message, aaa)
         await state.finish()

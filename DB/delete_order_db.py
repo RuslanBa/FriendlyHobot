@@ -20,6 +20,9 @@ def delete_order_db(id_user, id_order):
             sslmode='require')
 
         with connection.cursor() as cursor:
+
+            print(f'[INFO delete_order_db] Trying to delete order - {id_order} for user - {id_user}')
+
             cursor.execute("""DELETE FROM orders WHERE id_order=%(id_order)s and id_user=%(id_user)s """,
                            {'id_order': id_order, 'id_user': id_user})
 

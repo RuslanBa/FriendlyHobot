@@ -2,19 +2,19 @@ from aiogram import types
 from Classes.states_classes import Order, Meeting
 from Classes.client_classes import Client, alfa_user
 from Classes.order_classes import alfa_order
-from bottons import menu_start, menu_main
 from loader import bot, dp
 # from Intents.dialog import msg_id, delete_dialog
 from inline_bottons import Specialties, list_specialities, Driver_menu, Food_services_menu, \
      Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, Housekeepers_menu, \
-     Photo_video_audio_menu, Language_menu, Lawyer_menu, yes_no, list_yes_no
+     Photo_video_audio_menu, Language_menu, Lawyer_menu, yes_no, list_yes_no, menu_start
 from aiogram.dispatcher.storage import FSMContext
 from Intents.meeting_user import meetings0
 
 
-@dp.message_handler(text='Найти исполнителя')
+@dp.callback_query_handler(text='find_offers')
 async def start_order(message: types.Message, state: FSMContext):
 
+    await alfa_user.delete_dialog(message)
     await alfa_user.add_alfa_user(message, 'оставить заявку')
 
     if alfa_user.users[message.from_user.id]['name'] is None or alfa_user.users[message.from_user.id]['city'] is None:
@@ -36,8 +36,9 @@ async def make_order(message: types.Message, state: FSMContext):
         await alfa_user.add_msg_id(message, aaa)
         await Order.Order_spec.set()
     else:
-        await bot.send_message(message.from_user.id, text='Давайте вернемся в главное меню))\n'
-                                                          'Выберете, что вас интересует', reply_markup=menu_start)
+        aaa = await bot.send_message(message.from_user.id, text='Давайте вернемся в главное меню))\n'
+                                                                'Выберете, что вас интересует', reply_markup=menu_start)
+        await alfa_user.add_msg_id(message, aaa)
         await state.finish()
 
 
@@ -99,8 +100,9 @@ async def order_spec(message: types.Message):
 
     else:
         print('Пользователь хочет оставить заявку на  - ', spec_name)
-        await bot.send_message(message.from_user.id, text='Категорию запомнил\n'
+        bbb = await bot.send_message(message.from_user.id, text='Категорию запомнил\n'
                                                           'Напишите суть задачи, что именно нужно сделать?')
+        await alfa_user.add_msg_id(message, bbb)
         await Order.Order_text.set()
 
 
@@ -109,10 +111,11 @@ async def order_text(message: types.Message, state: FSMContext):
     text = message.text
     alfa_order.orders[message.from_user.id]['description'] = text
     alfa_order.save_order(message)
-    await message.answer('Отлично, заявка создана.\n'
-                         'Пока она активная, я буду собирать отклики исполнителей на нее и передавать вам.\n'
-                         'Вы всегда можете отредактировать заявку или удалить.\n'
-                         'А пока, давайте посмотрим на те заявки, которые у вас есть')
+    aaa = await message.answer('Отлично, заявка создана.\n'
+                               'Пока она активная, я буду собирать отклики исполнителей на нее и передавать вам.\n'
+                               'Вы всегда можете отредактировать заявку или удалить.\n'
+                               'А пока, давайте посмотрим на те заявки, которые у вас есть')
+    await alfa_user.add_msg_id(message, aaa)
     await alfa_user.show_user_orders(message, state)
 
 

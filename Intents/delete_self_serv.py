@@ -4,8 +4,7 @@ from Classes.states_classes import Delete, states_edit_self_list
 from Classes.client_classes import alfa_user
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
-from inline_bottons import yes_no, list_yes_no
-from bottons import menu_start
+from inline_bottons import yes_no, list_yes_no, menu_start
 from DB.find_spec_by_id import find_speciality
 from DB.delete_spec_db import delete_spec
 

@@ -2,8 +2,7 @@ from loader import dp, bot
 from aiogram.dispatcher.storage import FSMContext
 from DB.find_specialists_db import find_masters
 from DB.find_people_by_id import find_people
-from bottons import menu_start
-from inline_bottons import edit_services_btn
+from inline_bottons import menu_start
 
 
 async def show_specialists_by_filter(spec_name, city, state: FSMContext, message):

@@ -1,5 +1,4 @@
-from inline_bottons import list_self, Specialties, selfabout_fields
-from bottons import menu_start
+from inline_bottons import list_self, Specialties, selfabout_fields, menu_start
 from loader import dp, bot
 # from Intents.dialog import msg_id, delete_dialog
 from Classes.states_classes import Edit, About, all_states, states_edit_self

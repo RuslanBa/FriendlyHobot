@@ -1,18 +1,21 @@
 from aiogram.utils import executor
 from aiogram import types
-from loader import dp
+from loader import dp, bot
 from schedular import scheduler
 import Intents
 import Intents_admin
-from bottons import menu_start
+from inline_bottons import menu_start
 from DB.add_log_db import add_new_log
+from Classes.client_classes import alfa_user
 
 
 @dp.message_handler(commands='Start')
 async def start(message: types.Message):
     """ Приветствуем пользователя """
+    await alfa_user.add_alfa_user(message, 'Start')
     add_new_log(message.from_user.id, message.from_user.username, 'Command start"')
-    await message.answer(text='Привет, давай познакомимся))', reply_markup=menu_start)
+    aaa = await bot.send_message(message.from_user.id, text='Привет, давай познакомимся))', reply_markup=menu_start)
+    await alfa_user.add_msg_id(message, aaa)
 
 
 @dp.message_handler()

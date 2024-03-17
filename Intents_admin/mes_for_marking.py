@@ -2,10 +2,9 @@ from loader import dp, admin_id, bot
 # from Intents.dialog import msg_id
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from bottons import menu_start
 from inline_bottons import edit_intent_btn, intents_first, list_marking, Specialties, list_specialities, Driver_menu, \
     Food_services_menu, Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, \
-    Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu, admin_buttons, list_final_intents
+    Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu, admin_buttons, list_final_intents, menu_start
 from DB.find_table_names_db import find_table_names_db
 from DB.find_mes_for_marking_db import find_mes_for_marking_db
 from DB.save_intent_db import save_intent_db

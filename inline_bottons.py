@@ -9,6 +9,7 @@ dont_change_menu = InlineKeyboardMarkup(row_width=1)
 intents_first = InlineKeyboardMarkup(row_width=1)
 feedback = InlineKeyboardMarkup(row_width=1)
 finish_orders = InlineKeyboardMarkup(row_width=1)
+menu_start = InlineKeyboardMarkup(row_width=1)
 save_self = InlineKeyboardMarkup(row_width=2)
 save_other = InlineKeyboardMarkup(row_width=2)
 selfabout_fields = InlineKeyboardMarkup(row_width=1)
@@ -186,7 +187,7 @@ no = InlineKeyboardButton(text='Нет', callback_data='no')
 
 edit_self = InlineKeyboardButton(text='Изменить данные', callback_data='edit_self')
 edit_other = InlineKeyboardButton(text='Изменить данные', callback_data='edit_other')
-dont_change = InlineKeyboardButton(text='Оставляем так', callback_data='dont_change')
+dont_change = InlineKeyboardButton(text='Уйти в главное меню', callback_data='dont_change')
 
 name = InlineKeyboardButton(text='Имя', callback_data='name')
 about = InlineKeyboardButton(text='О себе', callback_data='about')
@@ -209,7 +210,11 @@ message_for_marking = InlineKeyboardButton(text='Сообщения для ма�
 orders_users = InlineKeyboardButton(text='Заявки пользователей (не работает)', callback_data='orders_users')
 stats = InlineKeyboardButton(text='Статистика базы', callback_data='stats')
 
-make_order = InlineKeyboardButton(text='Создать заявку', callback_data='make_order')
+make_order = InlineKeyboardButton(text='Создать новую заявку', callback_data='make_order')
+
+find_offers = InlineKeyboardButton(text='Найти исполнителей', callback_data='find_offers')
+find_orders = InlineKeyboardButton(text='Найти заказы', callback_data='find_orders')
+about_friendlyhobot = InlineKeyboardButton(text='Как работает FriendlyHobot', callback_data='about_friendlyhobot')
 
 # Добавление кнопок ---------------------------------------------------------------------------------
 
@@ -343,6 +348,7 @@ users_identifiers.insert(tg)
 users_identifiers.insert(phone)
 
 feedback.insert(feedback_button)
+feedback.insert(dont_change)
 
 admin_buttons.insert(message_for_marking)
 admin_buttons.insert(orders_users)
@@ -356,6 +362,10 @@ intents_first.insert(None_target)
 
 finish_orders.insert(dont_change)
 finish_orders.insert(make_order)
+
+menu_start.insert(find_offers)
+menu_start.insert(find_orders)
+menu_start.insert(about_friendlyhobot)
 
 
 # Листы ответов ---------------------------------------------------------------------------------

@@ -242,11 +242,12 @@ class Client:
         self.users[message.from_user.id]['orders'] = find_orders_db(self.users[message.from_user.id]['id_user'])
         print('for user - ', self.users[message.from_user.id]['id_user'],
               'found orders:', self.users[message.from_user.id]['orders'])
+        await alfa_user.delete_dialog(message)
 
         if not self.users[message.from_user.id]['orders']:
-            await bot.send_message(message.from_user.id, text='У вас нет размещенных задач на поиск исполнителя',
-                                   reply_markup=menu_main)
-            aaa = await bot.send_message(message.from_user.id,
+            aaa = await bot.send_message(message.from_user.id, text='У вас нет размещенных задач на поиск исполнителя',
+                                         reply_markup=menu_main)
+            bbb = await bot.send_message(message.from_user.id,
                                          text='Хотите, чтобы я самостоятельно подобрал потенциальных '
                                               'исполнителей под ваш запрос?\n'
                                               'Это бесплатно. Я задам вам несколько вопросов, '
@@ -255,12 +256,14 @@ class Client:
                                               'выполнить.',
                                          reply_markup=yes_no)
             self.users[message.from_user.id]["msg_id"].append(aaa.message_id)
+            self.users[message.from_user.id]["msg_id"].append(bbb.message_id)
             print('For user ', self.users[message.from_user.id]['id_user'], 'add mes_id - ', aaa.message_id)
             await Order.Order_start.set()
 
         else:
-            await bot.send_message(message.from_user.id, text='Вижу, у вас уже есть размещенные заявки\n',
-                                   reply_markup=menu_main)
+            num = 0
+            aaa = await bot.send_message(message.from_user.id, text='Вижу, у вас уже есть размещенные заявки\n',
+                                         reply_markup=menu_main)
             for xxx in self.users[message.from_user.id]['orders']:
                 id_user = xxx['id_user']
                 id_order = xxx['id_order']
@@ -270,17 +273,21 @@ class Client:
                 spec_name = spec_data[2]
                 xxx['spec_name'] = spec_name
                 description = xxx['description']
-                aaa = await bot.send_message(message.from_user.id,
-                                             text=f'Город - {city}\n'
+                num += 1
+                bbb = await bot.send_message(message.from_user.id,
+                                             text=f'<b>Заявка №{num}</b>\n'
+                                                  f'Город - {city}\n'
                                                   f'Категория - {spec_name}\n'
                                                   f'Описание задачи:\n'
                                                   f'{description}',
+                                             parse_mode='HTML',
                                              reply_markup=edit_order_btn(id_order, id_user, spec_id))
-                self.users[message.from_user.id]["msg_id"].append(aaa.message_id)
+                self.users[message.from_user.id]["msg_id"].append(bbb.message_id)
 
-            bbb = await bot.send_message(message.from_user.id, text='Что делаем дальше?',
+            ccc = await bot.send_message(message.from_user.id, text='Что делаем дальше?',
                                          reply_markup=finish_orders)
-            self.users[message.from_user.id]["msg_id"].append(bbb.message_id)
+            self.users[message.from_user.id]["msg_id"].append(aaa.message_id)
+            self.users[message.from_user.id]["msg_id"].append(ccc.message_id)
             await Order.Order_change.set()
 
     # def update_alfa_user(self, message: types.Message, intent):

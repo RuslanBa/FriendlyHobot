@@ -1,15 +1,15 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 
-menu_start = ReplyKeyboardMarkup(
-    keyboard=[
-        [
-            KeyboardButton(text='Найти исполнителя'),
-            KeyboardButton(text='Найти заказы'),
-            KeyboardButton(text='О Friendly Hobot')
-        ]
-    ],
-    resize_keyboard=True)
+# menu_start = ReplyKeyboardMarkup(
+#     keyboard=[
+#         [
+#             KeyboardButton(text='Найти исполнителя'),
+#             KeyboardButton(text='Найти заказы'),
+#             KeyboardButton(text='О Friendly Hobot')
+#         ]
+#     ],
+#     resize_keyboard=True)
 
 
 # menu_start = ReplyKeyboardMarkup(

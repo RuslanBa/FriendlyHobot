@@ -1,7 +1,8 @@
 from loader import dp, admin_id, bot
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from bottons import menu_main, menu_start
+from inline_bottons import menu_start
+from bottons import menu_main
 from DB.statistic_db import statistic_mes
 from DB.find_table_names_db import find_table_names_db
 

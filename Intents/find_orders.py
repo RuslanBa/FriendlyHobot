@@ -3,8 +3,8 @@ from loader import dp, bot
 # from Intents.dialog import msg_id, delete_dialog
 from inline_bottons import yes_no, list_yes_no, Specialties, Cities, list_specialities, list_cities, Driver_menu, \
      Food_services_menu, Beauty_menu, Events_menu, Helper_menu, Repair_menu, Equipment_repair_menu, Tutor_menu, \
-     Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu
-from bottons import menu_start, menu_main
+     Housekeepers_menu, Photo_video_audio_menu, Language_menu, Lawyer_menu, menu_start
+from bottons import menu_main
 from aiogram.dispatcher.storage import FSMContext
 from Classes.states_classes import About
 from Classes.client_classes import alfa_user
@@ -14,17 +14,19 @@ from Checks_text.Check_info_about import check_info_about
 from Intents.meeting_user import meetings0
 
 
-@dp.message_handler(text='Найти заказы')
+@dp.callback_query_handler(text='find_orders')
 async def answer(message: types.Message, state: FSMContext):
     add_new_log(message.from_user.id, message.from_user.username, 'find orders"')
 
+    await alfa_user.delete_dialog(message)
     await alfa_user.add_alfa_user(message, 'найти заказы')
 
     if alfa_user.users[message.from_user.id]['name'] is None or alfa_user.users[message.from_user.id]['city'] is None:
         await meetings0(message)
 
     else:
-        aaa = await message.answer('Видимо, мы уже знакомы)) Вот, что я о вас знаю', reply_markup=menu_main)
+        aaa = await bot.send_message(message.from_user.id, text='Видимо, мы уже знакомы)) Вот, что я о вас знаю',
+                                     reply_markup=menu_main)
         await alfa_user.add_msg_id(message, aaa)
         await About.AB_know.set()
         await alfa_user.show_user_data(message, state)

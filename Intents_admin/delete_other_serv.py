@@ -3,8 +3,7 @@ from Classes.client_classes import betta_user
 from Classes.states_classes import Delete, states_edit_other_list
 from aiogram.dispatcher.storage import FSMContext
 from aiogram import types
-from inline_bottons import yes_no, list_yes_no
-from bottons import menu_start
+from inline_bottons import yes_no, list_yes_no, menu_start
 from DB.delete_spec_db import delete_spec
 
 
