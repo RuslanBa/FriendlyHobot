@@ -85,26 +85,26 @@ async def edit_self5(message: types.Message, state: FSMContext):
 
     if current_state == 'Edit:Edit_name':
         await message.answer(f'Отлично, запомнил ваше имя - {text}')
-        change_fields(alfa_user.id_user, 'user_name', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'user_name', text)
 
     elif current_state == 'Edit:Edit_country':
         await message.answer(f'Отлично, запомнил вашу страну - {text}')
-        change_fields(alfa_user.id_user, 'country', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'country', text)
 
     elif current_state == 'Edit:Edit_city':
         await message.answer(f'Отлично, запомнил ваш город - {text}')
-        change_fields(alfa_user.id_user, 'city', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'city', text)
 
     elif current_state == 'Edit:Edit_about':
         await message.answer(f'Отлично, запомнил новую информацию о вас - {text}')
-        change_fields(alfa_user.id_user, 'about', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'about', text)
 
     elif current_state == 'Edit:Edit_birthdate':
         await message.answer(f'Отлично, запомнил дату вашего рождения - {text}')
-        change_fields(alfa_user.id_user, 'birthdate', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'birthdate', text)
 
     elif current_state == 'Edit:Edit_phone':
         await message.answer(f'Отлично, запомнил номер телефона - {text}')
-        change_fields(alfa_user.id_user, 'phone', text)
+        change_fields(alfa_user.users[message.from_user.id]['id_user'], 'phone', text)
 
     await alfa_user.show_user_data(message, state)

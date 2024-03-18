@@ -47,7 +47,7 @@ async def edit_serv2(message: types.Message, state: FSMContext):
     text = check_info_about(text)
 
     print(f'Task for change {data_need}')
-    edit_spec(alfa_user.id_user, data_need['service_id'], text)
+    edit_spec(alfa_user.users[message.from_user.id]['id_user'], data_need['service_id'], text)
 
     await bot.send_message(message.from_user.id, text='Отлично, текст я заменил'
                                                       '\nДавайте посмотрим, что я теперь знаю:')
